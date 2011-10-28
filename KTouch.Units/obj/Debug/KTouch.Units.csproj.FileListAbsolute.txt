@@ -1,0 +1,10 @@
+E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Debug\KTouch.Units.dll
+E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Debug\KTouch.Units.pdb
+E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Debug\Microsoft.Surface.Presentation.Design.dll
+E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Debug\Microsoft.Windows.Design.Extensibility.dll
+E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Debug\Microsoft.Windows.Design.Interaction.dll
+E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Debug\Microsoft.Windows.Design.Extensibility.xml
+E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Debug\Microsoft.Windows.Design.Interaction.xml
+E:\Programming\KTouch\Main\Sources\KTouch.Units\obj\Debug\ResolveAssemblyReference.cache
+E:\Programming\KTouch\Main\Sources\KTouch.Units\obj\Debug\KTouch.Units.dll
+E:\Programming\KTouch\Main\Sources\KTouch.Units\obj\Debug\KTouch.Units.pdb

@@ -1,0 +1,787 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+					xmlns:Helper="clr-namespace:KTouch.Controls"
+                    xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
+					xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+					xmlns:s="clr-namespace:Microsoft.Surface.Presentation.Controls;assembly=Microsoft.Surface.Presentation"
+					xmlns:s2="clr-namespace:Microsoft.Surface.Presentation.Generic;assembly=Microsoft.Surface.Presentation.Generic" 
+                    xmlns:sys="clr-namespace:System;assembly=mscorlib"
+					xmlns:Surface="http://schemas.microsoft.com/surface/2008">
+
+
+	<!-- Converters -->
+
+    <Units:MultiplicationConverter x:Key="mConverter"/>
+    <Units:MarginConvertor x:Key="marginConverter"/>
+    <Units:CountConverter x:Key="countConverter"/>
+    <Units:SumConverter x:Key="sumConverter"/>
+    <Units:MarginConverter1 x:Key="marginConverter1"/>
+    <Units:MarginConverter2 x:Key="marginConverter2"/>
+	
+	<!-- Selectors -->
+
+    <Units:KTouchBandeStyleSelector x:Key="bandeStyleSelector"/>
+
+
+	<Storyboard x:Key="Select">
+        <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+			<SplineDoubleKeyFrame KeyTime="00:00:00.0000000" Value="1"/>
+			<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.2" />
+		</DoubleAnimationUsingKeyFrames>
+		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+			<SplineDoubleKeyFrame KeyTime="00:00:00.0000000" Value="1"/>
+			<SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1.2" />
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
+
+	<Storyboard x:Key="Unselect">
+		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
+			<SplineDoubleKeyFrame KeyTime="00:00:00.0000000" Value="1.2"/>
+			<SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="1.0" />
+		</DoubleAnimationUsingKeyFrames>
+		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
+			<SplineDoubleKeyFrame KeyTime="00:00:00.0000000" Value="1.2"/>
+			<SplineDoubleKeyFrame KeyTime="00:00:00.5000000" Value="1.0"/>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
+
+	<Storyboard x:Key="GlowPress">
+		<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+									Storyboard.TargetName="surfaceShadowChrome"
+									Storyboard.TargetProperty="(UIElement.Opacity)">
+			<SplineDoubleKeyFrame KeyTime="00:00:00.1000000"
+										Value="1" />
+		</DoubleAnimationUsingKeyFrames>
+		<ThicknessAnimationUsingKeyFrames BeginTime="00:00:00"
+									Storyboard.TargetName="surfaceShadowChrome"
+									Storyboard.TargetProperty="(FrameworkElement.Margin)">
+			<SplineThicknessKeyFrame KeyTime="00:00:00.1000000"
+										Value="-3" />
+		</ThicknessAnimationUsingKeyFrames>
+	</Storyboard>
+
+	<Storyboard x:Key="GlowRelease">
+		<DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+									Storyboard.TargetName="surfaceShadowChrome"
+									Storyboard.TargetProperty="(UIElement.Opacity)">
+            <SplineDoubleKeyFrame KeyTime="00:00:00.0000000"
+										Value="1"/>
+            <SplineDoubleKeyFrame KeySpline="0.5,0.5,0.5,1"
+										KeyTime="00:00:00.3000000"
+										Value="0" />
+		</DoubleAnimationUsingKeyFrames>
+		<ThicknessAnimationUsingKeyFrames BeginTime="00:00:00"
+									Storyboard.TargetName="surfaceShadowChrome"
+									Storyboard.TargetProperty="(FrameworkElement.Margin)">
+			<SplineThicknessKeyFrame KeyTime="00:00:00.0000000"
+										Value="-3" />
+			<SplineThicknessKeyFrame KeySpline="0.5,0.5,0.5,1"
+										KeyTime="00:00:00.3000000"
+										Value="-1" />
+		</ThicknessAnimationUsingKeyFrames>
+	</Storyboard>
+
+	<Storyboard x:Key="ClosePress">
+		<DoubleAnimationUsingKeyFrames 
+									Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)" >
+			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+			<EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="90"/>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
+	<Storyboard x:Key="CloseRelease">
+		<DoubleAnimationUsingKeyFrames 
+									Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[1].(RotateTransform.Angle)" >
+			<EasingDoubleKeyFrame KeyTime="0" Value="90"/>
+			<EasingDoubleKeyFrame KeyTime="0:0:0.15" Value="0"/>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
+
+	<Storyboard x:Key="CloseContacts">
+		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
+	<Storyboard x:Key="OpenContacts">
+		<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+			<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+			<EasingDoubleKeyFrame KeyTime="0:0:0.3" Value="1"/>
+		</DoubleAnimationUsingKeyFrames>
+	</Storyboard>
+
+	<!-- Glow Shadow style -->
+	<Style x:Key="ShadowChromeStyle" TargetType="{x:Type s2:SurfaceShadowChrome}">
+		<Setter Property="CornerRadius" Value="2"/>
+		<Setter Property="Color" Value="GhostWhite"/>
+		<Setter Property="Opacity" Value="0"/>
+		<Setter Property="Grid.Row" Value="0"/>
+		<Setter Property="Grid.RowSpan" Value="2"/>
+	</Style>
+
+	<!-- Defaul fonts style -->
+	<Style x:Key="FontStyle" TargetType="Control">
+		<Setter Property="FontFamily" Value="DIN-Light"/>
+		<Setter Property="FontSize" Value="17"/>
+		<Setter Property="Foreground" Value="#FF2B2B2B"/>
+	</Style>
+
+	<!--Common border style for templates and styles-->
+
+	<Style x:Key="kTouchBorderBrush"  TargetType="{x:Type Border}">
+		<Setter Property="Background" Value="White"/>
+		<Setter Property="BorderThickness" Value="3"/>
+		<Setter Property="BorderBrush" Value="LightGray"/>
+	</Style>
+
+	<!-- KTouchScatterView styles -->
+	
+ 
+	<!-- Random control in scatter view item -->
+	<Style x:Key="RandomItemInScatterViewItemContentStyle" TargetType="{x:Type s:ScatterViewItem}">
+		<Setter Property="MinWidth" Value="{Binding Path=Content.MinWidth, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
+		<Setter Property="MinHeight" Value="{Binding Path=Content.MinHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
+		<Setter Property="MaxWidth" Value="{Binding Path=Content.MaxWidth, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
+		<Setter Property="MaxHeight" Value="{Binding Path=Content.MaxHeight, RelativeSource={RelativeSource Self}, Mode=OneWay}"/>
+		<Setter Property="Width" Value="{Binding Path=Content.Width, RelativeSource={RelativeSource Self}, Mode=TwoWay}"/>
+		<Setter Property="Height" Value="{Binding Path=Content.Height, RelativeSource={RelativeSource Self}, Mode=TwoWay}"/>
+	</Style>
+
+	<!-- Template for Visual Cursor-->
+	<Style x:Key="CursorStyle" TargetType="{x:Type ContentPresenter}" >
+		<Setter Property="ContentTemplate">
+			<Setter.Value>
+				<DataTemplate>
+					<aero:SystemDropShadowChrome Margin="3">
+						<Image Source="{Binding CoverFile}" Stretch="Fill" />
+					</aero:SystemDropShadowChrome>
+				</DataTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+    <Style x:Key="CursorStyle2" TargetType="{x:Type ContentPresenter}" >
+        <Setter Property="ContentTemplate">
+            <Setter.Value>
+                <DataTemplate>
+                    <Rectangle x:Name="visual" Fill="{Binding Adorner}" Opacity="0.75"/>
+                </DataTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style TargetType="{x:Type Surface:ScatterViewItem}" >
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:ScatterViewItem}">
+					<aero:SystemDropShadowChrome Margin="3">
+						<ContentPresenter Style="{StaticResource CursorStyle}"/>
+					</aero:SystemDropShadowChrome>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- KTouchCoverFlow styles -->
+
+	<!--Common style for reflections in CoverFlow-->
+	<Style x:Key="kTouchRefractionRectangle" TargetType="{x:Type Rectangle}">
+		<Setter Property="Grid.Row" Value="1"/>
+
+		<Setter Property="Height" Value="{Binding ActualHeight,ElementName=ElementVisual}"/>
+		<Setter Property="OpacityMask">
+			<Setter.Value>
+				<LinearGradientBrush StartPoint="0,0" EndPoint="0,1">
+					<GradientStop Offset="0" Color="#7F000000" />
+					<GradientStop Offset=".6" Color="Transparent" />
+				</LinearGradientBrush>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Fill">
+			<Setter.Value>
+				<VisualBrush Visual="{Binding ElementName=ElementVisual}">
+					<VisualBrush.RelativeTransform>
+						<ScaleTransform ScaleX="1"
+										ScaleY="-1"
+										CenterX="0.5"
+										CenterY="0.5" />
+					</VisualBrush.RelativeTransform>
+				</VisualBrush>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- KTouchStack Styles -->
+
+	<Style x:Key="LibraryControlInScatterViewItemContentStyle" TargetType="{x:Type s:ScatterViewItem}" 
+			   BasedOn="{StaticResource RandomItemInScatterViewItemContentStyle}">
+		<Setter Property="IsContainerActive" Value="{Binding Path=Content.IsActive,RelativeSource={RelativeSource Self}, Mode=OneWayToSource}"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type s:ScatterViewItem}">
+					<ContentPresenter />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="KTouchStackStyle" TargetType="{x:Type s:LibraryStack}">
+		<Setter Property="Background" Value="{DynamicResource  KTouchStackBackground}"/>
+		<Setter Property="ItemContainerStyle" Value="{DynamicResource KTouchStackItemStyle}"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:LibraryStack}">
+					<Grid>
+						<Grid.RowDefinitions>
+							<RowDefinition Height="0.65*"/>
+							<RowDefinition Height="0.25*"/>
+							<RowDefinition Height="0.1*"/>
+						</Grid.RowDefinitions>
+						<Grid.ColumnDefinitions>
+							<ColumnDefinition Width="0.03*"/>
+							<ColumnDefinition Width="0.25*"/>
+							<ColumnDefinition Width="0.72*"/>
+						</Grid.ColumnDefinitions>
+						<Border x:Name="PART_StackBackgroundBorder" 
+								Background="{TemplateBinding Background}"
+								BorderBrush="{TemplateBinding BorderBrush}" 
+								BorderThickness="{TemplateBinding BorderThickness}" 
+								CornerRadius="{TemplateBinding ActualHeight}"
+								Grid.ColumnSpan="3" Grid.RowSpan="3">
+							<ItemsPresenter/>
+						</Border>
+                        <Surface:SurfaceButton x:Name="MailButton"
+											   Style="{DynamicResource MailButtonStyle}" 
+											   Grid.Row="1" 
+											   Grid.Column="1"
+                                               Command="{Binding Path=MailCommand}"
+                                               >
+                            <!--Command="{Binding Path=MailCommand}"-->
+                        </Surface:SurfaceButton>
+                        <Helper:KTouchContactsForm x:Name="MailPopup"
+                                                   DataContext="{Binding ContactDataContext}"
+                                                   IsOpen="{Binding IsOpen}"
+                                                   PlacementTarget="{Binding RelativeSource={RelativeSource AncestorType={x:Type Helper:KTouchStack}}}" 
+                                                   Placement="Custom" 
+                                                   StaysOpen="True" />
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="KTouchStackItemStyle" TargetType="{x:Type Surface:LibraryStackItem}">
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:LibraryStackItem}">
+					<aero:SystemDropShadowChrome Margin="3">
+						<Image Source="{Binding CoverFile}"/>
+					</aero:SystemDropShadowChrome>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- Buttons styles -->
+
+	<!-- Round spinning button control template -->
+	<ControlTemplate x:Key="SpinningButtonTemplate" TargetType="{x:Type s:SurfaceButton}">
+		<Ellipse x:Name="ellipse" Fill="{TemplateBinding Background}"/>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsPressed" Value="True">
+				<Trigger.ExitActions>
+					<BeginStoryboard Storyboard="{StaticResource CloseRelease}"/>
+				</Trigger.ExitActions>
+				<Trigger.EnterActions>
+					<BeginStoryboard Storyboard="{StaticResource ClosePress}"/>
+				</Trigger.EnterActions>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<!-- Elleptic glowing button control template -->
+	<!--<ControlTemplate x:Key="GlowButtonTemplate" TargetType="{x:Type Surface:SurfaceButton}">
+		<Grid>
+			<Ellipse x:Name="surfaceShadowChrome" Fill="GhostWhite" Opacity="0" />
+			<Ellipse x:Name="ButtonBase" Fill="{TemplateBinding Background}" />
+		</Grid>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsPressed" Value="True">
+				<Trigger.ExitActions>
+					<BeginStoryboard Storyboard="{StaticResource GlowRelease}"/>
+				</Trigger.ExitActions>
+				<Trigger.EnterActions>
+					<BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
+				</Trigger.EnterActions>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>-->
+    
+    <!-- Elleptic glowing button with content control template -->
+    <ControlTemplate x:Key="GlowButtonTemplate" TargetType="{x:Type Surface:SurfaceButton}">
+        <Grid>
+            <Ellipse x:Name="ButtonBase" Fill="{TemplateBinding Background}" />
+            <Label Content="{TemplateBinding Content}" HorizontalAlignment="Center" VerticalAlignment="Center" Foreground="{TemplateBinding Foreground}"/>
+            <Ellipse x:Name="surfaceShadowChrome" Fill="GhostWhite" Opacity="0" />
+        </Grid>
+        <ControlTemplate.Triggers>
+            <Trigger Property="IsPressed" Value="True">
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource GlowRelease}"/>
+                </Trigger.ExitActions>
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
+                </Trigger.EnterActions>
+            </Trigger>
+        </ControlTemplate.Triggers>
+    </ControlTemplate>
+
+    <!-- Square Glowing Button template -->
+	<ControlTemplate x:Key="SquareButtonTemplate" TargetType="{x:Type Surface:SurfaceButton}">
+		<Grid Background="{TemplateBinding Background}">
+
+			<s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" Style="{DynamicResource ShadowChromeStyle}"/>
+			<ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+										  SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" 
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+		</Grid>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsPressed" Value="True">
+				<Trigger.ExitActions>
+					<BeginStoryboard Storyboard="{StaticResource GlowRelease}"/>
+				</Trigger.ExitActions>
+				<Trigger.EnterActions>
+					<BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
+				</Trigger.EnterActions>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+
+	<!-- FrontView Button Control Template -->
+	<ControlTemplate x:Key="FrontViewButtonTemplate" TargetType="{x:Type Surface:SurfaceButton}">
+		<Border Background="{TemplateBinding Background}" 
+								BorderBrush="{TemplateBinding BorderBrush}">
+			<s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" Style="{DynamicResource ShadowChromeStyle}"/>
+		</Border>
+		<ControlTemplate.Triggers>
+			<Trigger Property="IsPressed" Value="True">
+				<Trigger.EnterActions>
+					<BeginStoryboard Storyboard="{StaticResource GlowPress}" />
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
+				</Trigger.ExitActions>
+			</Trigger>
+		</ControlTemplate.Triggers>
+	</ControlTemplate>
+	
+	<!-- Generic button style -->
+	<Style x:Key="GenericButtonStyle" TargetType="{x:Type s:SurfaceButton}">
+		<Setter Property="Stylus.IsPressAndHoldEnabled" Value="False"/>
+		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+		<Setter Property="RenderTransform">
+			<Setter.Value>
+				<TransformGroup>
+					<ScaleTransform/>
+					<RotateTransform/>
+				</TransformGroup>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- Pulsing button style -->
+	<Style x:Key="PulsingButtonStyle" TargetType="{x:Type s:SurfaceButton}" BasedOn="{StaticResource GenericButtonStyle}">
+        <Setter Property="Height" Value="{Binding ActualWidth, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="Foreground" Value="Gray"/>
+        <Setter Property="FontFamily" Value="Webdings"/>
+        <Setter Property="FontWeight" Value="Bold"/>
+        <Setter Property="FontSize" Value="20"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Style.Triggers>
+			<Trigger Property="IsPressed" Value="True">
+				<Trigger.EnterActions>
+					<BeginStoryboard Storyboard="{StaticResource Select}" />
+				</Trigger.EnterActions>
+				<Trigger.ExitActions>
+					<BeginStoryboard Storyboard="{StaticResource Unselect}" />
+				</Trigger.ExitActions>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<!-- Close Button style-->
+	<Style x:Key="CloseButtonStyle" TargetType="{x:Type s:SurfaceButton}" BasedOn="{StaticResource PulsingButtonStyle}">
+		<Setter Property="Background" Value="{DynamicResource CloseButtonBackground}"/>
+		<Setter Property="Template" Value="{DynamicResource SpinningButtonTemplate}"/>
+	</Style>
+
+	<!-- Mail Button style -->
+	<Style x:Key="MailButtonStyle" TargetType="{x:Type Surface:SurfaceButton}" BasedOn="{StaticResource GenericButtonStyle}">
+		<Setter Property="Background" Value="{DynamicResource MailButtonOFFBackground}"/>
+		<!--<Setter Property="IsEnabled" Value="{Binding Items.Count, RelativeSource={RelativeSource AncestorType={x:Type Helper:KTouchStack}}, Converter={StaticResource countConverter}}"/>-->
+		<Setter Property="Template" Value="{DynamicResource GlowButtonTemplate}"/>
+		<Style.Triggers>
+			<Trigger Property="IsEnabled" Value="True">
+				<Setter Property="Background" Value="{DynamicResource MailButtonONBackground}"/>
+			</Trigger>
+		</Style.Triggers>
+     
+	</Style>
+
+	<!-- Play Button style -->
+	<Style x:Key="KTouchPlayButton" TargetType="{x:Type Surface:SurfaceButton}" BasedOn="{StaticResource PulsingButtonStyle}">
+		<Setter Property="Background" Value="{DynamicResource VideoButtonImageBrush}"/>
+		<Setter Property="Template" Value="{DynamicResource GlowButtonTemplate}"/>
+    </Style>
+
+    <!-- MediaPlayer button style -->
+
+    <Style x:Key="KTouchMediaPlayerButtonStyle" TargetType="{x:Type Surface:SurfaceButton}" BasedOn="{StaticResource PulsingButtonStyle}">
+        <Setter Property="Background" Value="{DynamicResource MediaPlayerButtonBackground}"/>
+        <Setter Property="Template" Value="{DynamicResource GlowButtonTemplate}"/>
+    </Style>
+    
+    <!-- ContactsForm Button style-->
+	<Style x:Key="KTouchContactsFormButtonStyle" TargetType="{x:Type Surface:SurfaceButton}" BasedOn="{StaticResource PulsingButtonStyle}">
+		<Setter Property="Background" Value="{DynamicResource SendButtonActiveBrush}"/>
+		<Setter Property="Height" Value="50"/>
+		<Setter Property="Width" Value="110"/>
+		<Setter Property="FontFamily" Value="DIN-Medium"/>
+		<Setter Property="FontSize" Value="20"/>
+		<Setter Property="Foreground" Value="#FF313030"/>
+		<Setter Property="Template" Value="{DynamicResource SquareButtonTemplate}"/>
+		<Style.Triggers>
+			<Trigger Property="IsEnabled" Value="False">
+				<Setter Property="Background" Value="{DynamicResource SendButtonInActiveBrush}"/>
+			</Trigger>
+		</Style.Triggers>
+	</Style>
+
+	<!-- Front View Button style -->
+	<Style x:Key="FrontViewButtonStyle" TargetType="{x:Type Surface:SurfaceButton}" BasedOn="{StaticResource PulsingButtonStyle}">
+		<Setter Property="Template" Value="{DynamicResource FrontViewButtonTemplate}"/>
+		<Setter Property="Width" Value="32"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="Grid.Column" Value="0"/>
+	</Style>
+	
+	<!-- KTouchSpecialPopup style -->
+
+	<Style x:Key="KTouchSpecialPopup" TargetType="Popup">
+		<Setter Property="Placement" Value="Absolute"/>
+		<Setter Property="StaysOpen" Value="False"/>
+		<Setter Property="AllowsTransparency" Value="True"/>
+		<Setter Property="Child">
+			<Setter.Value>
+				<Label Style="{DynamicResource KTouchSpecialLabel}" Content="Votre choix a été bien enregistré"/>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="KTouchSpecialLabel" TargetType="{x:Type Label}">
+		<Setter Property="Foreground" Value="{DynamicResource TextColorBrush}"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="HorizontalAlignment" Value="Left"/>
+		<Setter Property="VerticalAlignment" Value="Bottom"/>
+		<Setter Property="FontFamily" Value="DIN-Light"/>
+		<Setter Property="FontSize" Value="16"/>
+		<Setter Property="FontWeight" Value="Light" />
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="MinHeight" Value="40"/>
+		<Setter Property="MinWidth" Value="240"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Label}">
+					<ControlTemplate.Resources>
+						<LinearGradientBrush x:Key="BackgroundBrush" EndPoint="0.5,1" StartPoint="0.5,0">
+							<GradientStop Color="#8C9B9288"/>
+							<GradientStop Color="#FF333333" Offset="1"/>
+						</LinearGradientBrush>
+						<SolidColorBrush x:Key="StrokeBrush" Color="#FF3D3A37"/>
+						<SolidColorBrush x:Key="TextColorBrush" Color="#FFFF9E00"/>
+						<Storyboard x:Key="OnLoaded">
+							<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)" Storyboard.TargetName="LayoutRoot">
+								<EasingDoubleKeyFrame KeyTime="0" Value="0"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:0.5" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:2.5" Value="1"/>
+								<EasingDoubleKeyFrame KeyTime="0:0:3" Value="0"/>
+							</DoubleAnimationUsingKeyFrames>
+						</Storyboard>
+					</ControlTemplate.Resources>
+
+					<Grid x:Name="LayoutRoot">
+						<Path Data="M520,320 C559.57925,319.49989 559.57962,351.57845 559.5,399.5 468.67227,399.83837 394.00452,399.67173 319.5,399.5 L319.5,319.5 z" 
+							  Stretch="Fill" 
+							  Stroke="{DynamicResource StrokeBrush}" 
+							  Height="{TemplateBinding ActualHeight}" 
+							  Width="{TemplateBinding ActualWidth}" 
+							  Fill="{DynamicResource BackgroundBrush}" 
+							  StrokeThickness="0.5"/>
+						<ContentPresenter x:Name="Presenter" 
+										  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+										  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+					</Grid>
+					<ControlTemplate.Triggers>
+						<EventTrigger RoutedEvent="FrameworkElement.Loaded">
+							<BeginStoryboard x:Name="OnLoaded_BeginStoryboard" Storyboard="{StaticResource OnLoaded}"/>
+						</EventTrigger>
+					</ControlTemplate.Triggers>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- KTouchBande style -->
+
+    <!-- Label inside a KTouchBande Item -->
+    <Style x:Key="LableInBandeStyle" TargetType="Label">
+        <Setter Property="Foreground" Value="#FFB30404"/>
+        <Setter Property="FontSize" Value="14"/>
+        <Setter Property="FontFamily" Value="DIN-Light"/>
+        <Setter Property="Grid.Row" Value="1"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
+    </Style>
+
+    <Style x:Key="KTouchBandeStyle" TargetType="Surface:SurfaceListBox">
+		<Setter Property="ItemContainerStyleSelector" Value="{StaticResource bandeStyleSelector}"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+		<Setter Property="SelectedIndex" Value="1"/>
+		<Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
+					<Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+						<StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+					</Surface:SurfaceScrollViewer>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+	
+	<!--Slider Style -->
+
+	<!-- Slider tooltip -->
+	<Style x:Key="SliderToolTipStyle"
+			TargetType="{x:Type Label}">
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Label}">
+					<Grid>
+						<Border
+								HorizontalAlignment="Stretch"
+								Width="Auto"
+								Background="{TemplateBinding Background}"
+								Margin="0"
+								CornerRadius="2"
+								BorderBrush="{TemplateBinding BorderBrush}"
+								BorderThickness="1">
+							<TextBlock
+									Foreground="{TemplateBinding Foreground}"
+									Background="{x:Null}"
+									Margin="{TemplateBinding Padding}"
+									Text="{TemplateBinding Content}"/>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Visibility"
+				Value="Collapsed"/>
+		<Setter Property="Background"
+				Value="{DynamicResource {x:Static SystemColors.InfoBrushKey}}"/>
+		<Setter Property="Foreground"
+				Value="{DynamicResource {x:Static SystemColors.InfoTextBrushKey}}"/>
+		<Setter Property="BorderBrush"
+				Value="{DynamicResource {x:Static SystemColors.InfoTextBrushKey}}"/>
+		<Setter Property="Padding"
+				Value="2"/>
+	</Style>
+
+	<!-- ScrollRepeatButton Style -->
+	<Style x:Key="SimpleScrollRepeatButtonStyle"
+			TargetType="{x:Type Surface:SurfaceRepeatButton}">
+		<Setter Property="Background"
+				Value="Transparent"/>
+		<Setter Property="BorderBrush"
+				Value="Transparent"/>
+		<Setter Property="IsTabStop"
+				Value="false"/>
+		<Setter Property="Focusable"
+				Value="false"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:SurfaceRepeatButton}">
+					<Grid>
+						<Rectangle Fill="{TemplateBinding Background}"
+								Stroke="{TemplateBinding BorderBrush}"
+								StrokeThickness="{TemplateBinding BorderThickness}"/>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<!-- SliderThumb Style -->
+	<Style x:Key="SurfaceSliderThumbStyle"
+			TargetType="{x:Type Surface:SurfaceThumb}">
+		<Setter Property="Background"
+				Value="Transparent"/>
+		<Setter Property="Surface:TouchVisualizer.Adapter">
+			<Setter.Value>
+				<Surface:TouchVisualizerRectangleAdapter RadiusX="15"
+						RadiusY="15"/>
+			</Setter.Value>
+		</Setter>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:SurfaceThumb}">
+
+					<Grid x:Name="Grid"
+							Background="Transparent"
+							Margin="1,1,1,1"
+							SnapsToDevicePixels="True">
+						<Rectangle x:Name="Base"
+								Width="{TemplateBinding ActualWidth}"
+								HorizontalAlignment="Center"
+								VerticalAlignment="Center"
+								Fill="{DynamicResource SliderThumbBackground}"
+								Stroke="{x:Null}"
+								StrokeThickness="0"
+								SnapsToDevicePixels="True"
+								Height="3" RadiusX="40" RadiusY="7" RenderTransformOrigin="0.5,0.5">
+							<Rectangle.RenderTransform>
+								<TransformGroup>
+									<ScaleTransform/>
+									<SkewTransform/>
+									<RotateTransform/>
+									<TranslateTransform Y="0.35"/>
+								</TransformGroup>
+							</Rectangle.RenderTransform>
+						</Rectangle>
+						<Rectangle x:Name="TouchDevice"
+								Fill="#00FFFFFF"
+								Stroke="{x:Null}"/>
+					</Grid>
+
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="SliderStyle" TargetType="{x:Type Surface:SurfaceSlider}">
+
+		<Setter Property="Width"
+				Value="Auto"/>
+		<Setter Property="MinWidth"
+				Value="30"/>
+		<Setter Property="Height"
+				Value="Auto"/>
+		<Setter Property="MinHeight"
+				Value="30"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:SurfaceSlider}">
+
+					<Grid x:Name="GridRoot"
+							Background="Transparent"
+							SnapsToDevicePixels="True"
+							VerticalAlignment="Stretch"
+							Height="Auto">
+						<Grid.RowDefinitions>
+							<RowDefinition Height="Auto"/>
+							<RowDefinition Height="Auto"
+									MinHeight="{TemplateBinding MinHeight}"/>
+							<RowDefinition Height="Auto"/>
+						</Grid.RowDefinitions>
+
+						<Canvas ClipToBounds="False">
+							<Label x:Name="PART_SurfaceToolTip"
+									Style="{StaticResource SliderToolTipStyle}"/>
+						</Canvas>
+						<TickBar x:Name="TopTick"
+								Visibility="Collapsed"
+								Grid.Row="0"
+								Height="4"
+								SnapsToDevicePixels="True"
+								Placement="Top"
+								Fill="{TemplateBinding BorderBrush}"
+								ReservedSpace="30"
+								Opacity="1"
+								Margin="0,0,0,1"
+								IsDirectionReversed="False"/>
+						<TickBar x:Name="BottomTick"
+								Visibility="Collapsed"
+								Grid.Row="2"
+								Height="4"
+								SnapsToDevicePixels="True"
+								Placement="Bottom"
+								Fill="{TemplateBinding BorderBrush}"
+								ReservedSpace="30"
+								Opacity="1"
+								Margin="0,1,0,0"/>
+						<Rectangle x:Name="TrackBkgd"
+								Grid.Row="1"
+								HorizontalAlignment="Stretch"
+								Width="Auto"
+								Height="5"
+								SnapsToDevicePixels="True"
+								VerticalAlignment="Center"
+								Opacity="1" Fill="{DynamicResource SliderBackgroundBrush}"/>
+						<Border x:Name="Track"
+								Background="Transparent"
+								Opacity="1"
+								VerticalAlignment="Stretch"
+								HorizontalAlignment="Stretch"
+								Grid.Row="1"
+								SnapsToDevicePixels="True"
+								Height="Auto">
+							<Track x:Name="PART_Track"
+									Grid.Row="1">
+								<Track.Thumb>
+									<Surface:SurfaceThumb Style="{DynamicResource SurfaceSliderThumbStyle}"
+											x:Name="Thumb"
+											Width="{Binding ActualWidth, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Surface:SurfaceSlider}}, Converter={StaticResource mConverter}, ConverterParameter=0.1}"
+											SnapsToDevicePixels="True"
+											Height="{Binding ActualHeight, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Surface:SurfaceSlider}}}"
+											/>
+								</Track.Thumb>
+								<Track.IncreaseRepeatButton>
+									<Surface:SurfaceRepeatButton x:Name="SliderIncrease"
+											Style="{StaticResource SimpleScrollRepeatButtonStyle}"
+											Command="Slider.IncreaseLarge"/>
+								</Track.IncreaseRepeatButton>
+								<Track.DecreaseRepeatButton>
+									<Surface:SurfaceRepeatButton x:Name="SliderDecrease"
+											Style="{StaticResource SimpleScrollRepeatButtonStyle}"
+											Command="Slider.DecreaseLarge"/>
+								</Track.DecreaseRepeatButton>
+							</Track>
+						</Border>
+					</Grid>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+    
+    <!-- KTouchMediaPlayer slider style -->
+
+    <Style x:Key="VideoSliderStyle" TargetType="{x:Type Surface:SurfaceSlider}" BasedOn="{StaticResource SliderStyle}">
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Margin" Value="5,0,5,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="1"/>
+        <Setter Property="Value" Value="0"/>
+        <Setter Property="SmallChange" Value="0"/>
+        <Setter Property="LargeChange" Value="0"/>
+    </Style>
+    
+</ResourceDictionary>

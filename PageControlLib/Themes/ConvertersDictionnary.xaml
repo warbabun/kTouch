@@ -1,0 +1,14 @@
+﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                    xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:Helper="clr-namespace:KTouch.Controls"
+                    xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units">
+
+    <BooleanToVisibilityConverter x:Key="VisibilityOfBool"/>
+    <Units:SumConverter x:Key="sConverter"/>
+    <Units:MultiplicationConverter x:Key="mConverter"/>
+    <!--<Helper:MarginConvertor x:Key="marginConverter"/>-->
+    <Units:CountConverter x:Key="countConverter"/>
+
+
+    <Units:ItemTemplateSelector x:Key="scatterViewItemTemplateSelector"/>
+</ResourceDictionary>
