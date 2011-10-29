@@ -25,7 +25,7 @@
                 <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="1" />
             </DoubleAnimationUsingKeyFrames>
             <DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="Height">
-                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="2" />
+                <SplineDoubleKeyFrame KeyTime="0:0:0.5" Value="1" />
             </DoubleAnimationUsingKeyFrames>
         </Storyboard>
 
