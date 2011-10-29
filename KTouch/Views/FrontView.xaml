@@ -16,7 +16,7 @@
         <Units:SumConverter x:Key="sumConverter"/>
         <Units:MarginConvertor x:Key="marginConverter"/>
         <Units:MarginConverter1 x:Key="marginConverter1"/>
-
+        <!-- this is test change -->
 		
 		<!-- TODO: Remove Style from here: A problem with a dynamic referencing of a background -->
 		<Style x:Key="GenericListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
