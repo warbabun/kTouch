@@ -1,12 +1,13 @@
 ﻿using System.Windows;
 using KTouch.Controls;
 using KTouch.Controls.ViewModel;
+using KTouch.Controls.Core;
 
 namespace KTouch {
     /// <summary>
     /// Interaction logic for InternshipPage.xaml
     /// </summary>
-    public partial class StagesPage : KTouchPage {
+    public partial class StagesPage : kPage {
 
         KTouchExtendedViewModel vm = null;
 

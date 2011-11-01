@@ -10,10 +10,6 @@
 //------------------------------------------------------------------------------
 
 using Blake.NUI.WPF.Gestures;
-using CoverFlowBase;
-using KTouch.Controls;
-using KTouch.Controls.Core;
-using KTouch.Units;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Controls.Primitives;

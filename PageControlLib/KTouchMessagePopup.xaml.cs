@@ -17,8 +17,8 @@ namespace KTouch.Controls {
             _messagePopupTimer = new DispatcherTimer();
             _messagePopupTimer.Interval = TimeSpan.FromSeconds(3);
             _messagePopupTimer.Tick += (sender, e) => {
-                if (KTouchPage.MessagePopup.IsOpen)
-                    KTouchPage.MessagePopup.IsOpen = false;
+                //if (KTouchPage.MessagePopup.IsOpen)
+                //    KTouchPage.MessagePopup.IsOpen = false;
             };
         }
 

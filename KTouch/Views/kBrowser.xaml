@@ -1,0 +1,15 @@
+﻿<NavigationWindow x:Class="KTouch.kBrowser" 
+                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                  Height="1080" 
+                  Width="1920"                      
+                  Title="kTouch"
+                  WindowState="Maximized"
+                  WindowStyle="None"
+                  ShowsNavigationUI="False"
+                  Source="/Views/MainPage.xaml">
+    <!-- TODO: Uncomment before the presentation
+                    
+                  Topmost="True" 
+                  WindowStyle="None"-->
+</NavigationWindow>

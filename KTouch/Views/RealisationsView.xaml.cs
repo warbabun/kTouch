@@ -5,7 +5,7 @@ namespace KTouch {
     /// <summary>
     /// Interaction logic for ClientsTESTPage.xaml
     /// </summary>
-    public partial class RealisationsPage : KTouchPage {
+    public partial class RealisationsPage : kPage {
 
         /// <summary>
         /// Constructeur.

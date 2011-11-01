@@ -54,11 +54,11 @@ namespace KTouch.Controls.Core {
             }
         }
 
-        private KTouchPage _page;
-        protected KTouchPage Page {
+        private kPage _page;
+        protected kPage Page {
             get {
                 if ( _page == null ) {
-                    _page = ( KTouchPage ) StaticAccessors.FindAncestor ( typeof ( KTouchPage ), this );
+                    _page = ( kPage ) StaticAccessors.FindAncestor ( typeof ( kPage ), this );
                 }
                 return _page;
             }

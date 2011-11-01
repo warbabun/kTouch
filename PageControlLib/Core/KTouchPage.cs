@@ -7,12 +7,17 @@ using System.Windows.Input;
 using KTouch.Units;
 
 namespace KTouch.Controls.Core {
-    public abstract class KTouchPage : Page {
+
+    /// <summary>
+    /// Encapsulates a template for a page of content that can be navigated to and hosted 
+    /// by System.Windows.Navigation.NavigationWindow.
+    /// </summary>
+    public class kPage : Page {
 
         public static Process KBoard;
 
 
-        private KTouchMenuControl _kTouchMenuControl;
+        //private KTouchMenuControl _kTouchMenuControl;
         private Dictionary<KTouchItem, DragInfo> _draggedItemsCollection;
 
         private static KTouchMessagePopup _messagePopup;
@@ -41,7 +46,7 @@ namespace KTouch.Controls.Core {
         }
 
         public static readonly DependencyProperty MenuVisibleProperty =
-            DependencyProperty.Register ( "MenuVisible", typeof ( bool ), typeof ( KTouchPage ), new UIPropertyMetadata ( true ) );
+            DependencyProperty.Register ( "MenuVisible", typeof ( bool ), typeof ( kPage ), new UIPropertyMetadata ( true ) );
 
 
         public VisibilityTimer Timer { get; private set; }
@@ -49,10 +54,10 @@ namespace KTouch.Controls.Core {
             get { return _draggedItemsCollection; }
         }
 
-        public KTouchPage ( ) {
+        public kPage ( ) {
             _draggedItemsCollection = new Dictionary<KTouchItem, DragInfo> ( );
 
-            _kTouchMenuControl = new KTouchMenuControl ( ) { Name = "Menu" };
+            //_kTouchMenuControl = new KTouchMenuControl ( ) { Name = "Menu" };
 
             XpsViewer = new KTouchXpsViewer ( );
             MediaViewer = new KTouchMediaPlayer ( );
@@ -62,8 +67,8 @@ namespace KTouch.Controls.Core {
 
         protected override void OnInitialized ( EventArgs e ) {
             base.OnInitialized ( e );
-            if ( MenuVisible )
-                ( ( Grid ) Content ).Children.Add ( _kTouchMenuControl );
+            //if ( MenuVisible )
+            //    ( ( Grid ) Content ).Children.Add ( _kTouchMenuControl );
             ( ( Grid ) Content ).Children.Add ( XpsViewer );
             ( ( Grid ) Content ).Children.Add ( MediaViewer );
         }
@@ -80,7 +85,7 @@ namespace KTouch.Controls.Core {
                     MediaViewer.Visibility = Visibility.Visible;
                     break;
                 default:
-                    KTouchPage.XpsViewer.Document = item.File;
+                    kPage.XpsViewer.Document = item.File;
                     XpsViewer.IsOpen = true;
                     // XpsViewer.Visibility = Visibility.Visible;
                     break;

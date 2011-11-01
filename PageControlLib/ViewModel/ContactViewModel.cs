@@ -196,7 +196,7 @@ namespace KTouch.Controls.ViewModel {
             try {
                 Contacts.AddToContactsInfoes ( newInfo );
                 Contacts.SaveChanges ( );
-                KTouchPage.MessagePopup.IsOpen = true;
+                kPage.MessagePopup.IsOpen = true;
             } catch ( Exception e ) {
                 Console.WriteLine ( "Database update failed : ", e.Message );
             } finally {

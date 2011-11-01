@@ -26,27 +26,27 @@ namespace KTouch.Controls.ViewModel {
         //    }
         //}
 
-        private ContactViewModel _contactDataContext = null;
-        public ContactViewModel ContactDataContext {
-            get {
-                if ( _contactDataContext == null ) {
-                    _contactDataContext = new ContactViewModel ( );
-                    EventHandler handler = null;
-                    handler = delegate {
-                        _contactDataContext.IsOpen = false;
-                        _contactDataContext.RequestClose -= handler;
-                    };
-                    _contactDataContext.RequestClose += handler;
-                }
-                return _contactDataContext;
-            }
-            set {
-                if ( value != null ) {
-                    _contactDataContext = value;
-                    base.OnPropertyChanged ( "ContactDataContext" );
-                }
-            }
-        }
+        //private ContactViewModel _contactDataContext = null;
+        //public ContactViewModel ContactDataContext {
+        //    get {
+        //        if ( _contactDataContext == null ) {
+        //            _contactDataContext = new ContactViewModel ( );
+        //            EventHandler handler = null;
+        //            handler = delegate {
+        //                _contactDataContext.IsOpen = false;
+        //                _contactDataContext.RequestClose -= handler;
+        //            };
+        //            _contactDataContext.RequestClose += handler;
+        //        }
+        //        return _contactDataContext;
+        //    }
+        //    set {
+        //        if ( value != null ) {
+        //            _contactDataContext = value;
+        //            base.OnPropertyChanged ( "ContactDataContext" );
+        //        }
+        //    }
+        //}
 
         /// <summary>
         /// Public command for Mail button
@@ -70,8 +70,8 @@ namespace KTouch.Controls.ViewModel {
             foreach ( KTouchItem item in _usedItemsCollection ) {
                 arguments += item.ToString ( ) + ";";
             }
-            ContactDataContext.Preferences = arguments;
-            ContactDataContext.IsOpen = true;
+            //ContactDataContext.Preferences = arguments;
+            //ContactDataContext.IsOpen = true;
         }
 
         public ObservableCollection<KTouchItem> InitialCollection {

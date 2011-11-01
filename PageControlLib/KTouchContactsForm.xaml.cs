@@ -65,8 +65,8 @@ namespace KTouch.Controls {
             var storyClose = ( Storyboard ) this.FindResource ( "CloseContacts" );
             if ( storyClose != null )
                 storyClose.Begin ( this.LayoutRoot );
-            if ( !KTouchPage.KBoard.HasExited )
-                KTouchPage.KBoard.Kill ( );
+            if ( !kPage.KBoard.HasExited )
+                kPage.KBoard.Kill ( );
             base.OnClosed ( e );
         }
 
@@ -74,7 +74,7 @@ namespace KTouch.Controls {
             var storyOpen = ( Storyboard ) this.FindResource ( "OpenContacts" );
             if ( storyOpen != null )
                 storyOpen.Begin ( this.LayoutRoot );
-            KTouchPage.KBoard = Process.Start ( "osk" );
+            kPage.KBoard = Process.Start ( "osk" );
             //      this.Preferences = SetPreferences((KTouchStack)this.PlacementTarget);
             base.OnOpened ( e );
         }

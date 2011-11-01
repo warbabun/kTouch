@@ -11,42 +11,43 @@ namespace KTouch.Controls.ViewModel {
 
         public ObservableCollection<KTouchItem> StagesCollection {
             get {
-                if ( _stagesCollection == null ) {
-                    _stagesCollection = new ObservableCollection<KTouchItem> ( ItemsLoader.InputCollections [ "Stages" ] );
+                if(_stagesCollection == null) {
+                    _stagesCollection = new ObservableCollection<KTouchItem>(ItemsLoader.InputCollections["Stages"]);
                 };
                 return _stagesCollection;
             }
             set {
                 _stagesCollection = value;
-                base.OnPropertyChanged ( "StagesCollection" );
+                base.OnPropertyChanged("StagesCollection");
             }
         }
         public ObservableCollection<KTouchItem> SolutionsCollection {
             get {
-                if ( _solutionsCollection == null ) {
-                    _solutionsCollection = new ObservableCollection<KTouchItem> ( ItemsLoader.InputCollections [ "Solutions" ] );
+                if(_solutionsCollection == null) {
+                    _solutionsCollection = new ObservableCollection<KTouchItem>(ItemsLoader.InputCollections["Solutions"]);
                 };
                 return _solutionsCollection;
             }
             set {
                 _solutionsCollection = value;
-                base.OnPropertyChanged ( "SolutionsCollection" );
+                base.OnPropertyChanged("SolutionsCollection");
             }
         }
+
         public ObservableCollection<KTouchItem> RealisationsCollection {
             get {
-                if ( _realisationsCollection == null ) {
-                    _realisationsCollection = new ObservableCollection<KTouchItem> ( ItemsLoader.InputCollections [ "Realisations" ] );
+                if(_realisationsCollection == null) {
+                    _realisationsCollection = new ObservableCollection<KTouchItem>(ItemsLoader.InputCollections["Realisations"]);
                 };
                 return _realisationsCollection;
             }
             set {
                 _realisationsCollection = value;
-                base.OnPropertyChanged ( "RealisationsCollection" );
+                base.OnPropertyChanged("RealisationsCollection");
             }
         }
 
-        public KTouchFrontViewModel ( ) {
+        public KTouchFrontViewModel() {
             //StagesCollection = new ObservableCollection<KTouchItem>(ItemsLoader.LoadXmlDeclarationFile(@"C:\KTouchUnivers\Stages\stages.ktouch.xml"));
 
             //for (int i = 0; i < 3; i++)

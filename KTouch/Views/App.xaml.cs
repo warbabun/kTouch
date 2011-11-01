@@ -2,8 +2,8 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows;
-using log4net;
 using KTouch.Units;
+using log4net;
 
 namespace KTouch {
     /// <summary>
@@ -11,42 +11,62 @@ namespace KTouch {
     /// </summary>
     public partial class App : Application {
 
-        protected override void OnStartup ( StartupEventArgs e ) {
-            Console.Out.WriteLine ( "Hello " );
-            ILog log = LogManager.GetLogger ( "KTouch" );
-            if ( log.IsInfoEnabled ) {
+        /// <summary>
+        /// Starts a Windows Presentation Foundation (WPF) application.
+        /// </summary>
+        /// <param name="e">The System.Int32 application exit code 
+        /// that is returned to the operating system 
+        /// when the application shuts down. 
+        /// By default, the exit code value is 0. </param>
+        protected override void OnStartup(StartupEventArgs e) {
+            Console.Out.WriteLine("Hello ");
+            ILog log = LogManager.GetLogger("KTouch");
+            if(log.IsInfoEnabled) {
 
-                log.Info ( "Demarrage de l'application" );
+                log.Info("Demarrage de l'application");
             }
-            base.OnStartup ( e );
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler ( CurrentDomain_UnhandledException );
-            ItemsLoader.LoadCollections ( ConfigurationManager.AppSettings [ "InputCollections" ] );
+            base.OnStartup(e);
+            /* TODO : Never to use this because it overflows the system. */
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            ItemsLoader.LoadCollections(ConfigurationManager.AppSettings["InputCollections"]);
         }
 
-        protected override void OnExit ( ExitEventArgs e ) {
-            ILog log = LogManager.GetLogger ( "KTouch" );
-            if ( log.IsInfoEnabled ) {
-                log.Info ( "Fermeture de l'application" );
+        /// <summary>
+        /// Raises the System.Windows.Application.Exit event.
+        /// </summary>
+        /// <param name="e">An System.Windows.ExitEventArgs that contains the event data.</param>
+        protected override void OnExit(ExitEventArgs e) {
+            ILog log = LogManager.GetLogger("KTouch");
+            if(log.IsInfoEnabled) {
+                log.Info("Fermeture de l'application");
             }
-            base.OnExit ( e );
+            base.OnExit(e);
         }
 
-        protected override void OnLoadCompleted ( System.Windows.Navigation.NavigationEventArgs e ) {
-            ILog log = LogManager.GetLogger ( "KTouch" );
-            if ( log.IsDebugEnabled ) {
-                log.Info ( "LoadCompleted" );
+        /// <summary>
+        /// Raises the System.Windows.Application.Navigated event.
+        /// </summary>
+        /// <param name="e">A System.Windows.Navigation.NavigationEventArgs that contains the event data.</param>
+        protected override void OnLoadCompleted(System.Windows.Navigation.NavigationEventArgs e) {
+            ILog log = LogManager.GetLogger("KTouch");
+            if(log.IsDebugEnabled) {
+                log.Info("LoadCompleted");
             }
-            base.OnLoadCompleted ( e );
+            base.OnLoadCompleted(e);
         }
 
-
-
-        private void CurrentDomain_UnhandledException ( object sender, UnhandledExceptionEventArgs e ) {
-            ILog log = LogManager.GetLogger ( "KTouch" );
-            Exception ex = ( Exception ) e.ExceptionObject;
-            log.Fatal ( "An error occured : " + ex.Message, ex );
-            Process.Start ( Application.ResourceAssembly.Location );
-            Application.Current.Shutdown ( );
+        /// <summary>
+        /// Represents the method that will handle the event raised by an exception that
+        /// is not handled by the application domain.
+        /// </summary>
+        /// <param name="sender">The source of the unhandled exception event.</param>
+        /// <param name="e">An UnhandledExceptionEventArgs that contains the event data.</param>
+        private void CurrentDomain_UnhandledException(object sender, UnhandledExceptionEventArgs e) {
+            ILog log = LogManager.GetLogger("KTouch");
+            Exception ex = (Exception)e.ExceptionObject;
+            log.Fatal("An error occured : " + ex.Message, ex);
+            Process.Start(Application.ResourceAssembly.Location);
+            Application.Current.Shutdown();
         }
     }
 }

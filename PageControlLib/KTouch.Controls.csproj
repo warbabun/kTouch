@@ -84,77 +84,28 @@
     <Reference Include="PresentationFramework" />
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Contacts.Designer.cs">
-      <DependentUpon>Contacts.edmx</DependentUpon>
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-    </Compile>
     <Compile Include="Core\KTouchActiveControl.cs" />
-    <Compile Include="KTouchContactsForm.xaml.cs">
-      <DependentUpon>KTouchContactsForm.xaml</DependentUpon>
-      <SubType>Code</SubType>
-    </Compile>
-    <Compile Include="KTouchCoverFlow2.xaml.cs">
-      <DependentUpon>KTouchCoverFlow2.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="KTouchMenuControl.xaml.cs">
-      <DependentUpon>KTouchMenuControl.xaml</DependentUpon>
-    </Compile>
     <Compile Include="KTouchMessagePopup.xaml.cs">
       <DependentUpon>KTouchMessagePopup.xaml</DependentUpon>
     </Compile>
     <Compile Include="Core\KTouchPage.cs" />
-    <Compile Include="KTouchStack.xaml.cs">
-      <DependentUpon>KTouchStack.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Core\KTouchCoverFlowProperties.cs" />
     <Compile Include="KTouchMediaPlayer.xaml.cs">
       <DependentUpon>KTouchMediaPlayer.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="KTouchParametersListBox.xaml.cs">
-      <DependentUpon>KTouchParametersListBox.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="KTouchScatterView.xaml.cs">
-      <DependentUpon>KTouchScatterView.xaml</DependentUpon>
     </Compile>
     <Compile Include="KTouchXpsViewer.xaml.cs">
       <DependentUpon>KTouchXpsViewer.xaml</DependentUpon>
     </Compile>
     <Compile Include="Model\Contact.cs" />
-    <Compile Include="ViewModel\ContactViewModel.cs" />
     <Compile Include="ViewModel\KTouchExtendedViewModel.cs" />
     <Compile Include="ViewModel\KTouchFrontViewModel.cs" />
     <Compile Include="ViewModel\KTouchMainViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
-    <Page Include="KTouchContactsForm.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="KTouchCoverFlow2.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="KTouchMediaPlayer.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="KTouchMenuControl.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="KTouchMessagePopup.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="KTouchParametersListBox.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="KTouchScatterView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
-    <Page Include="KTouchStack.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -193,10 +144,6 @@
       <Generator>ResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>
     </EmbeddedResource>
-    <EntityDeploy Include="Contacts.edmx">
-      <Generator>EntityModelCodeGenerator</Generator>
-      <LastGenOutput>Contacts.Designer.cs</LastGenOutput>
-    </EntityDeploy>
     <None Include="Properties\DataSources\ContactsEntities.datasource" />
     <None Include="Properties\Settings.settings">
       <Generator>SettingsSingleFileGenerator</Generator>
@@ -205,10 +152,6 @@
     <AppDesigner Include="Properties\" />
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CoverFlowBase\CoverFlowBase.csproj">
-      <Project>{75541544-BF77-4FDC-B03B-BC0DBEBFB8F5}</Project>
-      <Name>CoverFlowBase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\KTouch.Units\KTouch.Units.csproj">
       <Project>{090E6F01-A5BE-4815-8A0B-D3E6E5389173}</Project>
       <Name>KTouch.Units</Name>

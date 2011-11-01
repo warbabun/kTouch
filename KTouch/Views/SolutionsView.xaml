@@ -1,4 +1,4 @@
-﻿<Core:KTouchPage
+﻿<Core:kPage
 	xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
@@ -18,9 +18,9 @@
 			<RowDefinition Height="1*" />
 		</Grid.RowDefinitions>
 
-        <Controls:KTouchScatterView Name="scatterView" 
+        <!--<Controls:KTouchScatterView Name="scatterView" 
 										  Grid.RowSpan="2" 
-										  ItemsSource="{Binding ScatterViewCollection}"/>
+										  ItemsSource="{Binding ScatterViewCollection}"/>-->
 		<!--<Surface:ScatterView Name="scatterView" Grid.RowSpan="2" ItemsSource="{Binding ScatterViewCollection}" AllowDrop="True"/>-->
 		
 		<!--<local:KTouchListBox Name="kTouchListBox1" 
@@ -38,7 +38,7 @@
 										Grid.Row="1" 
 										ItemsSource="{Binding InitialCollection}" 
 										PanelVisible="{Binding RelativeSource={RelativeSource FindAncestor, AncestorType={x:Type KTouch.Controls:KTouchPage}}, Path=Timer.PanelVisible}" />-->
-        <Controls:KTouchCoverFlow2 x:Name="coverFlow" Grid.Row="1" ItemsSource="{Binding InitialCollection}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>
+        <!--<Controls:KTouchCoverFlow2 x:Name="coverFlow" Grid.Row="1" ItemsSource="{Binding InitialCollection}" VerticalAlignment="Stretch" HorizontalAlignment="Stretch"/>-->
 
         <!--<local:KTouchNavigationPanel Name="kPageNavigationPanel"
 									 VerticalAlignment="Top" 
@@ -50,4 +50,4 @@
 							   Width="800" 
 							   Visibility="Collapsed"/>-->
 	</Grid>
-</Core:KTouchPage>
+</Core:kPage>

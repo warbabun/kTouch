@@ -10,7 +10,7 @@ namespace KTouch.Controls {
     /// Interaction logic for KTouchMenuControl.xaml
     /// </summary>
     public partial class KTouchMenuControl : UserControl {
-        KTouchPage _page;
+        kPage _page;
 
         public KTouchMenuControl ( ) {
             this.InitializeComponent ( );
@@ -31,7 +31,7 @@ namespace KTouch.Controls {
                 e.Handled = true;
             } ) );
             this.Loaded += ( sender, e ) => {
-                _page = ( KTouchPage ) StaticAccessors.FindAncestor ( typeof ( KTouchPage ), this );
+                _page = ( kPage ) StaticAccessors.FindAncestor ( typeof ( kPage ), this );
                 switch ( _page.NavigationService.CurrentSource.ToString ( ) ) {
                     case "Views/FrontView.xaml":
                         pathListBox.SelectedIndex = 3;

@@ -75,7 +75,7 @@
     <SignManifests>false</SignManifests>
   </PropertyGroup>
   <PropertyGroup>
-    <StartupObject />
+    <StartupObject>KTouch.App</StartupObject>
   </PropertyGroup>
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
@@ -127,7 +127,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\FrontView.xaml">
+    <Page Include="Views\MainPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -142,21 +142,21 @@
     <Compile Include="Views\StagesView.xaml.cs">
       <DependentUpon>StagesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\FrontView.xaml.cs">
-      <DependentUpon>FrontView.xaml</DependentUpon>
+    <Compile Include="Views\MainPage.xaml.cs">
+      <DependentUpon>MainPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SolutionsView.xaml.cs">
       <DependentUpon>SolutionsView.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Page Include="Views\MainWindow.xaml">
+    <Page Include="Views\kBrowser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\MainWindow.xaml.cs">
-      <DependentUpon>MainWindow.xaml</DependentUpon>
+    <Compile Include="Views\kBrowser.xaml.cs">
+      <DependentUpon>kBrowser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -164,6 +164,7 @@
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
+    <Resource Include="Images\fond.jpg" />
     <Content Include="KTouch.exe.log4net">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -192,10 +193,6 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <ProjectReference Include="..\CoverFlowBase\CoverFlowBase.csproj">
-      <Project>{75541544-BF77-4FDC-B03B-BC0DBEBFB8F5}</Project>
-      <Name>CoverFlowBase</Name>
-    </ProjectReference>
     <ProjectReference Include="..\KTouch.Units\KTouch.Units.csproj">
       <Project>{090E6F01-A5BE-4815-8A0B-D3E6E5389173}</Project>
       <Name>KTouch.Units</Name>

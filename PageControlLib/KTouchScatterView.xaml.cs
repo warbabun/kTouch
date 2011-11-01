@@ -35,7 +35,7 @@ namespace KTouch.Controls {
             }
             var svi = ( ScatterViewItem ) StaticAccessors.FindAncestor ( typeof ( ScatterViewItem ), e.OriginalSource );
             if ( svi != null )
-                KTouchPage.ShowInViewer ( ( KTouchItem ) svi.DataContext );
+                kPage.ShowInViewer ( ( KTouchItem ) svi.DataContext );
             e.Handled = true;
         }
 
@@ -149,7 +149,7 @@ namespace KTouch.Controls {
             } else {
                 var svi = sender as ScatterViewItem;
                 if ( svi != null )
-                    KTouchPage.ShowInViewer ( ( KTouchItem ) svi.DataContext );
+                    kPage.ShowInViewer ( ( KTouchItem ) svi.DataContext );
             }
             e.Handled = true;
         }

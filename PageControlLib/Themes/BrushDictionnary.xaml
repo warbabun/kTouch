@@ -38,7 +38,7 @@
     </ImageBrush>
     <ImageBrush x:Key="MediaPlayerButtonBackground2" ImageSource="/KTouch.Controls;component/Themes/Resources/KTouchMediaPlayerRes/pictos envoyer fond.png" Stretch="Uniform"/>
     <ImageBrush x:Key="FrontPageOverlay" ImageSource="/KTouch.Controls;component/Themes/Resources/KTouchBandeRes/fond_transparent.png"/>
-    <ImageBrush x:Key="FrontPageBackground" ImageSource="/KTouch.Controls;component/Themes/Resources/KTouchBandeRes/fond.jpg"/>
+    <ImageBrush x:Key="FrontPageBackground" ImageSource="/KTouch.Controls;component/Themes/Resources/fond.jpg"/>
     <ImageBrush x:Key="StagesBackground" ImageSource="/KTouch.Controls;component/Themes/Resources/KTouchBandeRes/Stages.png" />
     <ImageBrush x:Key="SolutionsBackground" ImageSource="/KTouch.Controls;component/Themes/Resources/KTouchBandeRes/Solutions.png" />
     <ImageBrush x:Key="RealisationsBackground" ImageSource="/KTouch.Controls;component/Themes/Resources/KTouchBandeRes/Realisations.png" />

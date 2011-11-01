@@ -9,15 +9,10 @@
 // </auto-generated>
 //------------------------------------------------------------------------------
 
-using Blake.NUI.WPF.Gestures;
-using KTouch.Controls;
-using KTouch.Controls.Core;
-using KTouch.Units;
 using Microsoft.Surface.Presentation;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Controls.Primitives;
 using Microsoft.Surface.Presentation.Controls.TouchVisualizations;
-using Microsoft.Surface.Presentation.Generic;
 using Microsoft.Surface.Presentation.Input;
 using System;
 using System.Diagnostics;
