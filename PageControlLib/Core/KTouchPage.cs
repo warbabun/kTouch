@@ -16,15 +16,15 @@ namespace KTouch.Controls.Core {
 
         public static Process KBoard;
 
-
+        /* Test commit from work. */
         //private KTouchMenuControl _kTouchMenuControl;
         private Dictionary<KTouchItem, DragInfo> _draggedItemsCollection;
 
         private static KTouchMessagePopup _messagePopup;
         public static KTouchMessagePopup MessagePopup {
             get {
-                if ( _messagePopup == null ) {
-                    _messagePopup = new KTouchMessagePopup ( );
+                if (_messagePopup == null) {
+                    _messagePopup = new KTouchMessagePopup();
                 }
                 return _messagePopup;
             }
@@ -41,12 +41,12 @@ namespace KTouch.Controls.Core {
         }
 
         public bool MenuVisible {
-            get { return ( bool ) GetValue ( MenuVisibleProperty ); }
-            set { SetValue ( MenuVisibleProperty, value ); }
+            get { return (bool)GetValue(MenuVisibleProperty); }
+            set { SetValue(MenuVisibleProperty, value); }
         }
 
         public static readonly DependencyProperty MenuVisibleProperty =
-            DependencyProperty.Register ( "MenuVisible", typeof ( bool ), typeof ( kPage ), new UIPropertyMetadata ( true ) );
+            DependencyProperty.Register("MenuVisible", typeof(bool), typeof(kPage), new UIPropertyMetadata(true));
 
 
         public VisibilityTimer Timer { get; private set; }
@@ -54,32 +54,32 @@ namespace KTouch.Controls.Core {
             get { return _draggedItemsCollection; }
         }
 
-        public kPage ( ) {
-            _draggedItemsCollection = new Dictionary<KTouchItem, DragInfo> ( );
+        public kPage() {
+            _draggedItemsCollection = new Dictionary<KTouchItem, DragInfo>();
 
             //_kTouchMenuControl = new KTouchMenuControl ( ) { Name = "Menu" };
 
-            XpsViewer = new KTouchXpsViewer ( );
-            MediaViewer = new KTouchMediaPlayer ( );
-            Timer = new VisibilityTimer ( );
+            XpsViewer = new KTouchXpsViewer();
+            MediaViewer = new KTouchMediaPlayer();
+            Timer = new VisibilityTimer();
 
         }
 
-        protected override void OnInitialized ( EventArgs e ) {
-            base.OnInitialized ( e );
+        protected override void OnInitialized(EventArgs e) {
+            base.OnInitialized(e);
             //if ( MenuVisible )
             //    ( ( Grid ) Content ).Children.Add ( _kTouchMenuControl );
-            ( ( Grid ) Content ).Children.Add ( XpsViewer );
-            ( ( Grid ) Content ).Children.Add ( MediaViewer );
+            ((Grid)Content).Children.Add(XpsViewer);
+            ((Grid)Content).Children.Add(MediaViewer);
         }
 
-        protected override void OnPreviewTouchDown ( TouchEventArgs e ) {
-            base.OnPreviewTouchDown ( e );
+        protected override void OnPreviewTouchDown(TouchEventArgs e) {
+            base.OnPreviewTouchDown(e);
             Timer.TouchesCaptured = true;
         }
 
-        public static void ShowInViewer ( KTouchItem item ) {
-            switch ( item.Type ) {
+        public static void ShowInViewer(KTouchItem item) {
+            switch (item.Type) {
                 case "vid":
                     MediaViewer.Source = item.File;
                     MediaViewer.Visibility = Visibility.Visible;

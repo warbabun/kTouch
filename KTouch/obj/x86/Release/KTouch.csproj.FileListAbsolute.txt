@@ -45,3 +45,6 @@ E:\Programming\KTouch\Main\Sources\KTouch\obj\x86\Release\KTouch.exe.manifest
 E:\Programming\KTouch\Main\Sources\KTouch\obj\x86\Release\KTouch.application
 E:\Programming\KTouch\Main\Sources\KTouch\obj\x86\Release\KTouch.exe
 E:\Programming\KTouch\Main\Sources\KTouch\obj\x86\Release\KTouch.pdb
+F:\projets\KTouch\kTouch_git\kTouch\KTouch\bin\Release\KTouch.exe.config
+F:\projets\KTouch\kTouch_git\kTouch\KTouch\obj\x86\Release\KTouch.exe
+F:\projets\KTouch\kTouch_git\kTouch\KTouch\obj\x86\Release\KTouch.pdb
