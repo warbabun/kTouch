@@ -8,3 +8,13 @@ E:\Programming\KTouch\Main\Sources\KTouch.Units\bin\Release\Microsoft.Windows.De
 E:\Programming\KTouch\Main\Sources\KTouch.Units\obj\Release\ResolveAssemblyReference.cache
 E:\Programming\KTouch\Main\Sources\KTouch.Units\obj\Release\KTouch.Units.dll
 E:\Programming\KTouch\Main\Sources\KTouch.Units\obj\Release\KTouch.Units.pdb
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\bin\Release\KTouch.Units.dll
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\bin\Release\KTouch.Units.pdb
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\bin\Release\Microsoft.Surface.Presentation.Design.dll
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\bin\Release\Microsoft.Windows.Design.Extensibility.dll
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\bin\Release\Microsoft.Windows.Design.Interaction.dll
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\bin\Release\Microsoft.Windows.Design.Extensibility.xml
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\bin\Release\Microsoft.Windows.Design.Interaction.xml
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\obj\Release\ResolveAssemblyReference.cache
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\obj\Release\KTouch.Units.dll
+F:\projets\KTouch\kTouch_git\kTouch\KTouch.Units\obj\Release\KTouch.Units.pdb

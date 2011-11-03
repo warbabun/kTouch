@@ -71,38 +71,38 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.exe" size="556544">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.exe" size="558080">
       <assemblyIdentity name="KTouch" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>1dmGwoqyOEIoAK87knniQ3Z7+6I=</dsig:DigestValue>
+        <dsig:DigestValue>0RiIrqkJI/qMnxo2B9TFb0BcCdI=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.Controls.dll" size="2436608">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.Controls.dll" size="2424320">
       <assemblyIdentity name="KTouch.Controls" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>BQBmYq/yR+WFLzXqOgpxP3Dt1pQ=</dsig:DigestValue>
+        <dsig:DigestValue>KeJag1n8IXeJGp5aPI8nN4bqBXE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.Units.dll" size="20480">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.Units.dll" size="20992">
       <assemblyIdentity name="KTouch.Units" version="1.0.0.0" language="neutral" processorArchitecture="msil" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>G1fYEsVmvgrwGfJkbIRd2SW+GMs=</dsig:DigestValue>
+        <dsig:DigestValue>AAWzb4Avjz1Bn9PNJQ7Be3bwEoE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

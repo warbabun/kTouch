@@ -116,9 +116,16 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Views\PresentationPage.xaml.cs">
+      <DependentUpon>PresentationPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\RealisationsView.xaml.cs">
       <DependentUpon>RealisationsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\PresentationPage.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
     <Page Include="Views\RealisationsView.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>

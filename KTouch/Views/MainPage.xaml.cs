@@ -1,6 +1,5 @@
 ﻿using System;
 using System.Windows;
-using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Blake.NUI.WPF.Gestures;
 using KTouch.Controls.Core;
@@ -21,9 +20,8 @@ namespace KTouch {
             InitializeComponent();
 
             Events.RegisterGestureEventSupport(this);
-            this.AddHandler(Button.ClickEvent, new RoutedEventHandler(Navigate));
-            this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(this.Play));
-            AddHandler(Events.TapGestureEvent, new GestureEventHandler(OnTapGesture));
+            this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Navigate));
+            this.AddHandler(Events.TapGestureEvent, new GestureEventHandler(Navigate));
             DataContext = new KTouchFrontViewModel();
         }
 
@@ -43,28 +41,25 @@ namespace KTouch {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An RoutedEventArgs that contains the event data.</param>
         private void Play(object sender, RoutedEventArgs e) {
-            if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
+            if (!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
-                if(item != null)
+                if (item != null)
                     kPage.ShowInViewer((KTouchItem)item.DataContext);
             }
             e.Handled = true;
         }
 
         /// <summary>
-        /// 
+        /// Navigates the 
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void Navigate(object sender, RoutedEventArgs e) {
-            Uri newPage = new Uri(PageControl.PageDictionnary[((SurfaceButton)e.OriginalSource).Tag.ToString()], UriKind.Relative);
-            try {
-                if(NavigationService.CurrentSource != newPage)
-                    NavigationService.Navigate(newPage);
-                else
-                    NavigationService.Refresh();
-            } catch {
-
+        protected void Navigate(object sender, RoutedEventArgs e) {
+            Uri uri = new Uri(PageControl.PageDictionnary["PresentationPage"], UriKind.Relative);
+            if (!uri.Equals(NavigationService.CurrentSource)) {
+                NavigationService.Navigate(uri);
+            } else {
+                NavigationService.Refresh();
             }
             e.Handled = true;
         }
