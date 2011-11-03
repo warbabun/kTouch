@@ -202,3 +202,9 @@
 2011-11-03 17:20:31,387 [8] INFO  KTouch [] - LoadCompleted
 2011-11-03 17:20:32,172 [8] INFO  KTouch [] - LoadCompleted
 2011-11-03 17:20:34,456 [8] INFO  KTouch [] - Fermeture de l'application
+2011-11-03 22:19:45,865 [8] INFO  KTouch [] - Demarrage de l'application
+2011-11-03 22:19:46,072 [8] INFO  KTouch [] - LoadCompleted
+2011-11-03 22:19:51,929 [8] INFO  KTouch [] - Fermeture de l'application
+2011-11-03 22:23:44,496 [10] INFO  KTouch [] - Demarrage de l'application
+2011-11-03 22:23:44,738 [10] INFO  KTouch [] - LoadCompleted
+2011-11-03 22:23:48,194 [10] INFO  KTouch [] - Fermeture de l'application

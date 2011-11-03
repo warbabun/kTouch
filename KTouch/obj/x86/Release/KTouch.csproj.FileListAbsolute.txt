@@ -91,3 +91,5 @@ F:\projets\KTouch\kTouch_git\kTouch\KTouch\obj\x86\Release\KTouch.exe.manifest
 F:\projets\KTouch\kTouch_git\kTouch\KTouch\obj\x86\Release\KTouch.application
 F:\projets\KTouch\kTouch_git\kTouch\KTouch\obj\x86\Release\Views\PresentationPage.baml
 F:\projets\KTouch\kTouch_git\kTouch\KTouch\obj\x86\Release\Views\PresentationPage.g.cs
+E:\Programming\KTouch\Main\Sources\KTouch\obj\x86\Release\Views\PresentationPage.baml
+E:\Programming\KTouch\Main\Sources\KTouch\obj\x86\Release\Views\PresentationPage.g.cs

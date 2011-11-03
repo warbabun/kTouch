@@ -4,7 +4,7 @@
 library
 C#
 .cs
-F:\projets\KTouch\kTouch_git\kTouch\PageControlLib\obj\Release\
+E:\Programming\KTouch\Main\Sources\PageControlLib\obj\Release\
 KTouch.Controls
 none
 false
@@ -12,8 +12,8 @@ TRACE
 
 61873439062
 
-15584914380
-27-660262318
+15-1375337344
+27-1558093998
 KTouchMediaPlayer.xaml;KTouchMessagePopup.xaml;KTouchXpsViewer.xaml;Themes\BrushDictionnary.xaml;Themes\ConvertersDictionnary.xaml;Themes\KTouchStyles.xaml;
 
 True
