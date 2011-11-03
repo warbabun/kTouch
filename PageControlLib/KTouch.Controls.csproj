@@ -178,8 +178,6 @@
     <Resource Include="Themes\Resources\KTouchMenuRes\pictos accueil etat_ON.png" />
     <Resource Include="Themes\Resources\KTouchMenuRes\pictos accueil etat_over.png" />
     <Resource Include="Themes\Resources\KTouchMenuRes\pictos realisations etat_over.png" />
-    <Resource Include="Themes\Resources\KTouchMenuRes\pictos réalisations etat_OFF.png" />
-    <Resource Include="Themes\Resources\KTouchMenuRes\pictos réalisations etat_ON.png" />
     <Resource Include="Themes\Resources\KTouchMenuRes\pictos solutions etat_OFF.png" />
     <Resource Include="Themes\Resources\KTouchMenuRes\pictos solutions etat_ON.png" />
     <Resource Include="Themes\Resources\KTouchMenuRes\pictos solutions etat_over.png" />

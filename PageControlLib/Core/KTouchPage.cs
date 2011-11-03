@@ -16,7 +16,6 @@ namespace KTouch.Controls.Core {
 
         public static Process KBoard;
 
-        /* Test commit from work. */
         //private KTouchMenuControl _kTouchMenuControl;
         private Dictionary<KTouchItem, DragInfo> _draggedItemsCollection;
 
