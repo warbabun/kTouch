@@ -24,8 +24,8 @@ namespace KTouch.Units {
         /// Creates a new command that can always execute.
         /// </summary>
         /// <param name="execute">The execution logic.</param>
-        public RelayCommand ( Action<object> execute )
-            : this ( execute, null ) {
+        public RelayCommand(Action<object> execute)
+            : this(execute, null) {
         }
 
         /// <summary>
@@ -33,9 +33,9 @@ namespace KTouch.Units {
         /// </summary>
         /// <param name="execute">The execution logic.</param>
         /// <param name="canExecute">The execution status logic.</param>
-        public RelayCommand ( Action<object> execute, Predicate<object> canExecute ) {
-            if ( execute == null )
-                throw new ArgumentNullException ( "execute" );
+        public RelayCommand(Action<object> execute, Predicate<object> canExecute) {
+            if (execute == null)
+                throw new ArgumentNullException("execute");
 
             _execute = execute;
             _canExecute = canExecute;
@@ -46,8 +46,8 @@ namespace KTouch.Units {
         #region ICommand Members
 
         [DebuggerStepThrough]
-        public bool CanExecute ( object parameter ) {
-            return _canExecute == null ? true : _canExecute ( parameter );
+        public bool CanExecute(object parameter) {
+            return _canExecute == null ? true : _canExecute(parameter);
         }
 
         public event EventHandler CanExecuteChanged {
@@ -55,8 +55,8 @@ namespace KTouch.Units {
             remove { CommandManager.RequerySuggested -= value; }
         }
 
-        public void Execute ( object parameter ) {
-            _execute ( parameter );
+        public void Execute(object parameter) {
+            _execute(parameter);
         }
 
         #endregion // ICommand Members
