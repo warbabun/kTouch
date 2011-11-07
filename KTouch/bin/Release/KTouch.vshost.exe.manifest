@@ -71,14 +71,14 @@
     </dependentAssembly>
   </dependency>
   <dependency>
-    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.exe" size="558080">
+    <dependentAssembly dependencyType="install" allowDelayedBinding="true" codebase="KTouch.exe" size="559104">
       <assemblyIdentity name="KTouch" version="1.0.0.0" language="neutral" processorArchitecture="x86" />
       <hash>
         <dsig:Transforms>
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>gehxQsLJpgbYJ+eEkAT4p64L0uc=</dsig:DigestValue>
+        <dsig:DigestValue>FexSg4IaMjEM1pBvIpdXY7pYajE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -90,7 +90,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>1ibi7tNKwJcDanHiHI4LYR2X4WQ=</dsig:DigestValue>
+        <dsig:DigestValue>3fQejCog3eAmYd5XdwTBpWYUTdE=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>
@@ -102,7 +102,7 @@
           <dsig:Transform Algorithm="urn:schemas-microsoft-com:HashTransforms.Identity" />
         </dsig:Transforms>
         <dsig:DigestMethod Algorithm="http://www.w3.org/2000/09/xmldsig#sha1" />
-        <dsig:DigestValue>AAWzb4Avjz1Bn9PNJQ7Be3bwEoE=</dsig:DigestValue>
+        <dsig:DigestValue>l4RxL1e1nK0jxRQmQu/fYyDViC8=</dsig:DigestValue>
       </hash>
     </dependentAssembly>
   </dependency>

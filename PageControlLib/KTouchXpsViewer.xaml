@@ -4,12 +4,12 @@
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:Surface="http://schemas.microsoft.com/surface/2008"
 			 xmlns:Helper="clr-namespace:KTouch.Controls"
-             xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
+			 xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
 			 x:Name="kTouchXpsViewer"
 			 MinHeight="300" MinWidth="300"
 			 IsManipulationEnabled="True"
 			 Grid.RowSpan="10"
-             Grid.ColumnSpan="10"
+			 Grid.ColumnSpan="10"
 			 Focusable="True"
 			 Visibility="Collapsed"
 			 ManipulationDelta="manipulationDelta"
@@ -19,7 +19,7 @@
 
 	<UserControl.Resources>
 
-        <Units:MultiplicationConverter x:Key="mConverter"/>
+		<Units:MultiplicationConverter x:Key="mConverter"/>
 
 		<Style TargetType="{x:Type DocumentViewer}">
 			<Setter Property="ShowPageBorders" Value="False"/>
@@ -75,7 +75,7 @@
 
 		<Surface:SurfaceButton x:Name="CloseBtn" 
 								VerticalAlignment="Top" HorizontalAlignment="Right"
-                               Margin="0,-15,-15,0"
+							   Margin="0,-15,-15,0"
 								Width="60"
 								Style="{DynamicResource CloseButtonStyle}" 
 								Grid.Column="1" Grid.Row="1" />

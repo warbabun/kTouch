@@ -1,16 +1,6 @@
 ﻿using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Data;
-using System.Windows.Documents;
-using System.Windows.Input;
-using System.Windows.Media;
-using System.Windows.Media.Imaging;
 using System.Windows.Navigation;
-using System.Windows.Shapes;
 
 namespace KTouch.Views {
     /// <summary>
@@ -19,6 +9,16 @@ namespace KTouch.Views {
     public partial class PresentationPage : Page {
         public PresentationPage() {
             InitializeComponent();
+            this.NavigationService.Navigated += new NavigatedEventHandler(NavigationService_Navigated);
+        }
+
+        void NavigationService_Navigated(object sender, NavigationEventArgs e) {
+            Console.WriteLine("hello page!");
+            //e.Uri.Query.T
+            //if(e.Uri.TryGetValue("msg", out msg))
+
+            //    textBlock1.Text = msg;
+
         }
     }
 }
