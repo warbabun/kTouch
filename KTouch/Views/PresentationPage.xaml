@@ -1,17 +1,17 @@
 ﻿<Page x:Class="KTouch.Views.PresentationPage"
-      xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-      xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-      xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
-      xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
+	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	  xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
-      xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
-      Background="{DynamicResource FrontPageBackground}"
-      mc:Ignorable="d" 
-      d:DesignHeight="1080" 
-      d:DesignWidth="1920"
+	  xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
+	  Background="{DynamicResource FrontPageBackground}"
+	  mc:Ignorable="d" 
+	  d:DesignHeight="1080" 
+	  d:DesignWidth="1920"
 	  Title="PresentationPage">
-    
-    <Grid>
-        <Controls:KTouchXpsViewer />
-    </Grid>
+	
+	<Grid>
+		<Controls:KTouchXpsViewer />
+	</Grid>
 </Page>

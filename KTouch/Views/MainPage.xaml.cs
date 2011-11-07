@@ -41,9 +41,9 @@ namespace KTouch {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An RoutedEventArgs that contains the event data.</param>
         private void Play(object sender, RoutedEventArgs e) {
-            if (!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
+            if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
-                if (item != null)
+                if(item != null)
                     kPage.ShowInViewer((KTouchItem)item.DataContext);
             }
             e.Handled = true;
@@ -55,8 +55,10 @@ namespace KTouch {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Navigate(object sender, RoutedEventArgs e) {
+            int id = 32167;
+            NavigationService.Navigate(new Uri("/PresentationPage.xaml?id=" + id.ToString(), UriKind.Relative));
             Uri uri = new Uri(PageControl.PageDictionnary["PresentationPage"], UriKind.Relative);
-            if (!uri.Equals(NavigationService.CurrentSource)) {
+            if(!uri.Equals(NavigationService.CurrentSource)) {
                 NavigationService.Navigate(uri);
             } else {
                 NavigationService.Refresh();
