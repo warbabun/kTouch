@@ -42,17 +42,17 @@ namespace KTouch.Units {
         /// </summary>
         public const string GIF = ".gif";
 
-        private List<string> _supportedExtensionList;
-        private List<string> _supportedDocumentExtensionList;
-        private List<string> _supportedMediaExtensionList;
-        private List<string> _supportedThumbnailExtensionList;
+        private static List<string> _supportedExtensionList;
+        private static List<string> _supportedDocumentExtensionList;
+        private static List<string> _supportedMediaExtensionList;
+        private static List<string> _supportedThumbnailExtensionList;
 
         /// <summary>
         /// Returns the list of supported file extensions.
         /// </summary>
-        private ICollection<string> SupportedExtensionList {
+        public static ICollection<string> SupportedExtensionList {
             get {
-                if(_supportedExtensionList == null) {
+                if (_supportedExtensionList == null) {
                     _supportedExtensionList = new List<string>();
                     _supportedExtensionList.AddRange(SupportedDocumentExtensionList);
                     _supportedExtensionList.AddRange(SupportedMediaExtensionList);
@@ -64,9 +64,9 @@ namespace KTouch.Units {
         /// <summary>
         /// Returns the list of supported document file extensions.
         /// </summary>
-        private ICollection<string> SupportedDocumentExtensionList {
+        public static ICollection<string> SupportedDocumentExtensionList {
             get {
-                if(_supportedDocumentExtensionList == null) {
+                if (_supportedDocumentExtensionList == null) {
                     _supportedDocumentExtensionList = new List<string> {
                         SupportedExtensions.XPS,                
                     };
@@ -78,9 +78,9 @@ namespace KTouch.Units {
         /// <summary>
         /// Returns the list of supported media file extensions.
         /// </summary>
-        private ICollection<string> SupportedMediaExtensionList {
+        public static ICollection<string> SupportedMediaExtensionList {
             get {
-                if(_supportedMediaExtensionList == null) {
+                if (_supportedMediaExtensionList == null) {
                     _supportedMediaExtensionList = new List<string>{
                         SupportedExtensions.AVI,
                         SupportedExtensions.MP4,
@@ -95,9 +95,9 @@ namespace KTouch.Units {
         /// <summary>
         /// Returns the list of output thumbnail image extensions.
         /// </summary>
-        private ICollection<string> SupportedThumbnailExtensionList {
+        public static ICollection<string> SupportedThumbnailExtensionList {
             get {
-                if(_supportedThumbnailExtensionList == null) {
+                if (_supportedThumbnailExtensionList == null) {
                     _supportedThumbnailExtensionList = new List<string> {
                         SupportedExtensions.GIF,
                         SupportedExtensions.JPG,

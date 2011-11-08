@@ -3,17 +3,17 @@
 		xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 		xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 		xmlns:s="http://schemas.microsoft.com/surface/2008"
-		xmlns:p="clr-namespace:UniversCreator.Properties"
-		x:Class="UniversCreator.MainWindow"
+		xmlns:p="clr-namespace:KTouch.Properties"
+		x:Class="KTouch.ImportFiles"
 		Background="{DynamicResource FrontPageBackground}"
 		mc:Ignorable="d" 
 		d:DesignHeight="1080" 
 		d:DesignWidth="1920">
 
-	<Window.Resources>
+    <Page.Resources>
 		<Style TargetType="{x:Type s:SurfaceButton}">
 			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Foreground" Value="{StaticResource GoldBrush}"/>
+			<Setter Property="Foreground" Value="Gold"/>
 			<Setter Property="Margin" Value="20"/>
 			<Setter Property="FontFamily" Value="Arial"/>
 			<Setter Property="FontSize" Value="24"/>
@@ -50,11 +50,11 @@
 
 		<Style x:Key="ListBoxStyle" TargetType="{x:Type s:SurfaceListBox}">
 			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Foreground" Value="{StaticResource GoldBrush}"/>
+			<Setter Property="Foreground" Value="Gold"/>
 			<Setter Property="FontFamily" Value="Arial"/>
 			<Setter Property="FontSize" Value="14"/>
 		</Style>
-	</Window.Resources>
+    </Page.Resources>
 
 	<Grid>
 		<Grid.RowDefinitions>
@@ -63,8 +63,8 @@
 		</Grid.RowDefinitions>
 
 		<s:SurfaceListBox Grid.Row="0" Height="250" Style="{StaticResource ButtonBoxStyle}">
-			<s:SurfaceListBoxItem Content="{x:Static p:MainWindow.LblDirectory}" ToolTip="{x:Static p:MainWindow.TlpDirectory}"/>
-			<s:SurfaceListBoxItem Content="{x:Static p:MainWindow.LblTransfer}" ToolTip="{x:Static p:MainWindow.TlpTransfer}"/>
+            <s:SurfaceListBoxItem Content="{x:Static p:kTouchResources.LblDirectory}" ToolTip="{x:Static p:kTouchResources.TlpDirectory}"/>
+            <s:SurfaceListBoxItem Content="{x:Static p:kTouchResources.LblTransfer}" ToolTip="{x:Static p:kTouchResources.TlpTransfer}"/>
 		</s:SurfaceListBox>
 		
 		<Grid Grid.Row="1">
@@ -76,4 +76,4 @@
 			<s:SurfaceListBox Name="LbxResultat" Grid.Column="1" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding ResultCollection}"/>
 		</Grid>
 	</Grid>
-</Window>
+</Page>

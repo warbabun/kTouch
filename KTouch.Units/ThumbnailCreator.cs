@@ -67,26 +67,26 @@ namespace KTouch.Units {
         /// <param name="outputFormat">Image format for thumbnail.</param>
         /// <param name="outputQuality">Image quality for thumbnail.</param>
         private void Init(OutputFormat outputFormat = OutputFormat.Png, OutputQuality outputQuality = OutputQuality.Low) {
-            switch(outputFormat) {
+            switch (outputFormat) {
                 case OutputFormat.Jpg:
-                    _outputFileExtension = ImageExtensions.JPG;
+                    _outputFileExtension = SupportedExtensions.JPG;
                     _bitmapEncoder = new JpegBitmapEncoder();
                     break;
                 case OutputFormat.Png:
-                    _outputFileExtension = ImageExtensions.PNG;
+                    _outputFileExtension = SupportedExtensions.PNG;
                     _bitmapEncoder = new PngBitmapEncoder();
                     break;
                 case OutputFormat.Gif:
-                    _outputFileExtension = ImageExtensions.GIF;
+                    _outputFileExtension = SupportedExtensions.GIF;
                     _bitmapEncoder = new GifBitmapEncoder();
                     break;
                 default:
-                    _outputFileExtension = ImageExtensions.PNG;
+                    _outputFileExtension = SupportedExtensions.PNG;
                     _bitmapEncoder = new PngBitmapEncoder();
                     break;
             }
             _imageQualityRatio = 1.0;
-            switch(outputQuality) {
+            switch (outputQuality) {
                 case OutputQuality.Low:
                     _imageQualityRatio /= 2.0;
                     break;
@@ -112,7 +112,7 @@ namespace KTouch.Units {
             Visual visual;
             IntSize visualSize;
             double scale = 0.1;
-            switch(Path.GetExtension(sourceFile)) {
+            switch (Path.GetExtension(sourceFile)) {
                 case SupportedExtensions.XPS:
                     visual = this.CreateXpsVisual(sourceFile, out visualSize);
                     break;
@@ -138,7 +138,7 @@ namespace KTouch.Units {
             string thumbnailName = string.Format("{0}{1}", Path.GetFileNameWithoutExtension(sourceFile), _outputFileExtension);
             string thumbnailFullPath = Path.Combine(Path.GetDirectoryName(sourceFile), thumbnailName);
 
-            using(FileStream fileStream = new FileStream(thumbnailFullPath, FileMode.Create)) {
+            using (FileStream fileStream = new FileStream(thumbnailFullPath, FileMode.Create)) {
                 _bitmapEncoder.Save(fileStream);
             }
             return thumbnailName;
@@ -190,7 +190,7 @@ namespace KTouch.Units {
                 visualSize.Height = mediaPayer.NaturalVideoHeight;
 
                 DrawingVisual drawingVisual = new DrawingVisual();
-                using(DrawingContext drawingContext = drawingVisual.RenderOpen()) {
+                using (DrawingContext drawingContext = drawingVisual.RenderOpen()) {
                     drawingContext.DrawVideo(mediaPayer, new Rect(0, 0, visualSize.Width, visualSize.Height));
                 }
                 mediaPayer.Close();

@@ -117,9 +117,9 @@
       <SubType>Designer</SubType>
     </ApplicationDefinition>
     <Compile Include="Properties\kTouchResources.Designer.cs">
-      <DependentUpon>kTouchResources.resx</DependentUpon>
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
+      <DependentUpon>kTouchResources.resx</DependentUpon>
     </Compile>
     <Compile Include="Views\ImportFiles.xaml.cs">
       <SubType>Code</SubType>

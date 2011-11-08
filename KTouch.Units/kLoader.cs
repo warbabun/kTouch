@@ -11,8 +11,6 @@ namespace KTouch.Units {
     /// </summary>
     public class kLoader {
 
-
-
         /// <summary>
         /// Creates and XDocument (XML) declaration file from the content of a directory.
         /// </summary>
@@ -21,15 +19,15 @@ namespace KTouch.Units {
         public XDocument LoadXDocument(string directory) {
             Dictionary<string, string> dicoFileThumbnail = new Dictionary<string, string>();
             List<string> fileList = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories)
-                    .Where(f => SupportedExtensionList.Contains(Path.GetExtension(f)))
+                    .Where(f => SupportedExtensions.SupportedExtensionList.Contains(Path.GetExtension(f)))
                     .ToList();
-            foreach(string file in fileList) {
+            foreach (string file in fileList) {
                 string thumbnail = string.Empty;
                 string parentDirectory = Directory.GetParent(file).FullName;
                 ICollection<string> existingThumbs = Directory.GetFiles(parentDirectory, "*.*")
-                    .Where(f => SupportedThumbnailExtensionList.Contains(Path.GetExtension(f)))
+                    .Where(f => SupportedExtensions.SupportedThumbnailExtensionList.Contains(Path.GetExtension(f)))
                     .ToList();
-                if(existingThumbs.Any()) {
+                if (existingThumbs.Any()) {
                     thumbnail = Path.GetFileName(existingThumbs.FirstOrDefault());
                 } else {
                     thumbnail = ThumbnailCreator.CreateThumbnail(file);

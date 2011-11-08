@@ -1,18 +1,20 @@
 ﻿using System;
 using System.Windows;
+using System.Windows.Controls;
+using KTouch.Controls.ViewModel;
 using Microsoft.Surface.Presentation.Controls;
 
-namespace UniversCreator {
+namespace KTouch {
     /// <summary>
-    /// Interaction logic for MainWindow.xaml
+    /// Interaction logic for ImportFiles.xaml
     /// </summary>
-    public partial class MainWindow : Window {
+    public partial class ImportFiles : Page {
 
-        private readonly MainWindowViewModel _viewModel = null;
+        private readonly ImportFilesViewModel _viewModel = null;
 
-        public MainWindow() {
+        public ImportFiles() {
             InitializeComponent();
-            _viewModel = new MainWindowViewModel();
+            _viewModel = new ImportFilesViewModel();
             this.DataContext = _viewModel;
         }
 
@@ -22,13 +24,13 @@ namespace UniversCreator {
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event arg.</param>
         private void BtnAction_Click(object sender, RoutedEventArgs e) {
-            if(sender as SurfaceButton == null) {
+            if (sender as SurfaceButton == null) {
                 throw new ArgumentNullException("sender");
             }
             SurfaceButton button = (SurfaceButton)sender;
-            if(UniversCreator.Properties.MainWindow.LblDirectory.Equals(button.Content)) {
+            if (KTouch.Properties.kTouchResources.LblDirectory.Equals(button.Content)) {
                 _viewModel.GetDirectory();
-            } else if(UniversCreator.Properties.MainWindow.LblTransfer.Equals(button.Content)) {
+            } else if (KTouch.Properties.kTouchResources.LblTransfer.Equals(button.Content)) {
                 _viewModel.TransferAll();
             }
         }
