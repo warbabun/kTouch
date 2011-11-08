@@ -2,6 +2,7 @@
 using System.Configuration;
 using System.Diagnostics;
 using System.Windows;
+using System.Xml.Linq;
 using KTouch.Units;
 using log4net;
 
@@ -29,6 +30,9 @@ namespace KTouch {
             /* TODO : Never to use this because it overflows the system. */
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             ItemsLoader.LoadCollections(ConfigurationManager.AppSettings["InputCollections"]);
+            kLoader loader = new kLoader();
+            XDocument doc = loader.LoadXDocument(ConfigurationManager.AppSettings["ContentDirectory"]);
+            Console.WriteLine(doc);
         }
 
         /// <summary>

@@ -19,8 +19,8 @@ namespace KTouch {
         /// <summary>
         /// Handles Loaded event.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         void kBrowser_Loaded(object sender, System.Windows.RoutedEventArgs e) {
             _mainFrame.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
         }

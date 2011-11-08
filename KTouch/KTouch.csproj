@@ -116,12 +116,25 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\kTouchResources.Designer.cs">
+      <DependentUpon>kTouchResources.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Views\ImportFiles.xaml.cs">
+      <SubType>Code</SubType>
+      <DependentUpon>ImportFiles.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\PresentationPage.xaml.cs">
       <DependentUpon>PresentationPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\RealisationsView.xaml.cs">
       <DependentUpon>RealisationsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\ImportFiles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\PresentationPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
@@ -208,6 +221,12 @@
       <Project>{F2331F28-A784-40A2-8099-07D3D8D0ED64}</Project>
       <Name>KTouch.Controls</Name>
     </ProjectReference>
+  </ItemGroup>
+  <ItemGroup>
+    <EmbeddedResource Include="Properties\kTouchResources.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>kTouchResources.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

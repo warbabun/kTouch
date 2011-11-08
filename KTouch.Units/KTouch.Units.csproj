@@ -42,6 +42,7 @@
     </Reference>
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
+    <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Core" />
     <Reference Include="System.Windows.Presentation" />
@@ -56,6 +57,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Brush2ColorConverter.cs" />
+    <Compile Include="kLoader.cs" />
     <Compile Include="CountConverter.cs" />
     <Compile Include="DragInfo.cs" />
     <Compile Include="ItemsLoader.cs" />
@@ -73,6 +75,8 @@
     <Compile Include="SizeToPointConverter.cs" />
     <Compile Include="StaticAccessors.cs" />
     <Compile Include="SumConverter.cs" />
+    <Compile Include="SupportedExtenstions.cs" />
+    <Compile Include="ThumbnailCreator.cs" />
     <Compile Include="VisibilityTimer.cs" />
   </ItemGroup>
   <ItemGroup>

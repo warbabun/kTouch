@@ -33,3 +33,11 @@ _ReSharper*/
 [Tt]est[Rr]esult*
 
 *.suo
+KTouch/obj/x86/Release/DesignTimeResolveAssemblyReferences.cache
+KTouch.Units/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+KTouch.suo
+PageControlLib/obj/Release/KTouch.Controls.csproj.FileListAbsolute.txt
+KTouch/bin/Release/KTouch.log
+KTouch/bin/Release/KTouch.vshost.application
+KTouch/bin/Release/KTouch.log
+KTouch.suo
