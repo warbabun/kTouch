@@ -67,12 +67,12 @@ namespace KTouch.Controls.Model {
         public string Preferences { get; set; }
 
         /// <summary>
-        /// Gets an error message indicating what is wrong with this object
+        /// Gets an error item indicating what is wrong with this object
         /// </summary>
         string IDataErrorInfo.Error { get { return null; } }
 
         /// <summary>
-        /// Gets the error message for the property with the given name
+        /// Gets the error item for the property with the given name
         /// </summary>
         /// <param name="propertyName"></param>
         /// <returns></returns>

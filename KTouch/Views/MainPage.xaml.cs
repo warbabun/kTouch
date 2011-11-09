@@ -44,7 +44,7 @@ namespace KTouch {
             if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
                 if(item != null)
-                    kPage.ShowInViewer((KTouchItem)item.DataContext);
+                    kPage.ShowInViewer((kItem)item.DataContext);
             }
             e.Handled = true;
         }

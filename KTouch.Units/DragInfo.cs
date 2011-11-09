@@ -48,7 +48,7 @@ namespace KTouch.Units {
     }
 
     public class DragDataContext {
-        public KTouchItem Context {
+        public kItem Context {
             get;
             set;
         }

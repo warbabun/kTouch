@@ -62,7 +62,7 @@
     <Compile Include="DragInfo.cs" />
     <Compile Include="ItemsLoader.cs" />
     <Compile Include="ItemTemplateSelector.cs" />
-    <Compile Include="KTouchItem.cs" />
+    <Compile Include="kItem.cs" />
     <Compile Include="KTouchUniverse.cs" />
     <Compile Include="MarginConverter.cs" />
     <Compile Include="MarginConverter1.cs" />

@@ -17,7 +17,7 @@ namespace KTouch.Controls.Core {
         public static Process KBoard;
 
         //private KTouchMenuControl _kTouchMenuControl;
-        private Dictionary<KTouchItem, DragInfo> _draggedItemsCollection;
+        private Dictionary<kItem, DragInfo> _draggedItemsCollection;
 
         private static KTouchMessagePopup _messagePopup;
         public static KTouchMessagePopup MessagePopup {
@@ -49,12 +49,12 @@ namespace KTouch.Controls.Core {
 
 
         public VisibilityTimer Timer { get; private set; }
-        public Dictionary<KTouchItem, DragInfo> DraggedItemsCollection {
+        public Dictionary<kItem, DragInfo> DraggedItemsCollection {
             get { return _draggedItemsCollection; }
         }
 
         public kPage() {
-            _draggedItemsCollection = new Dictionary<KTouchItem, DragInfo>();
+            _draggedItemsCollection = new Dictionary<kItem, DragInfo>();
 
             //_kTouchMenuControl = new KTouchMenuControl ( ) { Name = "Menu" };
 
@@ -77,7 +77,7 @@ namespace KTouch.Controls.Core {
             Timer.TouchesCaptured = true;
         }
 
-        public static void ShowInViewer(KTouchItem item) {
+        public static void ShowInViewer(kItem item) {
             switch (item.Type) {
                 case "vid":
                     MediaViewer.Source = item.File;

@@ -16,14 +16,14 @@ namespace KTouch.Controls.Core {
 
     public class KTouchActiveControl : UserControl {
 
-        public ObservableCollection<KTouchItem> ItemsSource {
-            get { return ( ObservableCollection<KTouchItem> ) GetValue ( ItemsSourceProperty ); }
+        public ObservableCollection<kItem> ItemsSource {
+            get { return ( ObservableCollection<kItem> ) GetValue ( ItemsSourceProperty ); }
             set { SetValue ( ItemsSourceProperty, value ); }
         }
 
         public static readonly DependencyProperty ItemsSourceProperty =
             DependencyProperty.Register ( "ItemsSource",
-                typeof ( ObservableCollection<KTouchItem> ),
+                typeof ( ObservableCollection<kItem> ),
                 typeof ( KTouchActiveControl ),
                 new FrameworkPropertyMetadata ( null ) );
 
@@ -97,7 +97,7 @@ namespace KTouch.Controls.Core {
 
             item.Cursor = new ContentPresenter ( ) {          //Creating new Cursor for drag visualisation 
                 Content = new DragDataContext ( ) {
-                    Context = ( KTouchItem ) this.DraggedElement.DataContext,
+                    Context = ( kItem ) this.DraggedElement.DataContext,
                     Adorner = brush,
                 },
                 Style = Application.Current.FindResource ( "CursorStyle2" ) as Style,
@@ -106,7 +106,7 @@ namespace KTouch.Controls.Core {
             if ( scale ) {
 
                 item.Cursor.Height = 1.5 * this.ActualHeight;
-                if ( ( ( KTouchItem ) item.DraggedElement.DataContext ).Type == "xps" )
+                if ( ( ( kItem ) item.DraggedElement.DataContext ).Type == "xps" )
                     item.Cursor.Width = 1.5 * this.ActualHeight / Math.Sqrt ( 2.0 );
                 else
                     item.Cursor.Width = 1.5 * this.ActualHeight;
@@ -139,10 +139,10 @@ namespace KTouch.Controls.Core {
                             DragDropEffects.Move );              // The allowed drag-and-drop effects of the operation.
 
                     if ( startDragOkay != null &&
-                        !Page.DraggedItemsCollection.ContainsKey ( ( KTouchItem ) item.DraggedElement.DataContext ) ) {
+                        !Page.DraggedItemsCollection.ContainsKey ( ( kItem ) item.DraggedElement.DataContext ) ) {
 
                         item.DraggedElement.Visibility = Visibility.Hidden;
-                        Page.DraggedItemsCollection.Add ( ( KTouchItem ) item.DraggedElement.DataContext, item ); //Add the Item to the collection of other items being dragged
+                        Page.DraggedItemsCollection.Add ( ( kItem ) item.DraggedElement.DataContext, item ); //Add the Item to the collection of other items being dragged
                     }
                 } else {
                     _isManipulated = true;
@@ -197,15 +197,15 @@ namespace KTouch.Controls.Core {
         protected virtual void OnDragCompleted ( object sender, SurfaceDragCompletedEventArgs e ) {
             //   Console.WriteLine("KTouchActiveControl_DragCompleted");
 
-            if ( e.Cursor.Effects == DragDropEffects.Move && Page.DraggedItemsCollection.ContainsKey ( ( KTouchItem ) e.Cursor.Data ) ) {
+            if ( e.Cursor.Effects == DragDropEffects.Move && Page.DraggedItemsCollection.ContainsKey ( ( kItem ) e.Cursor.Data ) ) {
                 if ( SelectedIndex > 0 ) {
                     SelectedIndex--;
                 } else {
                     SelectedIndex = 0;
                 }
 
-                ItemsSource.Remove ( ( KTouchItem ) e.Cursor.Data );
-                Page.DraggedItemsCollection.Remove ( ( KTouchItem ) e.Cursor.Data );      //Removing the item from drag collection
+                ItemsSource.Remove ( ( kItem ) e.Cursor.Data );
+                Page.DraggedItemsCollection.Remove ( ( kItem ) e.Cursor.Data );      //Removing the item from drag collection
             }
         }
 
@@ -217,8 +217,8 @@ namespace KTouch.Controls.Core {
         protected void OnDragCanceled ( object sender, SurfaceDragDropEventArgs e ) {
             //    Console.WriteLine("KTouchActiveControl_OnDragCanceled");
 
-            Page.DraggedItemsCollection [ ( KTouchItem ) ( e.Cursor.Data ) ].DraggedElement.Visibility = Visibility.Visible; //Recovering the hidden element
-            Page.DraggedItemsCollection.Remove ( ( KTouchItem ) e.Cursor.Data );      //Removing the item from drag collection
+            Page.DraggedItemsCollection [ ( kItem ) ( e.Cursor.Data ) ].DraggedElement.Visibility = Visibility.Visible; //Recovering the hidden element
+            Page.DraggedItemsCollection.Remove ( ( kItem ) e.Cursor.Data );      //Removing the item from drag collection
 
             e.Handled = true;
         }
@@ -231,7 +231,7 @@ namespace KTouch.Controls.Core {
         protected void OnDrop ( object sender, SurfaceDragDropEventArgs e ) {
             //    Console.WriteLine("KTouchActiveControl_OnDrop");
 
-            var element = ( KTouchItem ) e.Cursor.Data;
+            var element = ( kItem ) e.Cursor.Data;
             if ( !ItemsSource.Contains ( element ) ) {
                 ItemsSource.Add ( element );
                 SetElement ( element, e.Cursor.GetPosition ( this ) );
@@ -249,7 +249,7 @@ namespace KTouch.Controls.Core {
         /// 
         /// </summary>
         /// <param name="item"></param>
-        protected virtual void SetElement ( KTouchItem element, Point p ) {
+        protected virtual void SetElement ( kItem element, Point p ) {
             //   Console.WriteLine("KTouchActiveControl_ChangeElementForDrop");
         }
 

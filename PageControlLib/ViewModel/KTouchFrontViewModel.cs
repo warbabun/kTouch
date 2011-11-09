@@ -5,14 +5,18 @@ namespace KTouch.Controls.ViewModel {
 
     public class KTouchFrontViewModel : ViewModelBase {
 
-        private ObservableCollection<KTouchItem> _stagesCollection = null;
-        private ObservableCollection<KTouchItem> _solutionsCollection = null;
-        private ObservableCollection<KTouchItem> _realisationsCollection = null;
 
-        public ObservableCollection<KTouchItem> StagesCollection {
+
+
+
+        private ObservableCollection<kItem> _stagesCollection = null;
+        private ObservableCollection<kItem> _solutionsCollection = null;
+        private ObservableCollection<kItem> _realisationsCollection = null;
+
+        public ObservableCollection<kItem> StagesCollection {
             get {
                 if(_stagesCollection == null) {
-                    _stagesCollection = new ObservableCollection<KTouchItem>(ItemsLoader.InputCollections["Stages"]);
+                    _stagesCollection = new ObservableCollection<kItem>(ItemsLoader.InputCollections["Stages"]);
                 };
                 return _stagesCollection;
             }
@@ -21,10 +25,10 @@ namespace KTouch.Controls.ViewModel {
                 base.OnPropertyChanged("StagesCollection");
             }
         }
-        public ObservableCollection<KTouchItem> SolutionsCollection {
+        public ObservableCollection<kItem> SolutionsCollection {
             get {
                 if(_solutionsCollection == null) {
-                    _solutionsCollection = new ObservableCollection<KTouchItem>(ItemsLoader.InputCollections["Solutions"]);
+                    _solutionsCollection = new ObservableCollection<kItem>(ItemsLoader.InputCollections["Solutions"]);
                 };
                 return _solutionsCollection;
             }
@@ -34,10 +38,10 @@ namespace KTouch.Controls.ViewModel {
             }
         }
 
-        public ObservableCollection<KTouchItem> RealisationsCollection {
+        public ObservableCollection<kItem> RealisationsCollection {
             get {
                 if(_realisationsCollection == null) {
-                    _realisationsCollection = new ObservableCollection<KTouchItem>(ItemsLoader.InputCollections["Realisations"]);
+                    _realisationsCollection = new ObservableCollection<kItem>(ItemsLoader.InputCollections["Realisations"]);
                 };
                 return _realisationsCollection;
             }
@@ -61,4 +65,5 @@ namespace KTouch.Controls.ViewModel {
             //list.Clear();
         }
     }
+
 }

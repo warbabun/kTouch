@@ -16,10 +16,10 @@ namespace KTouch.Units {
     public static class ItemsLoader {
         static Dispatcher _currentDispatcher = null;
 
-        public static Dictionary<string, ObservableCollection<KTouchItem>> InputCollections = null;
+        public static Dictionary<string, ObservableCollection<kItem>> InputCollections = null;
 
-        public delegate void EventHandler(KTouchItem obj);
-        public delegate void PackEventHandler(List<KTouchItem> pack);
+        public delegate void EventHandler(kItem obj);
+        public delegate void PackEventHandler(List<kItem> pack);
 
         public static event EventHandler FileArrived;
         public static event PackEventHandler FilePackArrived;
@@ -28,8 +28,8 @@ namespace KTouch.Units {
         /// Analyse des fichiers de déclaration.
         /// </summary>
         /// <returns>L'ensemble des éléments déclarés.</returns>
-        public static IEnumerable<KTouchItem> LoadItems(string path) {
-            List<KTouchItem> items = new List<KTouchItem>();
+        public static IEnumerable<kItem> LoadItems(string path) {
+            List<kItem> items = new List<kItem>();
             foreach(string xmlFile in Directory.GetFiles(path, "*.ktouch.xml", SearchOption.AllDirectories)) {
                 items.AddRange(LoadXmlDeclarationFile(xmlFile));
             }
@@ -41,16 +41,16 @@ namespace KTouch.Units {
         /// </summary>
         /// <param name="fileName">Chemin du fichier XML de déclaration.</param>
         /// <returns>Liste des éléments déclarés.</returns>
-        public static List<KTouchItem> LoadXmlDeclarationFile(string fileName) {
+        public static List<kItem> LoadXmlDeclarationFile(string fileName) {
 
-            List<KTouchItem> items = new List<KTouchItem>();
+            List<kItem> items = new List<kItem>();
             XmlDocument document = new XmlDocument();
             document.Load(fileName);
 
             XmlNode root = document.DocumentElement;
             foreach(XmlNode node in root.ChildNodes) {
                 string directory = (Directory.GetParent(fileName)).FullName + @"\" + node.Attributes["Directory"].Value;
-                KTouchItem item = new KTouchItem {
+                kItem item = new kItem {
                     Directory = directory,
                     CoverFile = directory + @"\" + node.Attributes["CoverFile"].Value,
                     File = directory + @"\" + node.Attributes["File"].Value,
@@ -91,10 +91,10 @@ namespace KTouch.Units {
             document.Load(fileName);
 
             XmlNode root = document.DocumentElement;
-            var tempList = new List<KTouchItem>();
+            var tempList = new List<kItem>();
             foreach(XmlNode node in root.ChildNodes) {
                 string directory = (Directory.GetParent(fileName)).FullName + @"\" + node.Attributes["Directory"].Value;
-                KTouchItem item = new KTouchItem {
+                kItem item = new kItem {
                     Directory = directory,
                     CoverFile = directory + @"\" + node.Attributes["CoverFile"].Value,
                     File = directory + @"\" + node.Attributes["File"].Value,
@@ -112,20 +112,20 @@ namespace KTouch.Units {
 
         public static void LoadCollections(string path) {
             _currentDispatcher = Dispatcher.CurrentDispatcher;
-            InputCollections = new Dictionary<string, ObservableCollection<KTouchItem>>();
+            InputCollections = new Dictionary<string, ObservableCollection<kItem>>();
             foreach(var universe in ItemsLoader.LoadUniverses(path)) {
-                List<KTouchItem> items = ItemsLoader.LoadXmlDeclarationFile(universe.File);
+                List<kItem> items = ItemsLoader.LoadXmlDeclarationFile(universe.File);
                 if(items != null) {
-                    InputCollections[universe.Name] = new ObservableCollection<KTouchItem>(items);
+                    InputCollections[universe.Name] = new ObservableCollection<kItem>(items);
                 }
             }
         }
     }
     public class ResultEventArgs : EventArgs {
-        public List<KTouchItem> Items { get; set; }
+        public List<kItem> Items { get; set; }
 
-        public ResultEventArgs(IEnumerable<KTouchItem> items) {
-            this.Items = new List<KTouchItem>(items);
+        public ResultEventArgs(IEnumerable<kItem> items) {
+            this.Items = new List<kItem>(items);
         }
     }
 
@@ -150,7 +150,7 @@ namespace KTouch.Units {
                 if(xmlData != null) {
                     XDocument xdoc = XDocument.Parse(xmlData);
                     var items = from item in xdoc.Descendants("KTouchItem")
-                                select new KTouchItem {
+                                select new kItem {
                                     Directory = directory + item.Attribute("Directory").Value,
                                     CoverFile = directory + item.Attribute("Directory").Value + @"/" + item.Attribute("CoverFile").Value,
                                     File = directory + item.Attribute("Directory").Value + @"/" + item.Attribute("File").Value,

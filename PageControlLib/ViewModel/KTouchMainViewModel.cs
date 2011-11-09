@@ -6,14 +6,14 @@ namespace KTouch.Controls.ViewModel {
     public class KTouchMainViewModel : ViewModelBase {
 
 
-        private ObservableCollection<KTouchItem> _initialCollection = null;
-        private ObservableCollection<KTouchItem> _scatterViewCollection = null;
+        private ObservableCollection<kItem> _initialCollection = null;
+        private ObservableCollection<kItem> _scatterViewCollection = null;
         private readonly string _universeName;
 
-        public ObservableCollection<KTouchItem> InitialCollection {
+        public ObservableCollection<kItem> InitialCollection {
             get {
                 if ( _initialCollection == null ) {
-                    _initialCollection = new ObservableCollection<KTouchItem> ( ItemsLoader.InputCollections [ _universeName ] );
+                    _initialCollection = new ObservableCollection<kItem> ( ItemsLoader.InputCollections [ _universeName ] );
                 };
                 return _initialCollection;
             }
@@ -23,10 +23,10 @@ namespace KTouch.Controls.ViewModel {
             }
         }
 
-        public ObservableCollection<KTouchItem> ScatterViewCollection {
+        public ObservableCollection<kItem> ScatterViewCollection {
             get {
                 if ( _scatterViewCollection == null ) {
-                    _scatterViewCollection = new ObservableCollection<KTouchItem> ( );
+                    _scatterViewCollection = new ObservableCollection<kItem> ( );
                 };
                 return _scatterViewCollection;
 

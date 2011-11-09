@@ -13,9 +13,9 @@ namespace KTouch.Controls.ViewModel {
         bool disposed = false;
         RelayCommand _mailCommand;
 
-        private ObservableCollection<KTouchItem> _initialCollection = null;
-        private ObservableCollection<KTouchItem> _scatterViewCollection = null;
-        private ObservableCollection<KTouchItem> _usedItemsCollection = null;
+        private ObservableCollection<kItem> _initialCollection = null;
+        private ObservableCollection<kItem> _scatterViewCollection = null;
+        private ObservableCollection<kItem> _usedItemsCollection = null;
         //private bool _contactsFormIsOpen = false;
 
         //public bool ContactsFormIsOpen {
@@ -67,17 +67,17 @@ namespace KTouch.Controls.ViewModel {
 
         private void OnMail ( ) {
             string arguments = "";
-            foreach ( KTouchItem item in _usedItemsCollection ) {
+            foreach ( kItem item in _usedItemsCollection ) {
                 arguments += item.ToString ( ) + ";";
             }
             //ContactDataContext.Preferences = arguments;
             //ContactDataContext.IsOpen = true;
         }
 
-        public ObservableCollection<KTouchItem> InitialCollection {
+        public ObservableCollection<kItem> InitialCollection {
             get {
                 if ( _initialCollection == null ) {
-                    _initialCollection = new ObservableCollection<KTouchItem> ( ItemsLoader.InputCollections [ _universeName ] );
+                    _initialCollection = new ObservableCollection<kItem> ( ItemsLoader.InputCollections [ _universeName ] );
                 };
                 return _initialCollection;
             }
@@ -87,10 +87,10 @@ namespace KTouch.Controls.ViewModel {
             }
         }
 
-        public ObservableCollection<KTouchItem> ScatterViewCollection {
+        public ObservableCollection<kItem> ScatterViewCollection {
             get {
                 if ( _scatterViewCollection == null ) {
-                    _scatterViewCollection = new ObservableCollection<KTouchItem> ( );
+                    _scatterViewCollection = new ObservableCollection<kItem> ( );
                 };
                 return _scatterViewCollection;
             }
@@ -100,10 +100,10 @@ namespace KTouch.Controls.ViewModel {
             }
         }
 
-        public ObservableCollection<KTouchItem> UsedItemsCollection {
+        public ObservableCollection<kItem> UsedItemsCollection {
             get {
                 if ( _usedItemsCollection == null ) {
-                    _usedItemsCollection = new ObservableCollection<KTouchItem> ( );
+                    _usedItemsCollection = new ObservableCollection<kItem> ( );
                 };
                 return _usedItemsCollection;
 
@@ -122,7 +122,7 @@ namespace KTouch.Controls.ViewModel {
 
         }
 
-        void ItemsLoader_FilePackArrived ( System.Collections.Generic.List<KTouchItem> pack ) {
+        void ItemsLoader_FilePackArrived ( System.Collections.Generic.List<kItem> pack ) {
             Action dispatchAction = ( ) => {
                 foreach ( var item in pack )
                     InitialCollection.Add ( item );
@@ -131,7 +131,7 @@ namespace KTouch.Controls.ViewModel {
             ItemsLoader.FilePackArrived -= ItemsLoader_FilePackArrived;
         }
 
-        void loader_FileArrived ( KTouchItem obj ) {
+        void loader_FileArrived ( kItem obj ) {
             Action dispatchAction = ( ) => { InitialCollection.Add ( obj ); };
             _currentDispatcher.BeginInvoke ( dispatchAction, DispatcherPriority.Background );
         }

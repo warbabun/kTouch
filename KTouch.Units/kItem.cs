@@ -4,7 +4,7 @@ namespace KTouch.Units {
     /// <summary>
     /// Classe représentant un élément présenté dans le CoverFlow.
     /// </summary>
-    public class KTouchItem {
+    public class kItem {
 
         /// <summary>
         /// Chemin vers le dossier de contenu
@@ -13,6 +13,7 @@ namespace KTouch.Units {
             get;
             set;
         }
+
         /// <summary>
         /// Chemin vers l'image de présentation.
         /// </summary>
@@ -57,7 +58,7 @@ namespace KTouch.Units {
         /// Override ToString() method
         /// </summary>
         /// <returns>Titre de l'élément</returns>
-        public override string ToString ( ) {
+        public override string ToString() {
             return Title;
         }
     }
