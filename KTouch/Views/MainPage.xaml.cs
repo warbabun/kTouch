@@ -8,6 +8,7 @@ using KTouch.Units;
 using Microsoft.Surface.Presentation.Controls;
 
 namespace KTouch {
+
     /// <summary>
     /// Encapsulates a main page of content that can be navigated to and hosted in kBrowser.
     /// </summary>
@@ -41,9 +42,9 @@ namespace KTouch {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An RoutedEventArgs that contains the event data.</param>
         private void Play(object sender, RoutedEventArgs e) {
-            if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
+            if (!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
-                if(item != null)
+                if (item != null)
                     kPage.ShowInViewer((kItem)item.DataContext);
             }
             e.Handled = true;
@@ -58,7 +59,7 @@ namespace KTouch {
             int id = 32167;
             NavigationService.Navigate(new Uri("/PresentationPage.xaml?id=" + id.ToString(), UriKind.Relative));
             Uri uri = new Uri(PageControl.PageDictionnary["PresentationPage"], UriKind.Relative);
-            if(!uri.Equals(NavigationService.CurrentSource)) {
+            if (!uri.Equals(NavigationService.CurrentSource)) {
                 NavigationService.Navigate(uri);
             } else {
                 NavigationService.Refresh();

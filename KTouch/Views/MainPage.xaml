@@ -103,15 +103,15 @@
 			</Grid.RowDefinitions>
 			
 			<Surface:SurfaceListBox x:Name="picListBox" 
-									ItemsSource="{Binding StagesCollection}"
+									ItemsSource="{Binding ItemList}"
 									Grid.Row="0"/>
 
 			<Surface:SurfaceListBox x:Name="vidListBox" 
-									ItemsSource="{Binding StagesCollection}"
+									ItemsSource="{Binding ItemList}"
 									Grid.Row="1"/>
 
 			<Surface:SurfaceListBox x:Name="xpsListBox" 
-									ItemsSource="{Binding StagesCollection}"
+									ItemsSource="{Binding ItemList}"
 									Grid.Row="2"/>
 			
 		</Grid>

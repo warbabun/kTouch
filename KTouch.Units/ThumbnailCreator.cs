@@ -66,7 +66,7 @@ namespace KTouch.Units {
         /// </summary>
         /// <param name="outputFormat">Image format for thumbnail.</param>
         /// <param name="outputQuality">Image quality for thumbnail.</param>
-        private void Init(OutputFormat outputFormat = OutputFormat.Png, OutputQuality outputQuality = OutputQuality.Low) {
+        private void Init(OutputFormat outputFormat = OutputFormat.Png, OutputQuality outputQuality = OutputQuality.Normal) {
             switch (outputFormat) {
                 case OutputFormat.Jpg:
                     _outputFileExtension = SupportedExtensions.JPG;
@@ -107,41 +107,48 @@ namespace KTouch.Units {
         /// Process the file and create a thumbnail.
         /// </summary>
         /// <param name="sourceFile">Source file.</param>
-        /// <returns>Thumbnail file name with extension.</returns>
+        /// <returns>Thumbnail file full path with extension.</returns>
         private string ProcessFile(string sourceFile) {
-            Visual visual;
-            IntSize visualSize;
-            double scale = 0.1;
-            switch (Path.GetExtension(sourceFile)) {
-                case SupportedExtensions.XPS:
-                    visual = this.CreateXpsVisual(sourceFile, out visualSize);
-                    break;
-                case SupportedExtensions.AVI:
-                case SupportedExtensions.MP4:
-                case SupportedExtensions.MPG:
-                case SupportedExtensions.WMV:
-                    visual = this.CreateVideoVisual(sourceFile, TimeSpan.FromSeconds(10), out visualSize);
-                    break;
-                default:
-                    return string.Empty;
+            /* TODO: This must be asynchroniously */
+            try {
+                Visual visual;
+                IntSize visualSize;
+                double scale = 0.5;
+                switch (Path.GetExtension(sourceFile)) {
+                    case SupportedExtensions.XPS:
+                        visual = this.CreateXpsVisual(sourceFile, out visualSize);
+                        break;
+                    case SupportedExtensions.AVI:
+                    case SupportedExtensions.MP4:
+                    case SupportedExtensions.MPG:
+                    case SupportedExtensions.WMV:
+                        visual = this.CreateVideoVisual(sourceFile, TimeSpan.FromSeconds(10), out visualSize);
+                        break;
+                    default:
+                        return string.Empty;
+                }
+                int width = (int)(visualSize.Width * _imageQualityRatio) > 0 ? (int)(visualSize.Width * _imageQualityRatio) : 800;
+                int height = (int)(visualSize.Height * _imageQualityRatio) > 0 ? (int)(visualSize.Height * _imageQualityRatio) : 600;
+
+                RenderTargetBitmap targetBitmap = new RenderTargetBitmap(width, height, 96.0 * _imageQualityRatio, 96.0 * _imageQualityRatio, PixelFormats.Pbgra32);
+                targetBitmap.Render(visual);
+
+                var frame = BitmapFrame.Create(targetBitmap).GetCurrentValueAsFrozen();
+                var thumbnailFrame = BitmapFrame.Create(new TransformedBitmap(frame as BitmapFrame, new ScaleTransform(scale, scale))).GetCurrentValueAsFrozen();
+                _bitmapEncoder.Frames.Add(thumbnailFrame as BitmapFrame);
+
+                string thumbnailName = string.Format("{0}{1}", Path.GetFileNameWithoutExtension(sourceFile), _outputFileExtension);
+                string thumbnailFullPath = Path.Combine(Path.GetDirectoryName(sourceFile), thumbnailName);
+
+                using (FileStream fileStream = new FileStream(thumbnailFullPath, FileMode.Create)) {
+                    _bitmapEncoder.Save(fileStream);
+                }
+                return thumbnailFullPath;
+            } catch (OutOfMemoryException ex) {
+                Console.WriteLine(ex.Message);
+                string thumbnailName = string.Format("{0}{1}", Path.GetFileNameWithoutExtension(sourceFile), _outputFileExtension);
+                return Path.Combine(Path.GetDirectoryName(sourceFile), thumbnailName);
             }
-            int width = (int)(visualSize.Width * _imageQualityRatio) > 0 ? (int)(visualSize.Width * _imageQualityRatio) : 800;
-            int height = (int)(visualSize.Height * _imageQualityRatio) > 0 ? (int)(visualSize.Height * _imageQualityRatio) : 600;
-
-            RenderTargetBitmap targetBitmap = new RenderTargetBitmap(width, height, 96.0 * _imageQualityRatio, 96.0 * _imageQualityRatio, PixelFormats.Pbgra32);
-            targetBitmap.Render(visual);
-
-            var frame = BitmapFrame.Create(targetBitmap).GetCurrentValueAsFrozen();
-            var thumbnailFrame = BitmapFrame.Create(new TransformedBitmap(frame as BitmapFrame, new ScaleTransform(scale, scale))).GetCurrentValueAsFrozen();
-            _bitmapEncoder.Frames.Add(thumbnailFrame as BitmapFrame);
-
-            string thumbnailName = string.Format("{0}{1}", Path.GetFileNameWithoutExtension(sourceFile), _outputFileExtension);
-            string thumbnailFullPath = Path.Combine(Path.GetDirectoryName(sourceFile), thumbnailName);
-
-            using (FileStream fileStream = new FileStream(thumbnailFullPath, FileMode.Create)) {
-                _bitmapEncoder.Save(fileStream);
-            }
-            return thumbnailName;
         }
 
         /// <summary>

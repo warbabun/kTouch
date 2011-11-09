@@ -15,20 +15,25 @@ namespace KTouch.Units {
     /// </summary>
     public class kLoader {
 
-        public EventHandler LoadCompleted;
+        public delegate void MikeEventHandler(kItem obj);
+        public static event MikeEventHandler ItemReceived;
+
+        public static event EventHandler DocumentLoaded;
+        public static event EventHandler ItemCollectionCreated;
         private Thread _loadingThread = null;
         private ObservableCollection<kItem> _itemList = new ObservableCollection<kItem>();
 
-        public static XDocument kDocument {
-            get;
-            private set;
+        private Dispatcher CurrentDispatcher {
+            get {
+                return Application.Current.Dispatcher;
+            }
         }
 
         /// <summary>
         /// Path to the directory with the content.
         /// All the sake of thumbnails files have to be placed in the separate directories.
         /// </summary>
-        /// <param name="path">Full path.</param>
+        /// <param name="path">Full path of the content directory.</param>
         public kLoader(string path) {
             ParameterizedThreadStart threadStart = new ParameterizedThreadStart(LoadItems);
             _loadingThread = new Thread(threadStart);
@@ -38,73 +43,96 @@ namespace KTouch.Units {
         /// <summary>
         /// Callback function to receive kItems.
         /// </summary>
-        /// <param name="data">XDocument reference for the content.</param>
-        public void LoadItems(object data) {
-            Application app = Application.Current;
-            if(app != null) {
-                DispatcherOperation dispatcherOp = app.Dispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(Parse), data);
-                if(LoadCompleted != null) {
-                    dispatcherOp.Completed += new EventHandler(LoadCompleted);
+        /// <param name="path">Full path to the content directory.</param>
+        public void LoadItems(object path) {
+            XDocument document = this.LoadXDocument(path);
+            if (CurrentDispatcher != null) {
+                DispatcherOperation dispatcherOp = CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, new DispatcherOperationCallback(ParseDeclarationFile), document);
+                if (dispatcherOp != null) {
+                    dispatcherOp.Completed += ItemCollectionCreated;
                 }
             }
         }
 
         /// <summary>
-        /// Parsing logic of the reference file.
+        /// Parses the previously generated document in order to create a collection of kItems.
         /// </summary>
-        /// <param name="data">XDocument reference for the content.</param>
+        /// <param name="document">XDocument to parse.</param>
         /// <returns>Null.</returns>
-        private object Parse(object data) {
-            kDocument = this.LoadXDocument((string)data);
+        public object ParseDeclarationFile(object document) {
+            XElement root = ((XDocument)document).Root;
+            XNamespace ns = root.Name.NamespaceName;
+            string rootDirectory = ns.ToString();
+            ICollection<XElement> elements = root.Elements(ns + "kItem").Where(e => SupportedExtensions.XPS.Equals((string)e.Attribute("Type"))).ToList();
+            foreach (XElement element in elements) {
+                kItem item = new kItem {
+                    Id = (int)element.Attribute("Id"),
+                    Directory = (string)element.Attribute("Directory"),
+                    File = (string)element.Attribute("File"),
+                    Type = (string)element.Attribute("Type"),
+                    CoverFile = (string)element.Attribute("Thumbnail"),
+                    Description = (string)element.Element(ns + "Description"),
+                    Title = (string)element.Attribute("Title"),
+                };
+                _itemList.Add(item);
+                if (ItemReceived != null) {
+                    ItemReceived(item);
+                }
+            }
+            if (ItemCollectionCreated != null) {
+                ItemCollectionCreated(this, new EventArgs());
+            }
             return null;
         }
-
-        /*/// <summary>
-        /// Bindable collection of kItems.
-        /// </summary>
-        public IList<kItem> ItemList {
-            get { return _itemList; }
-        }*/
 
         /// <summary>
         /// Creates and XDocument (XML) declaration file from the content of a directory.
         /// </summary>
-        /// <param name="directory">Full path of the directory.</param>
-        /// <returns>XDocument (XML) declaration file.</returns>
-        public XDocument LoadXDocument(string directory) {
+        /// <param name="path">Full path of the content directory.</param>
+        /// <returns>Brand new XDocument with file references.</returns>
+        public XDocument LoadXDocument(object path) {
+            string directory = (string)path;
             Dictionary<string, string> dicoFileThumbnail = new Dictionary<string, string>();
             List<string> fileList = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories)
                     .Where(f => SupportedExtensions.SupportedExtensionList.Contains(Path.GetExtension(f)))
                     .ToList();
-            foreach(string file in fileList) {
+            foreach (string file in fileList) {
                 string thumbnail = string.Empty;
                 string parentDirectory = Directory.GetParent(file).FullName;
                 ICollection<string> existingThumbs = Directory.GetFiles(parentDirectory, "*.*")
                     .Where(f => SupportedExtensions.SupportedThumbnailExtensionList.Contains(Path.GetExtension(f)))
                     .ToList();
-                if(existingThumbs.Any()) {
-                    thumbnail = Path.GetFileName(existingThumbs.FirstOrDefault());
+                if (existingThumbs.Any()) {
+                    thumbnail = existingThumbs.FirstOrDefault();
                 } else {
                     thumbnail = ThumbnailCreator.CreateThumbnail(file);
                 }
                 dicoFileThumbnail.Add(file, thumbnail);
             }
-            XNamespace dir = new Uri(directory).ToString();
-            XDocument kContent =
+            int iterator = 0;
+            XNamespace dir = directory;
+            XDocument document =
                 new XDocument(
                     new XDeclaration("1.0", "utf-8", "yes"),
                     new XComment("kTouch content declarations file."),
                     new XElement(dir + "kContent",
-                        new XAttribute(XNamespace.Xmlns + "dir", dir),
+                //new XAttribute(XNamespace.Xmlns + "dir", dir),
                         from f in fileList
                         select new XElement(dir + "kItem",
-                                    new XAttribute("FileName", Path.GetFileNameWithoutExtension(f)),
-                                    new XAttribute("FileType", Path.GetExtension(f)),
-                                    new XAttribute("Thumbnail", dicoFileThumbnail[f])
+                                    new XAttribute("Id", (++iterator).ToString()),
+                                    new XAttribute("Directory", Path.GetDirectoryName(f)),
+                                    new XAttribute("File", f),
+                                    new XAttribute("Type", Path.GetExtension(f)),
+                                    new XAttribute("Thumbnail", dicoFileThumbnail[f]),
+                                    new XAttribute("Title", Path.GetFileNameWithoutExtension(f)),
+                                    new XElement(dir + "Description", "Add me!")
                         )
                     )
             );
-            return kContent;
+            if (DocumentLoaded != null) {
+                DocumentLoaded(this, new EventArgs());
+            }
+            return document;
         }
     }
 }

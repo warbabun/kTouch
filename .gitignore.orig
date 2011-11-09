@@ -35,23 +35,12 @@ _ReSharper*/
 *.suo
 KTouch/obj/x86/Release/DesignTimeResolveAssemblyReferences.cache
 KTouch.Units/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
+<<<<<<< HEAD
 KTouch.suo
 PageControlLib/obj/Release/KTouch.Controls.csproj.FileListAbsolute.txt
 KTouch/bin/Release/KTouch.log
 KTouch/bin/Release/KTouch.vshost.application
 KTouch/bin/Release/KTouch.log
+=======
+>>>>>>> 6ac6369d611e3f7822a5ee3da71dd7bc8beb579a
 KTouch.suo
-KTouch.sln.docstates.suo
-KTouch.suo
-KTouch/bin/Release/KTouch.log
-KTouch/bin/Release/KTouch.vshost.application
-KTouch/bin/Release/KTouch.vshost.exe.config
-KTouch/obj/x86/Release/DesignTimeResolveAssemblyReferences.cache
-KTouch/obj/x86/Release/KTouch.csproj.FileListAbsolute.txt
-KTouch/obj/x86/Release/KTouch_MarkupCompile.i.cache
-KTouch/obj/x86/Release/Views/App.g.i.cs
-PageControlLib/obj/Release/DesignTimeResolveAssemblyReferences.cache
-PageControlLib/obj/Release/DesignTimeResolveAssemblyReferencesInput.cache
-PageControlLib/obj/Release/TempPE/Properties.Resources.Designer.cs.dll
-KTouch.sln.docstates.suo
-KTouch.sln.docstates.suo

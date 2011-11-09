@@ -2,12 +2,20 @@
 namespace KTouch.Units {
 
     /// <summary>
-    /// Classe représentant un élément présenté dans le CoverFlow.
+    /// Classe représentant un élément présenté dans l'application.
     /// </summary>
     public class kItem {
 
         /// <summary>
-        /// Chemin vers le dossier de contenu
+        /// Technical identifier of the object.
+        /// </summary>
+        public int Id {
+            get;
+            set;
+        }
+
+        /// <summary>
+        /// Chemin vers le dossier de contenu.
         /// </summary>
         public string Directory {
             get;
@@ -47,7 +55,7 @@ namespace KTouch.Units {
         }
 
         /// <summary>
-        /// Type du contenu
+        /// Type du contenu.
         /// </summary>
         public string Type {
             get;
@@ -55,7 +63,7 @@ namespace KTouch.Units {
         }
 
         /// <summary>
-        /// Override ToString() method
+        /// Override ToString() method.
         /// </summary>
         /// <returns>Titre de l'élément</returns>
         public override string ToString() {
