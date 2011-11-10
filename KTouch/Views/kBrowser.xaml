@@ -16,7 +16,7 @@
         <ControlTemplate x:Key="FrameTemplate" TargetType="{x:Type Frame}">
             <Grid>
                 <ContentPresenter />
-                <DockPanel Background="{DynamicResource FrontPageOverlay}" IsHitTestVisible="False" LastChildFill="False">
+                <DockPanel Background="{DynamicResource FrontPageOverlay}" IsHitTestVisible="False" LastChildFill="False" Visibility="{Binding this.OverlayVisibility}">
                     <s:SurfaceButton Content="B" DockPanel.Dock="Left" Width="100" Height="100" 
                             Command="{x:Static NavigationCommands.BrowseBack}" 
                             IsEnabled="{TemplateBinding CanGoBack}" />

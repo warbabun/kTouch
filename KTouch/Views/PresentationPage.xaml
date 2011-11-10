@@ -12,6 +12,6 @@
 	  Title="PresentationPage">
 	
 	<Grid>
-		<Controls:KTouchXpsViewer />
+		<Controls:KTouchXpsViewer x:Name="viewer" Document="{Binding File}"/>
 	</Grid>
 </Page>

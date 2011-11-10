@@ -11,7 +11,6 @@
 			 Grid.RowSpan="10"
 			 Grid.ColumnSpan="10"
 			 Focusable="True"
-			 Visibility="Collapsed"
 			 ManipulationDelta="manipulationDelta"
 			 ManipulationStarting="manipulationStarting"
 			 ManipulationInertiaStarting="inertiaStarting">

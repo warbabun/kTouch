@@ -22,7 +22,7 @@ namespace KTouch.Controls.Core {
         private static KTouchMessagePopup _messagePopup;
         public static KTouchMessagePopup MessagePopup {
             get {
-                if (_messagePopup == null) {
+                if(_messagePopup == null) {
                     _messagePopup = new KTouchMessagePopup();
                 }
                 return _messagePopup;
@@ -74,11 +74,10 @@ namespace KTouch.Controls.Core {
 
         protected override void OnPreviewTouchDown(TouchEventArgs e) {
             base.OnPreviewTouchDown(e);
-            Timer.TouchesCaptured = true;
         }
 
         public static void ShowInViewer(kItem item) {
-            switch (item.Type) {
+            switch(item.Type) {
                 case "vid":
                     MediaViewer.Source = item.File;
                     MediaViewer.Visibility = Visibility.Visible;

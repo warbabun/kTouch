@@ -1,29 +1,30 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Controls.Primitives;
 using Blake.NUI.WPF.Gestures;
 using KTouch.Controls.Core;
 using KTouch.Controls.ViewModel;
 using KTouch.Units;
+using KTouch.Views;
 using Microsoft.Surface.Presentation.Controls;
+using System.Windows.Controls;
 
 namespace KTouch {
 
     /// <summary>
     /// Encapsulates a main page of content that can be navigated to and hosted in kBrowser.
     /// </summary>
-    public partial class MainPage : kPage {
+    public partial class MainPage : Page {
 
         /// <summary>
         /// Constructor.
         /// </summary>
         public MainPage() {
-            InitializeComponent();
+            InitializeComponent(); 
 
             Events.RegisterGestureEventSupport(this);
             this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Navigate));
             this.AddHandler(Events.TapGestureEvent, new GestureEventHandler(Navigate));
-            DataContext = new KTouchFrontViewModel();
+            DataContext = new MainPageViewModel();
         }
 
         /// <summary>
@@ -42,9 +43,9 @@ namespace KTouch {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An RoutedEventArgs that contains the event data.</param>
         private void Play(object sender, RoutedEventArgs e) {
-            if (!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
+            if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
-                if (item != null)
+                if(item != null)
                     kPage.ShowInViewer((kItem)item.DataContext);
             }
             e.Handled = true;
@@ -56,13 +57,16 @@ namespace KTouch {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Navigate(object sender, RoutedEventArgs e) {
-            int id = 32167;
-            NavigationService.Navigate(new Uri("/PresentationPage.xaml?id=" + id.ToString(), UriKind.Relative));
-            Uri uri = new Uri(PageControl.PageDictionnary["PresentationPage"], UriKind.Relative);
-            if (!uri.Equals(NavigationService.CurrentSource)) {
-                NavigationService.Navigate(uri);
-            } else {
-                NavigationService.Refresh();
+            SurfaceListBox listBox = (SurfaceListBox)e.Source;
+            kItem item = (kItem)listBox.SelectedItem;
+            if(item != null) {
+                NavigationService.Navigate(new PresentationPage(item));
+                //Uri uri = new Uri(PageControl.PageDictionnary["PresentationPage"], UriKind.Relative);
+                //if(!uri.Equals(NavigationService.CurrentSource)) {
+                //    NavigationService.Navigate(uri);
+                //} else {
+                //    NavigationService.Refresh();
+                //}
             }
             e.Handled = true;
         }

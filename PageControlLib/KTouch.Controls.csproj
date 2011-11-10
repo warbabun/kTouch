@@ -100,8 +100,9 @@
     </Compile>
     <Compile Include="Model\Contact.cs" />
     <Compile Include="ViewModel\KTouchExtendedViewModel.cs" />
-    <Compile Include="ViewModel\KTouchFrontViewModel.cs" />
+    <Compile Include="ViewModel\MainPageViewModel.cs" />
     <Compile Include="ViewModel\KTouchMainViewModel.cs" />
+    <Compile Include="ViewModel\PresentationPageViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
     <Page Include="KTouchMediaPlayer.xaml">
       <SubType>Designer</SubType>

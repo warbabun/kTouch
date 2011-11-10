@@ -1,4 +1,4 @@
-﻿<Core:kPage x:Class="KTouch.MainPage" 
+﻿<Page x:Class="KTouch.MainPage" 
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			xmlns:s2="clr-namespace:Microsoft.Surface.Presentation.Generic;assembly=Microsoft.Surface.Presentation.Generic" 
@@ -14,7 +14,7 @@
 			d:DesignHeight="1080" 
 			d:DesignWidth="1920">
 
-	<Core:kPage.Resources>
+	<Page.Resources>
 
 		<Style x:Key="GenericListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
 			<Setter Property="Margin" Value="20,15,20,15"/>
@@ -89,8 +89,8 @@
 				</Setter.Value>
 			</Setter>
 		</Style>
-		
-	</Core:kPage.Resources>
+
+	</Page.Resources>
 	
 	<Grid x:Name="LayoutRoot">
 		
@@ -122,4 +122,4 @@
 		
 	</Grid>
 
-</Core:kPage>
+</Page>

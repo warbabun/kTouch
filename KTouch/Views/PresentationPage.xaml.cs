@@ -1,24 +1,16 @@
-﻿using System;
-using System.Windows.Controls;
-using System.Windows.Navigation;
+﻿using System.Windows.Controls;
+using KTouch.Controls.ViewModel;
+using KTouch.Units;
 
 namespace KTouch.Views {
     /// <summary>
     /// Interaction logic for PresentationPage.xaml
     /// </summary>
     public partial class PresentationPage : Page {
-        public PresentationPage() {
+
+        public PresentationPage(kItem item) {
             InitializeComponent();
-            this.NavigationService.Navigated += new NavigatedEventHandler(NavigationService_Navigated);
-        }
-
-        void NavigationService_Navigated(object sender, NavigationEventArgs e) {
-            Console.WriteLine("hello page!");
-            //e.Uri.Query.T
-            //if(e.Uri.TryGetValue("msg", out msg))
-
-            //    textBlock1.Text = msg;
-
+            this.DataContext = new PresentationPageViewModel(item);
         }
     }
 }
