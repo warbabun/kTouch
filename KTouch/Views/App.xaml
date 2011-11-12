@@ -13,6 +13,7 @@
 				<ResourceDictionary Source="/KTouch.Controls;component/Themes/KTouchStyles.xaml"/>
 				<ResourceDictionary Source="/KTouch.Controls;component/Themes/BrushDictionnary.xaml"/>
 				<ResourceDictionary Source="/KTouch.Controls;component/Themes/ConvertersDictionnary.xaml"/>
+				<ResourceDictionary Source="/KTouch.Controls;component/Themes/kStyles.xaml"/>
 			</ResourceDictionary.MergedDictionaries>		
 		</ResourceDictionary>		
 	</Application.Resources>

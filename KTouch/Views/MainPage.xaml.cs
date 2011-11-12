@@ -1,4 +1,5 @@
 ﻿using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using Blake.NUI.WPF.Gestures;
 using KTouch.Controls.Core;
@@ -6,7 +7,6 @@ using KTouch.Controls.ViewModel;
 using KTouch.Units;
 using KTouch.Views;
 using Microsoft.Surface.Presentation.Controls;
-using System.Windows.Controls;
 
 namespace KTouch {
 
@@ -19,12 +19,12 @@ namespace KTouch {
         /// Constructor.
         /// </summary>
         public MainPage() {
-            InitializeComponent(); 
+            InitializeComponent();
 
             Events.RegisterGestureEventSupport(this);
             this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Navigate));
             this.AddHandler(Events.TapGestureEvent, new GestureEventHandler(Navigate));
-            DataContext = new MainPageViewModel();
+            DataContext = new MainPageViewModel("XPS");
         }
 
         /// <summary>

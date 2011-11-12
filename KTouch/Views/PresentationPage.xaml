@@ -5,13 +5,46 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	  xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
 	  xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
-	  Background="{DynamicResource FrontPageBackground}"
 	  mc:Ignorable="d" 
 	  d:DesignHeight="1080" 
 	  d:DesignWidth="1920"
 	  Title="PresentationPage">
-	
-	<Grid>
-		<Controls:KTouchXpsViewer x:Name="viewer" Document="{Binding File}"/>
+	<Page.Background>
+		<!--<ImageBrush ImageSource="/KTouch.Controls;component/Themes/Resources/kTouch_FullScreen.png"/>-->
+		<ImageBrush ImageSource="/KTouch.Controls;component/Themes/Resources/fond.jpg"/>
+	</Page.Background>
+	<Grid Name="LayoutRoot" ClipToBounds="False">
+		<Grid.ColumnDefinitions>
+			<ColumnDefinition Width="175" />
+			<ColumnDefinition Width="1570*" />
+			<ColumnDefinition Width="175" />
+		</Grid.ColumnDefinitions>
+		<Grid.RowDefinitions>
+			<RowDefinition Height="75*" />
+			<RowDefinition Height="875*" />
+			<RowDefinition Height="130*" />
+		</Grid.RowDefinitions>
+		<Controls:KTouchXpsViewer x:Name="viewer" 
+									  Document="E:\Programming\KTouch\Main\Sources\PageControlLib\Themes\Resources\2009_Klee_Group_-_Formations_webmaster_Typo3.xps"
+									  Grid.Row="1"
+									  Grid.Column="1"/>
+		<Grid Name="GridOverlay" Grid.RowSpan="3" Grid.ColumnSpan="3">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="100" />
+                <ColumnDefinition Width="1720*" />
+                <ColumnDefinition Width="100" />
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+				<RowDefinition Height="830*" />
+				<RowDefinition Height="220*"/>
+				<RowDefinition Height="30*" />
+			</Grid.RowDefinitions>
+
+			<Surface:SurfaceListBox x:Name="xpsListBox" 
+									ItemsSource="{Binding ItemList}" 
+                                    Grid.Row="1" 
+                                    Grid.Column="1"/>
+		</Grid>
 	</Grid>
+
 </Page>

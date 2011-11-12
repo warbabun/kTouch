@@ -12,20 +12,13 @@ namespace KTouch {
     public partial class App : Application {
 
         /// <summary>
-        /// Current application instance of kLoader object.
-        /// </summary>
-        public kLoader Loader {
-            get;
-            private set;
-        }
-
-        /// <summary>
         /// Returns 'true' if the application content is loaded.
         /// </summary>
         public bool IsContentLoaded {
             get;
             private set;
         }
+
 
         /// <summary>
         /// Starts a Windows Presentation Foundation (WPF) application.
@@ -45,8 +38,9 @@ namespace KTouch {
             /* TODO : Never to use this because it overflows the system. */
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             ItemsLoader.LoadCollections(ConfigurationManager.AppSettings["InputCollections"]);
-            Loader = new kLoader(ConfigurationManager.AppSettings["ContentDirectory"]);
-            kLoader.ItemCollectionCreated += new EventHandler(kLoader_ItemCollectionCreated);
+            Loader<object>.LoadXDocument(ConfigurationManager.AppSettings["ContentDirectory"]);
+            Loader<object>.ItemCollectionCreated += new EventHandler(kLoader_ItemCollectionCreated);
+
         }
 
         void kLoader_ItemCollectionCreated(object sender, EventArgs e) {

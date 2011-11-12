@@ -15,6 +15,14 @@ namespace KTouch.Units {
         }
 
         /// <summary>
+        /// Tag of the collection.
+        /// </summary>
+        public string Tag {
+            get;
+            set;
+        }
+
+        /// <summary>
         /// Chemin vers le dossier de contenu.
         /// </summary>
         public string Directory {

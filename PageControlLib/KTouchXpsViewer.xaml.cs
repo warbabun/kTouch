@@ -50,10 +50,10 @@ namespace KTouch.Controls {
             InitializeComponent();
             Events.RegisterGestureEventSupport(this);
             Events.AddDoubleTapGestureHandler(this.xpsViewer, new GestureEventHandler(OnDoubleTapGesture));
-            this.CloseBtn.Click += (sender, e) => { 
-                this.IsOpen = false; 
-                e.Handled = true; 
-            };
+            //this.CloseBtn.Click += (sender, e) => { 
+            //    this.IsOpen = false; 
+            //    e.Handled = true; 
+            //};
         }
 
         public static readonly DependencyProperty DocumentProperty =
