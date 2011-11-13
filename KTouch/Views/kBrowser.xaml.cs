@@ -17,7 +17,6 @@ namespace KTouch {
         public kBrowser() {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(kBrowser_Loaded);
-
         }
 
         /// <summary>
@@ -44,6 +43,11 @@ namespace KTouch {
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
         void kBrowser_Loaded(object sender, System.Windows.RoutedEventArgs e) {
+            //_mainFrame.NavigationService.Navigate(new Uri("/Views/ImportFiles.xaml", UriKind.Relative));
+            _mainFrame.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
+        }
+
+        private void SurfaceButton_Click(object sender, RoutedEventArgs e) {
             _mainFrame.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
         }
     }

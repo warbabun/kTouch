@@ -34,6 +34,7 @@
                         <s:SurfaceButton Width="100" 
                                      Height="100" 
                                      Style="{StaticResource NavigationButtonExitStyle}" 
+                                     Click="SurfaceButton_Click"
                                      VerticalAlignment="Top"/>
                     </Grid>
                    
