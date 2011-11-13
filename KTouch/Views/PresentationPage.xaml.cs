@@ -8,9 +8,12 @@ namespace KTouch.Views {
     /// </summary>
     public partial class PresentationPage : Page {
 
+        private PresentationPageViewModel _vm;
+
         public PresentationPage(kItem item) {
             InitializeComponent();
-            this.DataContext = new PresentationPageViewModel(item);
+            _vm = new PresentationPageViewModel(item);
+            this.DataContext = _vm;
         }
     }
 }

@@ -15,16 +15,32 @@ namespace KTouch {
     /// </summary>
     public partial class MainPage : Page {
 
+        private readonly string _tag;
+        protected string CurrentTag {
+            get {
+                return !string.IsNullOrEmpty(_tag) ? _tag : "kTouchContent";
+            }
+        }
+
         /// <summary>
         /// Constructor.
         /// </summary>
         public MainPage() {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+        }
 
-            Events.RegisterGestureEventSupport(this);
-            this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Navigate));
-            this.AddHandler(Events.TapGestureEvent, new GestureEventHandler(Navigate));
-            DataContext = new MainPageViewModel("XPS");
+        public MainPage(string tag) {
+            InitializeComponent();
+            this._tag = tag;
+            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+        }
+
+        void MainPage_Loaded(object sender, RoutedEventArgs e) {
+            //Events.RegisterGestureEventSupport(this);
+            //this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Navigate));
+            //this.AddHandler(Events.TapGestureEvent, new GestureEventHandler(Navigate));
+            DataContext = new MainPageViewModel(_tag);
         }
 
         /// <summary>
@@ -51,24 +67,6 @@ namespace KTouch {
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Navigates the 
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        protected void Navigate(object sender, RoutedEventArgs e) {
-            SurfaceListBox listBox = (SurfaceListBox)e.Source;
-            kItem item = (kItem)listBox.SelectedItem;
-            if(item != null) {
-                NavigationService.Navigate(new PresentationPage(item));
-                //Uri uri = new Uri(PageControl.PageDictionnary["PresentationPage"], UriKind.Relative);
-                //if(!uri.Equals(NavigationService.CurrentSource)) {
-                //    NavigationService.Navigate(uri);
-                //} else {
-                //    NavigationService.Refresh();
-                //}
-            }
-            e.Handled = true;
-        }
+       
     }
 }

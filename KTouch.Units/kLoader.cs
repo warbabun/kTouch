@@ -16,15 +16,16 @@ namespace KTouch.Units {
     public class Loader<T> {
         public delegate T Wrapper(XElement result);
         public delegate IEnumerable<XElement> TagQuery(object tag);
-        public delegate void ReturnItemCallBack(ICollection<T> collection);
+        public delegate void ReturnItemCallBack(ICollection<T> collection, int threadId);
         public delegate void ItemArrivedEventHandler(kItem obj);
 
-        public static event ItemArrivedEventHandler ItemArrived;
+        public event ItemArrivedEventHandler ItemArrived;
         public static event EventHandler DocumentLoaded;
-        public static event EventHandler ItemCollectionCreated;
+        public event EventHandler ItemCollectionCreated;
 
-        public readonly ObservableCollection<T> _currentItemCollection;
+        private ObservableCollection<T> _currentItemCollection;
         private static XDocument _document;
+        private readonly Dictionary<int, ObservableCollection<T>> _threadOCPool;
 
         /// <summary>
         /// Returns the reference document.
@@ -57,7 +58,7 @@ namespace KTouch.Units {
         /// Loads a view model item collection with T elements in a background thread.
         /// </summary>
         /// <param name="viewModelItemCollection">Reference to the processed view model item collection.</param>
-        public Loader(ref ObservableCollection<T> viewModelItemCollection) {
+        public Loader() {
             if(Document == null) {
                 try {
                     _document = Loader<object>.Document;
@@ -65,8 +66,7 @@ namespace KTouch.Units {
                     throw new ArgumentNullException("Document");
                 }
             }
-            _currentItemCollection = viewModelItemCollection;
-
+            _threadOCPool = new Dictionary<int, ObservableCollection<T>>();
         }
 
         /// <summary>
@@ -76,7 +76,7 @@ namespace KTouch.Units {
         /// <param name="query">Query function.</param>
         /// <param name="queryResultsWrapper">Query results wrapper.</param>
         /// <param name="returnItemCallback">Return item callback.</param>
-        public void StartLoad(object parameter, TagQuery query, Wrapper queryResultsWrapper = null, ReturnItemCallBack returnItemCallback = null) {
+        public void StartLoad(ref ObservableCollection<T> viewModelItemCollection, object parameter, TagQuery query, Wrapper queryResultsWrapper = null, ReturnItemCallBack returnItemCallback = null) {
             Dispatcher CurrentDispatcher = Application.Current.Dispatcher;
             ParameterizedThreadStart threadStart = new ParameterizedThreadStart(delegate(object startParameter) {
                 /* Необходимо, читай критично, чтобы входной параметр callback функции совпадал с выходным параметром query. */
@@ -84,13 +84,14 @@ namespace KTouch.Units {
                 IEnumerable<XElement> queryResults = query(startParameter);
                 ICollection<T> results = WrapQueryResults(queryResults, queryResultsWrapper);
                 ReturnItemCallBack callback = returnItemCallback ?? DefaultReturnItemCallback;
-                DispatcherOperation dispatcherOp = CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, callback, results);
+                DispatcherOperation dispatcherOp = CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, callback, results, Thread.CurrentThread.ManagedThreadId);
                 if(dispatcherOp != null) {
                     dispatcherOp.Completed += ItemCollectionCreated;
                 }
             });
             Thread loadingThread = new Thread(threadStart);
             loadingThread.Start(parameter);
+            this._threadOCPool.Add(loadingThread.ManagedThreadId, viewModelItemCollection);
         }
 
         /// <summary>
@@ -143,7 +144,8 @@ namespace KTouch.Units {
         /// Returns a new item the UI collection in a default way.
         /// </summary>
         /// <param name="result">Collection of T items.</param>
-        public void DefaultReturnItemCallback(ICollection<T> result) {
+        public void DefaultReturnItemCallback(ICollection<T> result, int threadId) {
+            _currentItemCollection = this._threadOCPool[threadId];
             ICollection<T> collection = (ICollection<T>)result;
             foreach(T item in collection) {
                 this._currentItemCollection.Add(item);

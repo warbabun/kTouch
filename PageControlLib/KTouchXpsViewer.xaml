@@ -7,7 +7,6 @@
 			 x:Name="kTouchXpsViewer"
 			 IsManipulationEnabled="True"
              Background="{DynamicResource XpsItemBackgroundBrush}"
-             Padding="25"
 			 ManipulationDelta="manipulationDelta"
 			 ManipulationStarting="manipulationStarting"
 			 ManipulationInertiaStarting="inertiaStarting">
@@ -22,17 +21,17 @@
                     <ControlTemplate TargetType="{x:Type DocumentViewer}">
                         <Grid x:Name="mainBorder">
                             <!-- Rounded mask (stretches to fill Grid) -->
-                            <Border Name="mask" CornerRadius="10" Background="#FFFFE599"/>
+                            <Border Name="mask" CornerRadius="10" Opacity="0.4" Background="White"/>
                             <!-- Main content container -->
                             <Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
-                                                         Padding="10"
+                                                         Padding="5"
                                                          HorizontalScrollBarVisibility="Disabled" 
                                                          VerticalScrollBarVisibility="Disabled">
 
                                 <!-- Use a VisualBrush of 'mask' as the opacity mask -->
-                                <Surface:SurfaceScrollViewer.OpacityMask>
+                                <!--<Surface:SurfaceScrollViewer.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=mask}"/>
-                                </Surface:SurfaceScrollViewer.OpacityMask>
+                                </Surface:SurfaceScrollViewer.OpacityMask>-->
                             </Surface:SurfaceScrollViewer>
                             <Canvas IsHitTestVisible="True" IsManipulationEnabled="True" Background="Transparent"/>
                         </Grid>

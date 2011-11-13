@@ -2,6 +2,8 @@
 using System.Windows;
 using System.Windows.Input;
 using System.Windows.Threading;
+using KTouch.Units;
+using KTouch.Views;
 
 namespace KTouch {
 
@@ -34,7 +36,25 @@ namespace KTouch {
             _dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
             _dispatcherTimer.Start();
             this.OverlayVisibility = Visibility.Visible;
-            this.PreviewTouchDown += new EventHandler<TouchEventArgs>(kBrowser_PreviewTouchDown);
+            //this.PreviewTouchDown += new EventHandler<TouchEventArgs>(Navigate);
+        }
+
+        /// <summary>
+        /// Navigates the 
+        /// </summary>
+        /// <param name="sender"></param>
+        /// <param name="e"></param>
+        protected void Navigate(object sender, TouchEventArgs e) {
+            object item = ((FrameworkElement)e.OriginalSource).DataContext;
+            //SurfaceListBox listBox = (SurfaceListBox)e.Source;
+            //object item = listBox.SelectedItem;
+            //kItem item = (kItem);
+            if(item is kItem) {
+                _mainFrame.NavigationService.Navigate(new PresentationPage((kItem)item));
+            } else if(item is string) {
+                _mainFrame.NavigationService.Navigate(new MainPage((string)item));
+            }
+            e.Handled = true;
         }
 
         /// <summary>
@@ -55,6 +75,8 @@ namespace KTouch {
         /// <param name="e">Event argument.</param>
         void kBrowser_Loaded(object sender, System.Windows.RoutedEventArgs e) {
             _mainFrame.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
+            // this._mainFrame.FindName("content");
+            //((FrameworkElement)_mainFrame.Content).PreviewTouchDown += new EventHandler<TouchEventArgs>(Navigate);
         }
 
         /// <summary>

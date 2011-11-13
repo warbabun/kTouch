@@ -39,11 +39,11 @@ namespace KTouch {
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
             ItemsLoader.LoadCollections(ConfigurationManager.AppSettings["InputCollections"]);
             Loader<object>.LoadXDocument(ConfigurationManager.AppSettings["ContentDirectory"]);
-            Loader<object>.ItemCollectionCreated += new EventHandler(kLoader_ItemCollectionCreated);
+            Loader<object>.DocumentLoaded += new EventHandler(kLoader_DocumentLoaded);
 
         }
 
-        void kLoader_ItemCollectionCreated(object sender, EventArgs e) {
+        void kLoader_DocumentLoaded(object sender, EventArgs e) {
             this.IsContentLoaded = true;
         }
 

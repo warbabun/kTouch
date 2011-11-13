@@ -4,121 +4,146 @@
 					xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
 					xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units">
 
-	<Units:MultiplicationConverter x:Key="mConverter"/>
+    <Units:MultiplicationConverter x:Key="mConverter"/>
 
-	<Style x:Key="GenericListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
-		<Setter Property="ClipToBounds" Value="False"/>
-		<Setter Property="Margin" Value="50,10,50,10"/>
-		<!--<Setter Property="Background" Value="{DynamicResource XpsItemBackgroundBrush}" />-->
-		<Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
-		<Setter Property="BorderThickness" Value="0"/>
-		<Setter Property="RenderTransform">
-			<Setter.Value>
-				<TransformGroup>
-					<ScaleTransform/>
-				</TransformGroup>
-			</Setter.Value>
-		</Setter>
-		<Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBoxItem}">
-					<Grid x:Name="mainBorder">
-						<!-- Rounded mask (stretches to fill Grid) -->
-						<Border Name="mask" CornerRadius="7" Background="#FFFFE599"></Border>
-						<!-- Main content container -->
-						<Border x:Name="itemBorder" Padding="5">
-							<!-- Use a VisualBrush of 'mask' as the opacity mask -->
-							<Border.OpacityMask>
-								<VisualBrush Visual="{Binding ElementName=mask}"/>
-							</Border.OpacityMask>
-							<ContentPresenter />
-						</Border>
-						<s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
+    <Style x:Key="DefaultListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="Margin" Value="25,10,25,10"/>
+        <!--<Setter Property="Background" Value="{DynamicResource XpsItemBackgroundBrush}" />-->
+        <Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
+        <Setter Property="BorderThickness" Value="0"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Foreground" Value="Orange"/>
+        <Setter Property="RenderTransform">
+            <Setter.Value>
+                <TransformGroup>
+                    <ScaleTransform/>
+                </TransformGroup>
+            </Setter.Value>
+        </Setter>
+        <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceListBoxItem}">
+                    <Grid x:Name="mainBorder">
+                        <!-- Rounded mask (stretches to fill Grid) -->
+                        <Border Name="mask" CornerRadius="10" Opacity="0.4" Background="White"></Border>
+                        <!-- Main content container -->
+                        <Border x:Name="itemBorder" Padding="5">
+                            <!-- Use a VisualBrush of 'mask' as the opacity mask -->
+
+                            <ContentPresenter HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" />
+                        </Border>
+                        <s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
 												Style="{DynamicResource ShadowChromeStyle}"/>
-					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsPressed"
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed"
 									 Value="True">
-							<Trigger.EnterActions>
-								<BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
-							</Trigger.ExitActions>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-		<Style.Triggers>
-			<Trigger Property="IsSelected" Value="True">
-				<Trigger.EnterActions>
-					<BeginStoryboard Storyboard="{StaticResource Select}" />
-				</Trigger.EnterActions>
-				<Trigger.ExitActions>
-					<BeginStoryboard Storyboard="{StaticResource Unselect}" />
-				</Trigger.ExitActions>
-			</Trigger>
-		</Style.Triggers>
-	</Style>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="IsSelected" Value="True">
+                <Trigger.EnterActions>
+                    <BeginStoryboard Storyboard="{StaticResource Select}" />
+                </Trigger.EnterActions>
+                <Trigger.ExitActions>
+                    <BeginStoryboard Storyboard="{StaticResource Unselect}" />
+                </Trigger.ExitActions>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
 
-	<Style x:Key="XpsListBoxItemStyle" 
+    <Style x:Key="OverlayListBoxItemStyle" 
+			   TargetType="{x:Type Surface:SurfaceListBoxItem}" 
+			   BasedOn="{StaticResource DefaultListBoxItemStyle}">
+        <Setter Property="Margin" Value="50,10,50,10"/>
+    </Style>
+
+    <Style x:Key="DefaultListBoxStyle" TargetType="{x:Type Surface:SurfaceListBox}">
+        <Setter Property="Background" Value="Transparent"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="ItemContainerStyle" Value="{StaticResource DefaultListBoxItemStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
+                    <Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                        <StackPanel Orientation="Horizontal" IsItemsHost="True" />
+                    </Surface:SurfaceScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <DataTemplate x:Key="ImageData">
+        <Image Source="{Binding CoverFile}"/>
+    </DataTemplate>
+    
+    <Style x:Key="XpsListBoxStyle" 
+           TargetType="{x:Type Surface:SurfaceListBox}"
+           BasedOn="{StaticResource DefaultListBoxStyle}">
+        <Setter Property="ItemTemplate" Value="{StaticResource ImageData}"/>
+    </Style>
+
+    <Style x:Key="OverlayListBoxStyle" 
+           TargetType="{x:Type Surface:SurfaceListBox}"
+           BasedOn="{StaticResource XpsListBoxStyle}">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource OverlayListBoxItemStyle}"/>
+    </Style>
+
+
+    <Style x:Key="XpsListBoxItemStyle" 
 			   TargetType="{x:Type Surface:SurfaceListBoxItem}" 
 			   BasedOn="{StaticResource GenericListBoxItemStyle}">
-		<Setter Property="Margin" Value="22.5,10,22.5,10"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBoxItem}">
-					<Grid x:Name="mainBorder">
-						<!-- Rounded mask (stretches to fill Grid) -->
-						<Border Name="mask" CornerRadius="7" Background="#FFFFE599"></Border>
-						<!-- Main content container -->
-						<Border x:Name="itemBorder" Padding="5">
-							<!-- Use a VisualBrush of 'mask' as the opacity mask -->
-							<Border.OpacityMask>
-								<VisualBrush Visual="{Binding ElementName=mask}"/>
-							</Border.OpacityMask>
-							<Image Source="{Binding CoverFile}">
-							</Image>
-						</Border>
-						<s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
+        <Setter Property="Margin" Value="22.5,10,22.5,15"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceListBoxItem}">
+                    <Grid x:Name="mainBorder">
+                        <!-- Rounded mask (stretches to fill Grid) #FFFFE599-->
+                        <Border Name="mask" CornerRadius="10" Opacity="0.4" Background="White"></Border>
+                        <!-- Main content container -->
+                        <Border x:Name="itemBorder" Padding="5">
+                            <!-- Use a VisualBrush of 'mask' as the opacity mask -->
+                            <!--<Border.OpacityMask>
+                                <VisualBrush Visual="{Binding ElementName=mask}"/>
+                            </Border.OpacityMask>-->
+                            <Image Source="{Binding CoverFile}">
+                            </Image>
+                        </Border>
+                        <s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
 												Style="{DynamicResource ShadowChromeStyle}"/>
-					</Grid>
-					<ControlTemplate.Triggers>
-						<Trigger Property="IsPressed"
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed"
 									 Value="True">
-							<Trigger.EnterActions>
-								<BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
-							</Trigger.EnterActions>
-							<Trigger.ExitActions>
-								<BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
-							</Trigger.ExitActions>
-						</Trigger>
-					</ControlTemplate.Triggers>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 
-	<Style x:Key="OverlyaListBoxItemStyle" 
-			   TargetType="{x:Type Surface:SurfaceListBoxItem}" 
-			   BasedOn="{StaticResource XpsListBoxItemStyle}">
-		<Setter Property="Margin" Value="22.5,15,22.5,15"/>
-	</Style>
+    
 
-	<Style TargetType="Surface:SurfaceListBox">
-		<Setter Property="Background" Value="Transparent"/>
-		<Setter Property="HorizontalContentAlignment" Value="Center"/>
-		<Setter Property="ClipToBounds" Value="False"/>
-		<Setter Property="Template">
-			<Setter.Value>
-				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
-					<Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
-						<StackPanel Orientation="Horizontal" IsItemsHost="True" />
-					</Surface:SurfaceScrollViewer>
-				</ControlTemplate>
-			</Setter.Value>
-		</Setter>
-	</Style>
+    
+    <!--<Setter Property="ItemTemplate" Value="{StaticResource ImageData}"/>-->
+   
 </ResourceDictionary>

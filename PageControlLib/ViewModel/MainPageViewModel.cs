@@ -9,6 +9,14 @@ namespace KTouch.Controls.ViewModel {
 
     public class MainPageViewModel {
 
+        private readonly string _currentTag;
+
+        public string CurrentTag {
+            get {
+                return _currentTag;
+            }
+        }
+
         private readonly ObservableCollection<string> _tagList;
         public ObservableCollection<string> TagList {
             get {
@@ -16,10 +24,17 @@ namespace KTouch.Controls.ViewModel {
             }
         }
 
-        private ObservableCollection<kItem> _itemList;
-        public ObservableCollection<kItem> ItemList {
+        private ObservableCollection<kItem> _firstRowItemList;
+        public ObservableCollection<kItem> FirstRowItemList {
             get {
-                return _itemList;
+                return _firstRowItemList;
+            }
+        }
+
+        private ObservableCollection<kItem> _secondRowItemList;
+        public ObservableCollection<kItem> SecondRowItemList {
+            get {
+                return _secondRowItemList;
             }
         }
 
@@ -57,18 +72,28 @@ namespace KTouch.Controls.ViewModel {
         }
 
         public MainPageViewModel(string tag) {
+            _currentTag = tag;
             _tagList = new ObservableCollection<string>();
-            _itemList = new ObservableCollection<kItem>();
+            _firstRowItemList = new ObservableCollection<kItem>();
+            _secondRowItemList = new ObservableCollection<kItem>();
+            Loader<string> tagLoader = new Loader<string>();
+            tagLoader.ItemCollectionCreated += new EventHandler(MainPageViewModel_ItemCollectionCreated);
+            tagLoader.StartLoad(ref _tagList, null, LoadTagCollection, StringWrapper);
+        }
 
-            new Loader<kItem>(ref _itemList).StartLoad(tag, LoadMainPageCollectionByTag);
-            new Loader<string>(ref _tagList).StartLoad(null, LoadTagCollection, StringWrapper);
-
-            //  Loader.ItemArrived += new Loader.ItemArrivedEventHandler(kLoader_ItemReceived);
-            //     Loader.LoadTagCollection();
+        void MainPageViewModel_ItemCollectionCreated(object sender, EventArgs e) {
+            Loader<kItem> kItemLoader = new Loader<kItem>();
+            string firstTag = CurrentTag;
+            if(string.IsNullOrEmpty(firstTag)) {
+                firstTag = this.TagList.First();
+                string secondTag = this.TagList.Last();
+                kItemLoader.StartLoad(ref _secondRowItemList, secondTag, LoadMainPageCollectionByTag);
+            } 
+            kItemLoader.StartLoad(ref _firstRowItemList, firstTag, LoadMainPageCollectionByTag);
         }
 
         //void kLoader_ItemReceived(kItem obj) {
-        //    this.ItemList.Add(obj);
+        //    this.FirstRowItemList.Add(obj);
         //}
     }
 }
