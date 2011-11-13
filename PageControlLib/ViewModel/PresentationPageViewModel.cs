@@ -1,7 +1,9 @@
-﻿using System.Collections.Generic;
+﻿using System;
+using System.Collections.Generic;
 using System.Collections.ObjectModel;
 using System.Linq;
 using System.Windows;
+using System.Windows.Threading;
 using System.Xml.Linq;
 using KTouch.Units;
 
@@ -43,6 +45,23 @@ namespace KTouch.Controls.ViewModel {
             vm.Item = (kItem)e.NewValue;
         }
 
+        /// <summary>
+        /// Timer.
+        /// </summary>
+        private readonly DispatcherTimer _dispatcherTimer;
+
+        /// <summary>
+        /// Returns 'true' if the object should be visible.
+        /// </summary>
+        public Visibility OverlayVisibility {
+            get { return (Visibility)GetValue(OverlayVisibilityProperty); }
+            set { SetValue(OverlayVisibilityProperty, value); }
+        }
+
+        public static readonly DependencyProperty OverlayVisibilityProperty =
+            DependencyProperty.Register("OverlayVisibility", typeof(Visibility), typeof(PresentationPageViewModel), new UIPropertyMetadata(Visibility.Visible));
+
+
         public IEnumerable<XElement> LoadMainPageCollectionByTag(object tag) {
             string tagValue = (string)tag;
             XElement root = Loader<kItem>.Root;
@@ -60,6 +79,28 @@ namespace KTouch.Controls.ViewModel {
             _itemList = new ObservableCollection<kItem>();
             Loader<kItem> kItemloader = new Loader<kItem>();
             kItemloader.StartLoad(ref _itemList, item.Tag, this.LoadMainPageCollectionByTag);
+
+            _dispatcherTimer = new DispatcherTimer();
+            _dispatcherTimer.Tick += new EventHandler(_dispatcherTimer_Tick);
+            _dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
+            _dispatcherTimer.Start();
+            this.OverlayVisibility = Visibility.Visible;
+        }
+
+        public void RestartTimer() {
+            _dispatcherTimer.Stop();
+            this.OverlayVisibility = Visibility.Visible;
+            _dispatcherTimer.Start();
+        }
+
+        /// <summary>
+        /// If no activity is registered withing the next interval timer is stopped, element is hid.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void _dispatcherTimer_Tick(object sender, EventArgs e) {
+            this.OverlayVisibility = Visibility.Hidden;
+            _dispatcherTimer.Stop();
         }
     }
 }

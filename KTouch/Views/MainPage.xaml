@@ -13,34 +13,34 @@
 			mc:Ignorable="d" 
 			d:DesignHeight="1080" 
 			d:DesignWidth="1920"
-            Background="Transparent">
-    <!--Background="{DynamicResource FrontPageBackground}"-->
+			Background="Transparent">
+	<!--Background="{DynamicResource FrontPageBackground}"-->
    
 
-        <Grid  Name="LayoutRoot" ClipToBounds="False">
-                <Grid.RowDefinitions>
-                    <RowDefinition Height="150*" />
-                    <RowDefinition Height="300*" />
-                    <RowDefinition Height="300*" />
-                    <RowDefinition Height="300*"/>
-                    <RowDefinition Height="30*" />
-                </Grid.RowDefinitions>
-            <Surface:SurfaceListBox x:Name="xpsListBox" 
-                                    Style="{StaticResource XpsListBoxStyle}"
+		<Grid  Name="LayoutRoot" ClipToBounds="False">
+				<Grid.RowDefinitions>
+					<RowDefinition Height="150*" />
+					<RowDefinition Height="300*" />
+					<RowDefinition Height="300*" />
+					<RowDefinition Height="300*"/>
+					<RowDefinition Height="30*" />
+				</Grid.RowDefinitions>
+			<Surface:SurfaceListBox x:Name="xpsListBox" 
+									Style="{StaticResource XpsListBoxStyle}"
 									ItemsSource="{Binding FirstRowItemList}" Grid.Row="1"/>
-            <Surface:SurfaceListBox x:Name="picListBox"
-                                    Style="{StaticResource XpsListBoxStyle}"
+			<Surface:SurfaceListBox x:Name="picListBox"
+									Style="{StaticResource XpsListBoxStyle}"
 									ItemsSource="{Binding SecondRowItemList}" 
-                                    Grid.Row="2" />
-            <Surface:SurfaceListBox x:Name="BtnListBox" 
-                                    Style="{StaticResource DefaultListBoxStyle}"
+									Grid.Row="2" />
+			<Surface:SurfaceListBox x:Name="BtnListBox" 
+									Style="{StaticResource DefaultListBoxStyle}"
 									ItemsSource="{Binding TagList}"
-                                    HorizontalAlignment="Center"
+									HorizontalAlignment="Center"
 									Grid.Row="3"  
-                                    FontFamily="Arial"
-                                    FontSize="22"
-                                    FontWeight="Bold"
-                                    Foreground="Gold"
-                                />
-        </Grid>
+									FontFamily="Arial"
+									FontSize="22"
+									FontWeight="Bold"
+									Foreground="Gold"
+								/>
+		</Grid>
 </Page>

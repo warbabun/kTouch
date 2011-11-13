@@ -5,6 +5,7 @@
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	  xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
 	  xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
+	  xmlns:b="clr-namespace:KTouch"
 	  mc:Ignorable="d" 
 	  d:DesignHeight="1080" 
 	  d:DesignWidth="1920"
@@ -20,7 +21,7 @@
 		<Controls:KTouchXpsViewer x:Name="viewer" 
 									  Document="{Binding LastItem.File}"
 									  Grid.Row="1"
-                                      Margin="25,10,25,10"
+									  Margin="25,10,25,10"
 									 />
 		<Grid Name="GridOverlay" Grid.RowSpan="3" Grid.ColumnSpan="3">
 			
@@ -31,10 +32,11 @@
 			</Grid.RowDefinitions>
 
 			<Surface:SurfaceListBox x:Name="xpsListBox" 
-                                    Style="{StaticResource OverlayListBoxStyle}"
+									Style="{StaticResource OverlayListBoxStyle}"
 									SelectedItem="{Binding Item}"
 									ItemsSource="{Binding ItemList}" 
-									Grid.Row="1"/>
+									Grid.Row="1"
+									Visibility="{Binding Path=OverlayVisibility}"/>
 		</Grid>
 	</Grid>
 
