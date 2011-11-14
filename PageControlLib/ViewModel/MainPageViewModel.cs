@@ -9,11 +9,15 @@ namespace KTouch.Controls.ViewModel {
 
     public class MainPageViewModel {
 
-        private readonly string _currentTag;
+        private string _currentTag;
 
         public string CurrentTag {
             get {
                 return _currentTag;
+                //return !string.IsNullOrEmpty(_currentTag) ? _currentTag : "kContent";
+            }
+            set {
+                _currentTag = value;
             }
         }
 
@@ -65,7 +69,7 @@ namespace KTouch.Controls.ViewModel {
         }
 
         public string StringWrapper(XElement node) {
-            if(node.IsEmpty) {
+            if (node.IsEmpty) {
                 throw new ArgumentNullException("node");
             }
             return node.Value;
@@ -84,11 +88,11 @@ namespace KTouch.Controls.ViewModel {
         void MainPageViewModel_ItemCollectionCreated(object sender, EventArgs e) {
             Loader<kItem> kItemLoader = new Loader<kItem>();
             string firstTag = CurrentTag;
-            if(string.IsNullOrEmpty(firstTag)) {
+            if (string.IsNullOrEmpty(firstTag)) {
                 firstTag = this.TagList.First();
                 string secondTag = this.TagList.Last();
                 kItemLoader.StartLoad(ref _secondRowItemList, secondTag, LoadMainPageCollectionByTag);
-            } 
+            }
             kItemLoader.StartLoad(ref _firstRowItemList, firstTag, LoadMainPageCollectionByTag);
         }
 

@@ -33,8 +33,9 @@
 									ItemsSource="{Binding SecondRowItemList}" 
 									Grid.Row="2" />
 			<Surface:SurfaceListBox x:Name="BtnListBox" 
-									Style="{StaticResource DefaultListBoxStyle}"
+									Style="{StaticResource TagListBoxStyle}"
 									ItemsSource="{Binding TagList}"
+                              	    SelectedItem="{Binding CurrentTag}"
 									HorizontalAlignment="Center"
 									Grid.Row="3"  
 									FontFamily="Arial"

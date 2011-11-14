@@ -1,11 +1,9 @@
 ﻿using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using Blake.NUI.WPF.Gestures;
 using KTouch.Controls.Core;
 using KTouch.Controls.ViewModel;
 using KTouch.Units;
-using KTouch.Views;
 using Microsoft.Surface.Presentation.Controls;
 
 namespace KTouch {
@@ -15,12 +13,14 @@ namespace KTouch {
     /// </summary>
     public partial class MainPage : Page {
 
-        private readonly string _tag;
-        protected string CurrentTag {
-            get {
-                return !string.IsNullOrEmpty(_tag) ? _tag : "kTouchContent";
-            }
-        }
+        private MainPageViewModel _vm;
+
+        //private readonly string _tag;
+        //protected string CurrentTag {
+        //    get {
+        //        return !string.IsNullOrEmpty(_tag) ? _tag : "kTouchContent";
+        //    }
+        //}
 
         /// <summary>
         /// Constructor.
@@ -28,19 +28,22 @@ namespace KTouch {
         public MainPage() {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            _vm = new MainPageViewModel(string.Empty);
+
         }
 
         public MainPage(string tag) {
             InitializeComponent();
-            this._tag = tag;
+            //   this._tag = tag;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            _vm = new MainPageViewModel(tag);
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e) {
             //Events.RegisterGestureEventSupport(this);
             //this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Navigate));
             //this.AddHandler(Events.TapGestureEvent, new GestureEventHandler(Navigate));
-            DataContext = new MainPageViewModel(_tag);
+            DataContext = _vm;
         }
 
         /// <summary>
@@ -59,14 +62,14 @@ namespace KTouch {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An RoutedEventArgs that contains the event data.</param>
         private void Play(object sender, RoutedEventArgs e) {
-            if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
+            if (!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
-                if(item != null)
+                if (item != null)
                     kPage.ShowInViewer((kItem)item.DataContext);
             }
             e.Handled = true;
         }
 
-       
+
     }
 }
