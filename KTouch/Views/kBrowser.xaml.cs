@@ -1,5 +1,4 @@
-﻿using System;
-using System.Windows;
+﻿using System.Windows;
 using System.Windows.Input;
 using KTouch.Units;
 using KTouch.Views;
@@ -25,14 +24,14 @@ namespace KTouch {
         /// <param name="sender"></param>
         /// <param name="e"></param>
         protected void Navigate(object sender, TouchEventArgs e) {
-            object item = ((FrameworkElement)e.OriginalSource).DataContext;
-            //SurfaceListBox listBox = (SurfaceListBox)e.Source;
-            //object item = listBox.SelectedItem;
-            //kItem item = (kItem);
-            if(item is kItem) {
-                _mainFrame.NavigationService.Navigate(new PresentationPage((kItem)item));
-            } else if(item is string) {
-                _mainFrame.NavigationService.Navigate(new MainPage((string)item));
+            object source = ((FrameworkElement)e.OriginalSource).DataContext;
+            if (source is Item) {
+                Item item = (Item)source;
+                if ("dir".Equals(item.Type)) {
+                    _mainFrame.NavigationService.Navigate(new MainPage((Item)item));
+                } else {
+                    _mainFrame.NavigationService.Navigate(new PresentationPage((Item)item));
+                }
             }
             e.Handled = true;
         }
@@ -42,13 +41,12 @@ namespace KTouch {
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
-        void kBrowser_Loaded(object sender, System.Windows.RoutedEventArgs e) {
-            //_mainFrame.NavigationService.Navigate(new Uri("/Views/ImportFiles.xaml", UriKind.Relative));
-            _mainFrame.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
+        void kBrowser_Loaded(object sender, RoutedEventArgs e) {
+            _mainFrame.NavigationService.Navigate(new MainPage());
         }
 
         private void SurfaceButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.NavigationService.Navigate(new Uri("/Views/MainPage.xaml", UriKind.Relative));
+            _mainFrame.NavigationService.Navigate(new MainPage());
         }
     }
 }

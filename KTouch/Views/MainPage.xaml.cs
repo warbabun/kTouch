@@ -15,28 +15,19 @@ namespace KTouch {
 
         private MainPageViewModel _vm;
 
-        //private readonly string _tag;
-        //protected string CurrentTag {
-        //    get {
-        //        return !string.IsNullOrEmpty(_tag) ? _tag : "kTouchContent";
-        //    }
-        //}
-
         /// <summary>
         /// Constructor.
         /// </summary>
         public MainPage() {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            _vm = new MainPageViewModel(string.Empty);
-
+            _vm = new MainPageViewModel();
         }
 
-        public MainPage(string tag) {
+        public MainPage(Item item) {
             InitializeComponent();
-            //   this._tag = tag;
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            _vm = new MainPageViewModel(tag);
+            _vm = new MainPageViewModel(item);
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e) {
@@ -65,11 +56,9 @@ namespace KTouch {
             if (!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
                 if (item != null)
-                    kPage.ShowInViewer((kItem)item.DataContext);
+                    kPage.ShowInViewer((Item)item.DataContext);
             }
             e.Handled = true;
         }
-
-
     }
 }

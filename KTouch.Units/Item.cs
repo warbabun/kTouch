@@ -5,40 +5,23 @@ namespace KTouch.Units {
     /// <summary>
     /// Classe représentant un élément présenté dans l'application.
     /// </summary>
-    public class kItem : INotifyPropertyChanged {
+    public class Item : INotifyPropertyChanged {
 
-        private int _id;
         private string _tag = string.Empty;
         private string _directory = string.Empty;
         private string _coverFile = string.Empty;
-        private string _title = string.Empty;
+        private string _name = string.Empty;
         private string _description = string.Empty;
         private string _type = string.Empty;
-        private string _file = string.Empty;
+        private string _fullName = string.Empty;
 
         public event PropertyChangedEventHandler PropertyChanged;
 
         private void NotifyPropertyChanged(string info) {
-            if(PropertyChanged != null) {
+            if (PropertyChanged != null) {
                 PropertyChanged(this, new PropertyChangedEventArgs(info));
             }
         }
-
-        /// <summary>
-        /// Technical identifier of the object.
-        /// </summary>
-        public int Id {
-            get {
-                return this._id;
-            }
-            set {
-                if(value != this._id) {
-                    this._id = value;
-                    NotifyPropertyChanged("Id");
-                }
-            }
-        }
-
 
         /// <summary>
         /// Tag of the collection.
@@ -48,7 +31,7 @@ namespace KTouch.Units {
                 return this._tag;
             }
             set {
-                if(value != this._tag) {
+                if (value != this._tag) {
                     this._tag = value;
                     NotifyPropertyChanged("Tag");
                 }
@@ -63,7 +46,7 @@ namespace KTouch.Units {
                 return this._directory;
             }
             set {
-                if(value != this._directory) {
+                if (value != this._directory) {
                     this._directory = value;
                     NotifyPropertyChanged("Directory");
                 }
@@ -78,7 +61,7 @@ namespace KTouch.Units {
                 return this._coverFile;
             }
             set {
-                if(value != this._coverFile) {
+                if (value != this._coverFile) {
                     this._coverFile = value;
                     NotifyPropertyChanged("CoverFile");
                 }
@@ -88,14 +71,14 @@ namespace KTouch.Units {
         /// <summary>
         /// Titre de l'élément.
         /// </summary>
-        public string Title {
+        public string Name {
             get {
-                return this._title;
+                return this._name;
             }
             set {
-                if(value != this._title) {
-                    this._title = value;
-                    NotifyPropertyChanged("Title");
+                if (value != this._name) {
+                    this._name = value;
+                    NotifyPropertyChanged("Name");
                 }
             }
         }
@@ -108,7 +91,7 @@ namespace KTouch.Units {
                 return this._description;
             }
             set {
-                if(value != this._description) {
+                if (value != this._description) {
                     this._description = value;
                     NotifyPropertyChanged("Description");
                 }
@@ -118,14 +101,14 @@ namespace KTouch.Units {
         /// <summary>
         /// Fichier principal de présentation.
         /// </summary>
-        public string File {
+        public string FullName {
             get {
-                return this._file;
+                return this._fullName;
             }
             set {
-                if(value != this._file) {
-                    this._file = value;
-                    NotifyPropertyChanged("File");
+                if (value != this._fullName) {
+                    this._fullName = value;
+                    NotifyPropertyChanged("FullName");
                 }
             }
         }
@@ -138,7 +121,7 @@ namespace KTouch.Units {
                 return this._type;
             }
             set {
-                if(value != this._type) {
+                if (value != this._type) {
                     this._type = value;
                     NotifyPropertyChanged("Type");
                 }
@@ -150,11 +133,11 @@ namespace KTouch.Units {
         /// </summary>
         /// <returns>Titre de l'élément</returns>
         public override string ToString() {
-            return _title;
+            return _name;
         }
 
         public override bool Equals(object obj) {
-            return obj is kItem ? this._id == ((kItem)obj)._id : false;
+            return obj is Item ? this._fullName == ((Item)obj)._fullName : false;
         }
     }
 }

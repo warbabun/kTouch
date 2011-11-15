@@ -27,21 +27,20 @@
 				</Grid.RowDefinitions>
 			<Surface:SurfaceListBox x:Name="xpsListBox" 
 									Style="{StaticResource XpsListBoxStyle}"
-									ItemsSource="{Binding FirstRowItemList}" Grid.Row="1"/>
+									ItemsSource="{Binding ItemList}" Grid.Row="1"/>
 			<Surface:SurfaceListBox x:Name="picListBox"
 									Style="{StaticResource XpsListBoxStyle}"
-									ItemsSource="{Binding SecondRowItemList}" 
+									ItemsSource="{Binding ItemList}" 
 									Grid.Row="2" />
 			<Surface:SurfaceListBox x:Name="BtnListBox" 
 									Style="{StaticResource TagListBoxStyle}"
-									ItemsSource="{Binding TagList}"
-                              	    SelectedItem="{Binding CurrentTag}"
+									ItemsSource="{Binding CollectionList}"
+                              	    SelectedItem="{Binding Collection}"
 									HorizontalAlignment="Center"
 									Grid.Row="3"  
 									FontFamily="Arial"
 									FontSize="22"
 									FontWeight="Bold"
-									Foreground="Gold"
-								/>
+									Foreground="Gold"/>
 		</Grid>
 </Page>

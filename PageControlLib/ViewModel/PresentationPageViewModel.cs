@@ -10,39 +10,38 @@ using KTouch.Units;
 namespace KTouch.Controls.ViewModel {
     public class PresentationPageViewModel : DependencyObject {
 
-        private readonly ObservableCollection<kItem> _itemList;
-
-        public ObservableCollection<kItem> ItemList {
+        private readonly ObservableCollection<Item> _itemList;
+        public ObservableCollection<Item> ItemList {
             get {
                 return _itemList;
             }
         }
 
-        public kItem Item {
-            get { return (kItem)GetValue(ItemProperty); }
+        public Item Item {
+            get { return (Item)GetValue(ItemProperty); }
             set { SetValue(ItemProperty, value); }
         }
 
         public static readonly DependencyProperty ItemProperty =
-            DependencyProperty.Register("Item", typeof(kItem), typeof(PresentationPageViewModel), new FrameworkPropertyMetadata(new PropertyChangedCallback(ItemChangedCallback)));
+            DependencyProperty.Register("Item", typeof(Item), typeof(PresentationPageViewModel), new FrameworkPropertyMetadata(new PropertyChangedCallback(ItemChangedCallback)));
 
 
         public static void ItemChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             PresentationPageViewModel vm = (PresentationPageViewModel)d;
-            vm.LastItem = (kItem)e.NewValue;
+            vm.LastItem = (Item)e.NewValue;
         }
 
-        public kItem LastItem {
-            get { return (kItem)GetValue(LastItemProperty); }
+        public Item LastItem {
+            get { return (Item)GetValue(LastItemProperty); }
             set { SetValue(LastItemProperty, value); }
         }
 
         public static readonly DependencyProperty LastItemProperty =
-            DependencyProperty.Register("LastItem", typeof(kItem), typeof(PresentationPageViewModel), new FrameworkPropertyMetadata(new PropertyChangedCallback(LastItemChangedCallback)));
+            DependencyProperty.Register("LastItem", typeof(Item), typeof(PresentationPageViewModel), new FrameworkPropertyMetadata(new PropertyChangedCallback(LastItemChangedCallback)));
 
         public static void LastItemChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             PresentationPageViewModel vm = (PresentationPageViewModel)d;
-            vm.Item = (kItem)e.NewValue;
+            vm.Item = (Item)e.NewValue;
         }
 
         /// <summary>
@@ -61,23 +60,22 @@ namespace KTouch.Controls.ViewModel {
         public static readonly DependencyProperty OverlayVisibilityProperty =
             DependencyProperty.Register("OverlayVisibility", typeof(Visibility), typeof(PresentationPageViewModel), new UIPropertyMetadata(Visibility.Visible));
 
-
         public IEnumerable<XElement> LoadMainPageCollectionByTag(object tag) {
             string tagValue = (string)tag;
-            XElement root = Loader<kItem>.Root;
-            XNamespace ns = Loader<kItem>.RootNamespace;
+            XElement root = Loader<Item>.Root;
+            XNamespace ns = Loader<Item>.RootNamespace;
             string rootDirectory = ns.ToString();
             IOrderedEnumerable<XElement> collection = from e in root.Elements(ns + "kItem")
-                                                      where !string.IsNullOrEmpty(tagValue) ? string.Equals((string)e.Element(ns + "Tag"), tagValue) : true
-                                                      orderby (string)e.Attribute("Title")
+                                                      where !string.IsNullOrEmpty(tagValue) ? string.Equals((string)e.Element(ns + "Collection"), tagValue) : true
+                                                      orderby (string)e.Attribute("Name")
                                                       select e;
             return collection;
         }
 
-        public PresentationPageViewModel(kItem item) {
+        public PresentationPageViewModel(Item item) {
             this.Item = item;
-            _itemList = new ObservableCollection<kItem>();
-            Loader<kItem> kItemloader = new Loader<kItem>();
+            _itemList = new ObservableCollection<Item>();
+            Loader<Item> kItemloader = new Loader<Item>();
             kItemloader.StartLoad(ref _itemList, item.Tag, this.LoadMainPageCollectionByTag);
 
             _dispatcherTimer = new DispatcherTimer();

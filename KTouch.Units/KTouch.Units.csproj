@@ -57,12 +57,13 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Brush2ColorConverter.cs" />
+    <Compile Include="BeginInvokeOC.cs" />
     <Compile Include="kLoader.cs" />
     <Compile Include="CountConverter.cs" />
     <Compile Include="DragInfo.cs" />
     <Compile Include="ItemsLoader.cs" />
     <Compile Include="ItemTemplateSelector.cs" />
-    <Compile Include="kItem.cs" />
+    <Compile Include="Item.cs" />
     <Compile Include="KTouchUniverse.cs" />
     <Compile Include="MarginConverter.cs" />
     <Compile Include="MarginConverter1.cs" />

@@ -98,7 +98,7 @@ namespace KTouch.Controls.ViewModel {
         /// <summary>
         /// Copies the file creating a directory to stock the related information.
         /// </summary>
-        /// <param name="file">File to copy.</param>
+        /// <param name="file">FullName to copy.</param>
         /// <returns>Destination file path.</returns>
         private string CopyFile(string file) {
             string fileNameWithoutExtension = Path.GetFileNameWithoutExtension(file);

@@ -12,7 +12,7 @@ namespace KTouch.Views {
 
         private PresentationPageViewModel _vm;
 
-        public PresentationPage(kItem item) {
+        public PresentationPage(Item item) {
             InitializeComponent();
             _vm = new PresentationPageViewModel(item);
             this.DataContext = _vm;

@@ -15,7 +15,7 @@ namespace KTouch.Units {
             else {
                 ScatterView scatterView = StaticAccessors.FindAncestor(typeof(ScatterView), container) as ScatterView;
                 try {
-                    if(((kItem)item).Type.Equals("vid"))
+                    if(((Item)item).Type.Equals("vid"))
                         return scatterView.FindResource("scatterViewVideoItemTemplate") as DataTemplate;
                     else
                         return scatterView.FindResource("scatterViewItemTemplate") as DataTemplate;
@@ -36,7 +36,7 @@ namespace KTouch.Units {
             else {
                 ScatterView scatterView = StaticAccessors.FindAncestor(typeof(ScatterView), container) as ScatterView;
                 try {
-                    if(((kItem)item).Type.Equals("vid"))
+                    if(((Item)item).Type.Equals("vid"))
                         return (Style)scatterView.FindResource("VidScatterViewItemStyle");
                     else
                         return (Style)scatterView.FindResource("XpsScatterViewItemStyle");
@@ -56,11 +56,11 @@ namespace KTouch.Units {
             else {
                 var page = (Page)StaticAccessors.FindAncestor(typeof(Page), container);
                 try {
-                    if(((kItem)item).Type.Equals("xps")) {
+                    if(((Item)item).Type.Equals("xps")) {
                         return (Style)page.FindResource("XpsListBoxItemStyle");
-                    } else if(((kItem)item).Type.Equals("vid")) {
+                    } else if(((Item)item).Type.Equals("vid")) {
                         return (Style)page.FindResource("VidListBoxItemStyle");
-                    } else if(((kItem)item).Type.Equals("pic")) {
+                    } else if(((Item)item).Type.Equals("pic")) {
                         return (Style)page.FindResource("PicListBoxItemStyle");
                     } else
                         return null;
