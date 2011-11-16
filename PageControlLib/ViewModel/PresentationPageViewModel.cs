@@ -10,6 +10,10 @@ using KTouch.Units;
 namespace KTouch.Controls.ViewModel {
     public class PresentationPageViewModel : DependencyObject {
 
+        /// <summary>
+        /// Timer.
+        /// </summary>
+        private readonly DispatcherTimer _dispatcherTimer;
         private readonly ObservableCollection<Item> _itemList;
         public ObservableCollection<Item> ItemList {
             get {
@@ -45,11 +49,6 @@ namespace KTouch.Controls.ViewModel {
         }
 
         /// <summary>
-        /// Timer.
-        /// </summary>
-        private readonly DispatcherTimer _dispatcherTimer;
-
-        /// <summary>
         /// Returns 'true' if the object should be visible.
         /// </summary>
         public Visibility OverlayVisibility {
@@ -60,27 +59,15 @@ namespace KTouch.Controls.ViewModel {
         public static readonly DependencyProperty OverlayVisibilityProperty =
             DependencyProperty.Register("OverlayVisibility", typeof(Visibility), typeof(PresentationPageViewModel), new UIPropertyMetadata(Visibility.Visible));
 
-        public IEnumerable<XElement> LoadMainPageCollectionByTag(object tag) {
-            string tagValue = (string)tag;
-            XElement root = Loader<Item>.Root;
-            XNamespace ns = Loader<Item>.RootNamespace;
-            string rootDirectory = ns.ToString();
-            IOrderedEnumerable<XElement> collection = from e in root.Elements(ns + "kItem")
-                                                      where !string.IsNullOrEmpty(tagValue) ? string.Equals((string)e.Element(ns + "Collection"), tagValue) : true
-                                                      orderby (string)e.Attribute("Name")
-                                                      select e;
-            return collection;
-        }
-
         public PresentationPageViewModel(Item item) {
             this.Item = item;
             _itemList = new ObservableCollection<Item>();
             Loader<Item> kItemloader = new Loader<Item>();
-            kItemloader.StartLoad(ref _itemList, item.Tag, this.LoadMainPageCollectionByTag);
+            kItemloader.StartLoad(ref _itemList, item, kItemloader.LoadSiblingsList);
 
             _dispatcherTimer = new DispatcherTimer();
             _dispatcherTimer.Tick += new EventHandler(_dispatcherTimer_Tick);
-            _dispatcherTimer.Interval = TimeSpan.FromSeconds(2);
+            _dispatcherTimer.Interval = TimeSpan.FromSeconds(3);
             _dispatcherTimer.Start();
             this.OverlayVisibility = Visibility.Visible;
         }
@@ -94,8 +81,8 @@ namespace KTouch.Controls.ViewModel {
         /// <summary>
         /// If no activity is registered withing the next interval timer is stopped, element is hid.
         /// </summary>
-        /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event argument.</param>
+        /// <param i="sender">Event sender.</param>
+        /// <param i="e">Event argument.</param>
         private void _dispatcherTimer_Tick(object sender, EventArgs e) {
             this.OverlayVisibility = Visibility.Hidden;
             _dispatcherTimer.Stop();

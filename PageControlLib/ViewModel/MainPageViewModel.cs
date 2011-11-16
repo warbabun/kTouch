@@ -47,14 +47,9 @@ namespace KTouch.Controls.ViewModel {
             Collection = item;
             _collectionList = new ObservableCollection<Item>();
             _itemList = new ObservableCollection<Item>();
-            Loader<Item> collectionListLoader = new Loader<Item>();
-            collectionListLoader.ItemCollectionCreated += new EventHandler(MainPageViewModel_ItemCollectionCreated);
-            collectionListLoader.StartLoad(ref _collectionList, item, collectionListLoader.LoadPageCollectionListByName);
-        }
-
-        void MainPageViewModel_ItemCollectionCreated(object sender, EventArgs e) {
-            Loader<Item> itemLoader = new Loader<Item>();
-            itemLoader.StartLoad(ref _itemList, Collection, itemLoader.LoadCollectionItemListByName);
+            Loader<Item> loader = new Loader<Item>();
+            loader.StartLoad(ref _collectionList, item, loader.LoadSiblingsList);
+            loader.StartLoad(ref _itemList, Collection, loader.LoadItemListByCollection);
         }
     }
 }

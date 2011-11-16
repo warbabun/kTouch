@@ -19,7 +19,7 @@
 			<RowDefinition Height="130*" />
 		</Grid.RowDefinitions>
 		<Controls:KTouchXpsViewer x:Name="viewer" 
-									  Document="{Binding LastItem.File}"
+									  Document="{Binding LastItem.FullName}"
 									  Grid.Row="1"
 									  Margin="25,10,25,10"
 									 />
