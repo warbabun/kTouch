@@ -1,10 +1,7 @@
 ﻿using System;
-using System.Collections.Generic;
 using System.Collections.ObjectModel;
-using System.Linq;
 using System.Windows;
 using System.Windows.Threading;
-using System.Xml.Linq;
 using KTouch.Units;
 
 namespace KTouch.Controls.ViewModel {
@@ -63,7 +60,7 @@ namespace KTouch.Controls.ViewModel {
             this.Item = item;
             _itemList = new ObservableCollection<Item>();
             Loader<Item> kItemloader = new Loader<Item>();
-            kItemloader.StartLoad(ref _itemList, item, kItemloader.LoadSiblingsList);
+            kItemloader.StartLoad(ref _itemList, item, kItemloader.LoadSiblingsListByType);
 
             _dispatcherTimer = new DispatcherTimer();
             _dispatcherTimer.Tick += new EventHandler(_dispatcherTimer_Tick);

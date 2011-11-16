@@ -122,6 +122,9 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>kTouchResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Views\FrontPage.xaml.cs">
+      <DependentUpon>FrontPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\ImportFiles.xaml.cs">
       <SubType>Code</SubType>
       <DependentUpon>ImportFiles.xaml</DependentUpon>
@@ -132,6 +135,10 @@
     <Compile Include="Views\RealisationsView.xaml.cs">
       <DependentUpon>RealisationsView.xaml</DependentUpon>
     </Compile>
+    <Page Include="Views\FrontPage.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\ImportFiles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -148,7 +155,7 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\MainPage.xaml">
+    <Page Include="Views\ListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
@@ -163,8 +170,8 @@
     <Compile Include="Views\StagesView.xaml.cs">
       <DependentUpon>StagesView.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\MainPage.xaml.cs">
-      <DependentUpon>MainPage.xaml</DependentUpon>
+    <Compile Include="Views\ListPage.xaml.cs">
+      <DependentUpon>ListPage.xaml</DependentUpon>
     </Compile>
     <Compile Include="Views\SolutionsView.xaml.cs">
       <DependentUpon>SolutionsView.xaml</DependentUpon>
@@ -186,6 +193,7 @@
       <SubType>Designer</SubType>
     </None>
     <Resource Include="Images\fond.jpg" />
+    <Resource Include="Images\logo.jpg" />
     <Content Include="KTouch.exe.log4net">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

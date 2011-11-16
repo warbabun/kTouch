@@ -11,20 +11,20 @@ namespace KTouch {
     /// <summary>
     /// Encapsulates a main page of content that can be navigated to and hosted in kBrowser.
     /// </summary>
-    public partial class MainPage : Page {
+    public partial class ListPage : Page {
 
         private MainPageViewModel _vm;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public MainPage() {
+        public ListPage() {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             _vm = new MainPageViewModel();
         }
 
-        public MainPage(Item item) {
+        public ListPage(Item item) {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             _vm = new MainPageViewModel(item);

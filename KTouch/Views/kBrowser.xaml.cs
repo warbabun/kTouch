@@ -2,13 +2,14 @@
 using System.Windows.Input;
 using KTouch.Units;
 using KTouch.Views;
+using Microsoft.Surface.Presentation.Controls;
 
 namespace KTouch {
 
     /// <summary>
     /// Represents a window that supports content navigation.
     /// </summary>
-    public partial class kBrowser : Window {
+    public partial class kBrowser : SurfaceWindow {
 
         /// <summary>
         /// Constructor.
@@ -28,7 +29,7 @@ namespace KTouch {
             if (source is Item) {
                 Item item = (Item)source;
                 if ("dir".Equals(item.Type)) {
-                    _mainFrame.NavigationService.Navigate(new MainPage((Item)item));
+                    _mainFrame.NavigationService.Navigate(new ListPage((Item)item));
                 } else {
                     _mainFrame.NavigationService.Navigate(new PresentationPage((Item)item));
                 }
@@ -42,11 +43,11 @@ namespace KTouch {
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
         void kBrowser_Loaded(object sender, RoutedEventArgs e) {
-            _mainFrame.NavigationService.Navigate(new MainPage());
+            _mainFrame.NavigationService.Navigate(new FrontPage());
         }
 
         private void SurfaceButton_Click(object sender, RoutedEventArgs e) {
-            _mainFrame.NavigationService.Navigate(new MainPage());
+            _mainFrame.NavigationService.Navigate(new FrontPage());
         }
     }
 }

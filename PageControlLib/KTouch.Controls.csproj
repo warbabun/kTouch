@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\KTouchActiveControl.cs" />
+    <Compile Include="ViewModel\FrontPageViewModel.cs" />
     <Compile Include="ViewModel\ImportFilesViewModel.cs" />
     <Compile Include="KTouchMessagePopup.xaml.cs">
       <DependentUpon>KTouchMessagePopup.xaml</DependentUpon>
@@ -248,6 +249,9 @@
   </ItemGroup>
   <ItemGroup>
     <Resource Include="Themes\Resources\kTouch_FullScreen.png" />
+  </ItemGroup>
+  <ItemGroup>
+    <Resource Include="Themes\Resources\logo.jpg" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

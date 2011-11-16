@@ -9,20 +9,19 @@
 	<Units:ItemTemplateSelector x:Key="itemTemplateSelector"/>
 	<Style x:Key="NavigationButtonBaseStyle" TargetType="{x:Type Surface:SurfaceButton}">
 		<Style.Resources>
-			<Storyboard x:Key="Storyboard1">
+            <Storyboard x:Key="StartDim">
+				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
+					<EasingDoubleKeyFrame KeyTime="0" Value="1"/>
+				</DoubleAnimationUsingKeyFrames>
+			</Storyboard>
+            <Storyboard x:Key="EndDim">
 				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
 					<EasingDoubleKeyFrame KeyTime="0" Value="0.6"/>
 				</DoubleAnimationUsingKeyFrames>
 			</Storyboard>
-			<Storyboard x:Key="Storyboard2">
-				<DoubleAnimationUsingKeyFrames Storyboard.TargetProperty="(UIElement.Opacity)">
-					<EasingDoubleKeyFrame KeyTime="0" Value="0.4"/>
-				</DoubleAnimationUsingKeyFrames>
-			</Storyboard>
 		</Style.Resources>
-		<Setter Property="Background" Value="White"/>
-		<Setter Property="Opacity" Value="0.4"/>
-		<Setter Property="BorderBrush" Value="Yellow"/>
+		<Setter Property="Background" Value="Orange"/>
+		<Setter Property="Opacity" Value="0.6"/>
 		<Setter Property="RenderTransform">
 			<Setter.Value>
 				<TransformGroup>
@@ -42,10 +41,10 @@
 			</Trigger>
 			<Trigger Property="IsEnabled" Value="True">
 				<Trigger.EnterActions>
-					<BeginStoryboard Storyboard="{StaticResource Storyboard1}"/>
+					<BeginStoryboard Storyboard="{StaticResource StartDim}"/>
 				</Trigger.EnterActions>
 				<Trigger.ExitActions>
-					<BeginStoryboard Storyboard="{StaticResource Storyboard2}"/>
+					<BeginStoryboard Storyboard="{StaticResource EndDim}"/>
 				</Trigger.ExitActions>
 			</Trigger>
 		</Style.Triggers>
@@ -110,7 +109,6 @@
 							</Trigger.ExitActions>
 						</Trigger>
 					</ControlTemplate.Triggers>
-
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -151,11 +149,9 @@
 
 	<Style x:Key="DefaultListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
 		<Setter Property="ClipToBounds" Value="False"/>
-		<Setter Property="Margin" Value="22.5,10,22.5,10"/>
-		<!--<Setter Property="Background" Value="{DynamicResource XpsItemBackgroundBrush}" />-->
-		<Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
+		<Setter Property="Margin" Value="20"/>
 		<Setter Property="BorderThickness" Value="0"/>
-		<Setter Property="VerticalContentAlignment" Value="Center"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
 		<Setter Property="HorizontalContentAlignment" Value="Center"/>
 		<Setter Property="Background" Value="White"/>
 		<Setter Property="Foreground" Value="Orange"/>
@@ -175,7 +171,7 @@
 				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBoxItem}">
 					<Grid x:Name="mainBorder">
 						<!-- Rounded mask (stretches to fill Grid) -->
-						<Border Name="mask" CornerRadius="10" Opacity="0.4" Background="{TemplateBinding Background}"></Border>
+						<Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"></Border>
 						<!-- Main content container -->
 						<Border x:Name="itemBorder" Padding="5">
 							<!-- Use a VisualBrush of 'mask' as the opacity mask -->
@@ -229,12 +225,18 @@
    <Style x:Key="OverlayListBoxItemStyle" 
 			   TargetType="{x:Type Surface:SurfaceListBoxItem}" 
 			   BasedOn="{StaticResource DefaultListBoxItemStyle}">
-		<Setter Property="Margin" Value="50,10,50,10"/>
-	</Style>
+        <Setter Property="Margin" Value="5"/>
+    </Style>
 
-	<Style x:Key="DefaultListBoxStyle" TargetType="{x:Type Surface:SurfaceListBox}">
+    <Style x:Key="WarpPanelListBoxItemStyle" 
+			   TargetType="{x:Type Surface:SurfaceListBoxItem}" 
+			   BasedOn="{StaticResource DefaultListBoxItemStyle}">
+    </Style>
+
+    <Style x:Key="DefaultListBoxStyle" TargetType="{x:Type Surface:SurfaceListBox}">
 		<Setter Property="Background" Value="Transparent"/>
 		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalAlignment" Value="Center"/>
 		<Setter Property="ClipToBounds" Value="False"/>
 		<Setter Property="ItemContainerStyle" Value="{StaticResource DefaultListBoxItemStyle}"/>
 		<Setter Property="ItemTemplateSelector" Value="{StaticResource itemTemplateSelector}"/>
@@ -242,14 +244,53 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
 					<Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
-						<StackPanel Orientation="Horizontal" IsItemsHost="True" />
-					</Surface:SurfaceScrollViewer>
+                        <WrapPanel ItemHeight="Auto" ItemWidth="300" Orientation="Horizontal"  IsItemsHost="True" ClipToBounds="False" />
+                    </Surface:SurfaceScrollViewer>
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
 	</Style>
 
-	<DataTemplate x:Key="ImageData">
+
+    <Style x:Key="FrontPageListBox" TargetType="{x:Type Surface:SurfaceListBox}" BasedOn="{StaticResource DefaultListBoxStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
+                    <Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                        <WrapPanel ItemHeight="300" ItemWidth="300" Orientation="Horizontal"  IsItemsHost="True" ClipToBounds="False" />
+                    </Surface:SurfaceScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="OverlayListBoxStyle" TargetType="{x:Type Surface:SurfaceListBox}" BasedOn="{StaticResource DefaultListBoxStyle}">
+        <Setter Property="ItemContainerStyle" Value="{StaticResource OverlayListBoxItemStyle}"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
+                    <Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                        <WrapPanel Orientation="Horizontal" ItemHeight="100" ItemWidth="100" IsItemsHost="True" ClipToBounds="False" />
+                    </Surface:SurfaceScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+    <Style x:Key="WarpPanelListBox" TargetType="{x:Type Surface:SurfaceListBox}" BasedOn="{StaticResource DefaultListBoxStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
+                    <Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Disabled">
+                        <WrapPanel ItemHeight="300" ItemWidth="300" Orientation="Horizontal"  IsItemsHost="True" ClipToBounds="False" />
+                    </Surface:SurfaceScrollViewer>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+
+
+    <DataTemplate x:Key="ImageData">
 		<Image Source="{Binding CoverFile}"/>
 	</DataTemplate>
 	
@@ -264,9 +305,9 @@
 		<Setter Property="ItemContainerStyle" Value="{StaticResource TagListBoxItemStyle}"/>
 	</Style>
 	
-	<Style x:Key="OverlayListBoxStyle" 
+	<!--<Style x:Key="OverlayListBoxStyle" 
 		   TargetType="{x:Type Surface:SurfaceListBox}"
 		   BasedOn="{StaticResource XpsListBoxStyle}">
 		<Setter Property="ItemContainerStyle" Value="{StaticResource OverlayListBoxItemStyle}"/>
-	</Style>
+	</Style>-->
 </ResourceDictionary>
