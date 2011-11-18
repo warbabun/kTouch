@@ -17,19 +17,13 @@
     <!--<WrapPanel Orientation="Horizontal" ItemHeight="200" ItemWidth="200"  Width="1400"/>-->
 
     <Grid  Name="LayoutRoot" ClipToBounds="False">
-        <Grid.RowDefinitions>
-            <RowDefinition Height="*" />
-            <RowDefinition Height="100"/>
-        </Grid.RowDefinitions>
-
         <su:SurfaceListBox Style="{StaticResource WarpPanelListBox}"
-                           Grid.Row="0" 
                            ItemsSource="{Binding ItemList}" />
           
-        <su:SurfaceListBox Style="{StaticResource DefaultListBoxStyle}"
+        <!--<su:SurfaceListBox Style="{StaticResource DefaultListBoxStyle}"
                            ItemsSource="{Binding CollectionList}"
                            SelectedItem="{Binding Collection}"
                            HorizontalAlignment="Center"
-                           Grid.Row="1"  />
+                           Grid.Row="1"  />-->
     </Grid>
 </Page>

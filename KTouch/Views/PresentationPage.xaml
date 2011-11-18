@@ -13,22 +13,17 @@
 	  Background="Transparent">
 	
 	<Grid Name="LayoutRoot" ClipToBounds="False">
-		<Grid.RowDefinitions>
-			<RowDefinition Height="*" />
-			<RowDefinition Height="100" />
-		</Grid.RowDefinitions>
 		<Controls:KTouchXpsViewer x:Name="viewer" 
 									  Document="{Binding LastItem.FullName}"
-									  Grid.Row="0"
 									  Margin="25,10,25,10"
 									 />
 
-        <Surface:SurfaceListBox x:Name="xpsListBox" 
+        <!--<Surface:SurfaceListBox x:Name="xpsListBox" 
 									Style="{StaticResource OverlayListBoxStyle}"
 									SelectedItem="{Binding Item}"
 									ItemsSource="{Binding ItemList}" 
 									Grid.Row="1"
-									Visibility="{Binding Path=OverlayVisibility}"/>
+									Visibility="{Binding Path=OverlayVisibility}"/>-->
         <!--<Grid Name="GridOverlay" Grid.RowSpan="3" Grid.ColumnSpan="3">
 			
 			<Grid.RowDefinitions>

@@ -60,10 +60,10 @@ namespace KTouch.Units {
         /// </summary>
         /// <param i="viewModelItemCollection">Reference to the processed view model i i.</param>
         public Loader() {
-            if (Document == null) {
+            if(Document == null) {
                 try {
                     _document = Loader<object>.Document;
-                } catch (Exception) {
+                } catch(Exception) {
                     throw new ArgumentNullException("Document");
                 }
             }
@@ -86,7 +86,7 @@ namespace KTouch.Units {
                 ICollection<T> results = WrapQueryResults(queryResults, queryResultsWrapper);
                 ReturnItemCallBack callback = returnItemCallback ?? DefaultReturnItemCallback;
                 DispatcherOperation dispatcherOp = CurrentDispatcher.BeginInvoke(DispatcherPriority.Background, callback, results, Thread.CurrentThread.ManagedThreadId);
-                if (dispatcherOp != null) {
+                if(dispatcherOp != null) {
                     dispatcherOp.Completed += ItemCollectionCreated;
                 }
             });
@@ -103,12 +103,12 @@ namespace KTouch.Units {
         /// <returns>A ready to return i of items.</returns>
         private ICollection<T> WrapQueryResults(IEnumerable<XElement> queryResult, Wrapper queryResultsWrapper) {
             ICollection<T> wrappedCollection = new List<T>();
-            if (queryResultsWrapper != null) {
-                foreach (XElement e in queryResult) {
+            if(queryResultsWrapper != null) {
+                foreach(XElement e in queryResult) {
                     wrappedCollection.Add(queryResultsWrapper(e));
                 }
             } else {
-                foreach (XElement e in queryResult) {
+                foreach(XElement e in queryResult) {
                     wrappedCollection.Add((T)DefaultQueryResultsWrapper(e));
                 }
             }
@@ -121,18 +121,18 @@ namespace KTouch.Units {
         /// <param i="node">XElement i to wrap.</param>
         /// <returns>Wrapped kItem.</returns>
         public object DefaultQueryResultsWrapper(XElement node) {
-            if (node.IsEmpty) {
+            if(node.IsEmpty) {
                 throw new ArgumentNullException("node");
             }
             Item item = new Item {
                 FullName = (string)node.Attribute("FullName"),
-                Type = (string)node.Attribute("Type") ?? "dir",
+                Type = (string)node.Attribute("Type"),
                 CoverFile = (string)node.Attribute("Thumbnail"),
                 Name = (string)node.Attribute("Name"),
                 Description = (string)node.Element("Description"),
                 Tag = (string)node.Element("Tag"),
             };
-            if (ItemArrived != null) {
+            if(ItemArrived != null) {
                 ItemArrived(item);
             }
             return item;
@@ -144,7 +144,7 @@ namespace KTouch.Units {
         /// <param i="node">XElement i to wrap.</param>
         /// <returns>Wrapped string.</returns>
         public string StringWrapper(XElement node) {
-            if (node.IsEmpty) {
+            if(node.IsEmpty) {
                 throw new ArgumentNullException("node");
             }
             return (string)node.Attribute("Name");
@@ -157,17 +157,31 @@ namespace KTouch.Units {
         public void DefaultReturnItemCallback(ICollection<T> result, int threadId) {
             _currentItemCollection = this._threadOCPool[threadId];
             ICollection<T> collection = (ICollection<T>)result;
-            foreach (T item in collection) {
+            foreach(T item in collection) {
                 this._currentItemCollection.Add(item);
             }
+            this._threadOCPool.Remove(threadId);
         }
 
-        public IEnumerable<XElement> LoadCollectionListByCollectionName(object i) {
-            string tag = (string)i;
-            var collection = from el in
-                                 (from e in Root.Descendants("Collection")
-                                  where tag.Equals((string)e.Attribute("Name"))
-                                  select e).Elements("Collection")
+        public IEnumerable<XElement> LoadCollectionListByCollectionName(object name) {
+            string nameValue = (string)name;
+            var collection = from e in Root.Descendants("Collection")
+                             where nameValue.Equals((string)e.Attribute("Tag"))
+                             orderby (string)e.Attribute("Name")
+                             select e;
+            return collection;
+        }
+
+        public IEnumerable<XElement> LoadCollectionListByCollection(object i) {
+            string fullName;
+            if(i != null && i is Item) {
+                fullName = ((Item)i).FullName;
+            } else {
+                fullName = i.ToString();
+            }
+            XElement xItem = GetCollectionByFullName(fullName);
+            var collection = from el in xItem.Elements("Collection")
+                             orderby (string)el.Attribute("Name")
                              select el;
             return collection;
         }
@@ -221,7 +235,7 @@ namespace KTouch.Units {
               .Where(e => fullName.Equals((string)e.Attribute("FullName")))
               .FirstOrDefault();
 
-            if (xItem == null) {
+            if(xItem == null) {
                 throw new KeyNotFoundException(string.Format(CultureInfo.CurrentCulture, "{0}", fullName));
             }
             return xItem;
@@ -239,7 +253,7 @@ namespace KTouch.Units {
                 .Where(e => fullName.Equals((string)e.Attribute("FullName")))
                 .FirstOrDefault();
 
-            if (xItem == null) {
+            if(xItem == null) {
                 throw new KeyNotFoundException(string.Format(CultureInfo.CurrentCulture, "{0}", fullName));
             }
             return xItem;
@@ -252,7 +266,7 @@ namespace KTouch.Units {
                 .Where(e => fullName.Equals((string)e.Attribute("FullName")))
                 .FirstOrDefault();
 
-            if (xItem == null) {
+            if(xItem == null) {
                 throw new KeyNotFoundException(string.Format(CultureInfo.CurrentCulture, "{0}", fullName));
             }
             return xItem;
@@ -270,8 +284,41 @@ namespace KTouch.Units {
             string nameValue = (string)name;
             var collection = from e in Root.Descendants("Item")
                              where nameValue.Equals((string)e.Element("Tag"))
+                             orderby (string)e.Attribute("FullName")
                              select e;
             return collection;
+        }
+
+        public Item LoadParentCollectionByCollection(object collection) {
+            if(collection != null) {
+                XElement xItem = GetXElementByFullName(((Item)collection).FullName);
+                if(xItem != null) {
+                    XElement xItemParent = xItem.Parent;
+                    Item item = new Item {
+                        FullName = (string)xItemParent.Attribute("FullName"),
+                        Type = (string)xItemParent.Attribute("Type"),
+                        CoverFile = (string)xItemParent.Attribute("Thumbnail"),
+                        Name = (string)xItemParent.Attribute("Name"),
+                        Description = (string)xItemParent.Element("Description"),
+                        Tag = (string)xItemParent.Element("Tag"),
+                    };
+                    return item;
+                } else {
+                    return null;
+                }
+
+            } else {
+                return null;
+            }
+
+        }
+
+        public IEnumerable<XElement> LoadParentCollectionListByCollection(object collection) {
+            XElement xItem = GetXElementByFullName(((Item)collection).FullName).Parent;
+            IOrderedEnumerable<XElement> collectionList = from e in xItem.Parent.Elements("Collection")
+                                                          orderby (string)e.Attribute("Name")
+                                                          select e;
+            return collectionList;
         }
 
         public static void LoadFileTree(string rootDirectory) {
@@ -280,28 +327,33 @@ namespace KTouch.Units {
                 new XDeclaration("1.0", "utf-8", "yes"),
                 new XComment("kTouch content declarations file."),
                 WalkDirectoryTree(root));
-            if (DocumentLoaded != null) {
+            if(DocumentLoaded != null) {
                 DocumentLoaded(null, new EventArgs());
             }
             _document = document;
         }
 
         private static XElement WalkDirectoryTree(DirectoryInfo root) {
-            XElement current = new XElement("Collection", new XAttribute("Name", root.Name), new XAttribute("FullName", root.FullName));
+            XElement current =
+                new XElement("Collection",
+                    new XAttribute("Name", root.Name),
+                    new XAttribute("FullName", root.FullName),
+                    new XAttribute("Type", "dir"),
+                    new XAttribute("Tag", root.Parent.Name));
             // First find all the subdirectories (exculing file only directories) under this directory.
             List<DirectoryInfo> directoryList = root
                 .GetDirectories()
                 .Where(d => d.GetDirectories().Any())
                 .ToList();
             // Resursive call for each subdirectory.
-            foreach (DirectoryInfo directory in directoryList) {
+            foreach(DirectoryInfo directory in directoryList) {
                 current.Add(WalkDirectoryTree(directory));
             }
             // Now, process all the file directories directly under this folder.
             List<DirectoryInfo> fileFolderList = root.GetDirectories()
                 .Except(directoryList)
                 .ToList();
-            foreach (DirectoryInfo fileDirectory in fileFolderList) {
+            foreach(DirectoryInfo fileDirectory in fileFolderList) {
                 // Now process all the files directly under this folder.
                 List<FileInfo> fileList = null;
                 try {
@@ -309,12 +361,12 @@ namespace KTouch.Units {
                         .GetFiles("*.*")
                         .Where(f => SupportedExtensions.SupportedExtensionList.Contains(f.Extension))
                         .ToList();
-                } catch (UnauthorizedAccessException e) {
+                } catch(UnauthorizedAccessException e) {
                     Console.WriteLine(e.Message);
-                } catch (DirectoryNotFoundException e) {
+                } catch(DirectoryNotFoundException e) {
                     Console.WriteLine(e.Message);
                 }
-                foreach (FileInfo file in fileList) {
+                foreach(FileInfo file in fileList) {
                     current.Add(new XElement("Item",
                             new XAttribute("FullName", file.FullName),
                             new XAttribute("Type", file.Extension),
@@ -333,7 +385,7 @@ namespace KTouch.Units {
             ICollection<FileInfo> existingThumbs = file.Directory.GetFiles("*.*")
                 .Where(f => SupportedExtensions.SupportedThumbnailExtensionList.Contains(f.Extension))
                 .ToList();
-            if (existingThumbs.Any()) {
+            if(existingThumbs.Any()) {
                 thumbnail = existingThumbs.First().FullName;
             } else {
                 thumbnail = ThumbnailCreator.CreateThumbnail(file.FullName);
@@ -351,13 +403,13 @@ namespace KTouch.Units {
             List<string> fileList = Directory.GetFiles(directory, "*.*", SearchOption.AllDirectories)
                     .Where(f => SupportedExtensions.SupportedExtensionList.Contains(Path.GetExtension(f)))
                     .ToList();
-            foreach (string file in fileList) {
+            foreach(string file in fileList) {
                 string thumbnail = string.Empty;
                 string parentDirectory = Directory.GetParent(file).FullName;
                 ICollection<string> existingThumbs = Directory.GetFiles(parentDirectory, "*.*")
                     .Where(f => SupportedExtensions.SupportedThumbnailExtensionList.Contains(Path.GetExtension(f)))
                     .ToList();
-                if (existingThumbs.Any()) {
+                if(existingThumbs.Any()) {
                     thumbnail = existingThumbs.FirstOrDefault();
                 } else {
                     thumbnail = ThumbnailCreator.CreateThumbnail(file);
@@ -385,7 +437,7 @@ namespace KTouch.Units {
                         )
                     )
             );
-            if (DocumentLoaded != null) {
+            if(DocumentLoaded != null) {
                 DocumentLoaded(null, new EventArgs());
             }
             _document = document;

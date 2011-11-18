@@ -87,6 +87,7 @@
   </ItemGroup>
   <ItemGroup>
     <Compile Include="Core\KTouchActiveControl.cs" />
+    <Compile Include="ViewModel\BrowserViewModel.cs" />
     <Compile Include="ViewModel\FrontPageViewModel.cs" />
     <Compile Include="ViewModel\ImportFilesViewModel.cs" />
     <Compile Include="KTouchMessagePopup.xaml.cs">

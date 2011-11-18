@@ -18,23 +18,23 @@ namespace KTouch {
         /// <summary>
         /// Constructor.
         /// </summary>
-        public ListPage() {
-            InitializeComponent();
-            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
-            _vm = new MainPageViewModel();
-        }
+        //public ListPage() {
+        //    InitializeComponent();
+        //    this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+        //    _vm = new MainPageViewModel();
+        //}
 
         public ListPage(Item item) {
             InitializeComponent();
-            this.Loaded += new RoutedEventHandler(MainPage_Loaded);
+            //this.Loaded += new RoutedEventHandler(MainPage_Loaded);
             _vm = new MainPageViewModel(item);
+            DataContext = _vm;
         }
 
         void MainPage_Loaded(object sender, RoutedEventArgs e) {
             //Events.RegisterGestureEventSupport(this);
             //this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(Navigate));
             //this.AddHandler(Events.TapGestureEvent, new GestureEventHandler(Navigate));
-            DataContext = _vm;
         }
 
         /// <summary>
@@ -53,9 +53,9 @@ namespace KTouch {
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An RoutedEventArgs that contains the event data.</param>
         private void Play(object sender, RoutedEventArgs e) {
-            if (!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
+            if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
                 var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
-                if (item != null)
+                if(item != null)
                     kPage.ShowInViewer((Item)item.DataContext);
             }
             e.Handled = true;

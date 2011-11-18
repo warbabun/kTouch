@@ -20,19 +20,19 @@ namespace KTouch.Controls.ViewModel {
             }
         }
 
-        private readonly ObservableCollection<Item> _collectionList;
-        public ObservableCollection<Item> CollectionList {
-            get {
-                return _collectionList;
-            }
-        }
+        //private readonly ObservableCollection<Item> _collectionList;
+        //public ObservableCollection<Item> CollectionList {
+        //    get {
+        //        return _collectionList;
+        //    }
+        //}
 
         public FrontPageViewModel() {
             Loader<Item> loader = new Loader<Item>();
             _successStoryList = new ObservableCollection<Item>();
             _presentationList = new ObservableCollection<Item>();
-            _collectionList = new ObservableCollection<Item>();
-            loader.StartLoad(ref _collectionList, "MainContent", loader.LoadCollectionListByCollectionName);
+         //   _collectionList = new ObservableCollection<Item>();
+         //   loader.StartLoad(ref _collectionList, "MainContent", loader.LoadCollectionListByCollection);
             loader.StartLoad(ref _successStoryList, "KleePres", loader.LoadItemListByCollectionName);
             loader.StartLoad(ref _presentationList, "Success Story", loader.LoadItemListByCollectionName);
         }

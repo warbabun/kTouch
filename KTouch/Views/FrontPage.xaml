@@ -16,9 +16,8 @@
 
     <Grid  Name="LayoutRoot" ClipToBounds="False">
         <Grid.RowDefinitions>
-            <RowDefinition Height="0.5*" />
-            <RowDefinition Height="0.5*" />
-            <RowDefinition Height="100"/>
+            <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
        
         <su:SurfaceListBox Style="{StaticResource FrontPageListBox}"
@@ -27,9 +26,9 @@
         <su:SurfaceListBox Style="{StaticResource FrontPageListBox}"
                            Grid.Row="1" 
                            ItemsSource="{Binding SuccessStoryList}"/>
-        <su:SurfaceListBox Style="{StaticResource DefaultListBoxStyle}"
+        <!--<su:SurfaceListBox Style="{StaticResource DefaultListBoxStyle}"
                            Grid.Row="2" 
                            ItemsSource="{Binding CollectionList}" 
-            	           HorizontalAlignment="Center"/>
+            	           HorizontalAlignment="Center"/>-->
     </Grid>
 </Page>

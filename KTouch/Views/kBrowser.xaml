@@ -21,44 +21,72 @@
         <ControlTemplate x:Key="FrameTemplate" TargetType="{x:Type Frame}">
             <Grid>
                 <DockPanel >
-                    <StackPanel DockPanel.Dock="Top">
-                        <Border DockPanel.Dock="Top" Background="{StaticResource MyBrush}" BorderThickness="1" BorderBrush="Black">
-                            <Grid HorizontalAlignment="Left" Height="100" >
-                                <!-- Rounded mask (stretches to fill Grid) -->
-                                <Border Name="mask" CornerRadius="5" Background="White"></Border>
-                                <!-- Main content container -->
-                                <Border x:Name="itemBorder">
-                                    <!-- Use a VisualBrush of 'mask' as the opacity mask -->
-                                    <Border.OpacityMask>
-                                        <VisualBrush Visual="{Binding ElementName=mask}"/>
-                                    </Border.OpacityMask>
-                                    <Image Source="/KTouch;component/Images/logo.jpg" />
-                                </Border>
-                            </Grid>
-                        </Border>
-                        <Grid DockPanel.Dock="Bottom">
-                            <s:SurfaceButton 
+                    <Grid DockPanel.Dock="Right" >
+                        <s:SurfaceButton 
                                      Width="50" 
                                      Height="50" 
                                      BorderBrush="Black"
-                                     Style="{StaticResource NavigationButtonLeftStyle}"
-                                     Command="{x:Static NavigationCommands.BrowseBack}" 
-                                     IsEnabled="{TemplateBinding CanGoBack}"
-                                     HorizontalAlignment="Left"/>
-                            <s:SurfaceButton Width="50" 
+                                     Style="{StaticResource NavigationButtonExitStyle}" 
+                                     Click="CloseClick"
+                                     VerticalAlignment="Top"/>
+
+                        <s:SurfaceButton 
+                                     Width="50" 
                                      Height="50" 
                                      BorderBrush="Black"
-                                     Style="{StaticResource NavigationButtonExitStyle}" 
-                                     Click="SurfaceButton_Click"
-                                     HorizontalAlignment="Right"/>
-                        </Grid>
-                    </StackPanel>
-                    <ContentPresenter PreviewTouchUp="Navigate"/>
+                                     Style="{StaticResource NavigationButtonHomeStyle}"
+                                     Click="HomeClick"
+                                     IsEnabled="{TemplateBinding CanGoBack}"
+                                     VerticalAlignment="Bottom"/>
+                    </Grid>
+
+                    <ContentPresenter />
                 </DockPanel>
             </Grid>
         </ControlTemplate>
     </s:SurfaceWindow.Resources>
-    <DockPanel>
-        <Frame x:Name="_mainFrame" Template="{StaticResource FrameTemplate}"/>
-    </DockPanel>
+
+        
+        <!--<Grid DockPanel.Dock="Top" Height="100">
+            <Border  VerticalAlignment="Bottom"  Background="{StaticResource MyBrush}" BorderThickness="1" BorderBrush="Black">
+            </Border>
+        </Grid>-->
+    <Grid Grid.Row="0" 
+                                          Grid.Column="0"
+                                          Grid.ColumnSpan="2">
+            <Grid.ColumnDefinitions>
+                <ColumnDefinition Width="200"/>
+                <ColumnDefinition Width="*"/>
+            </Grid.ColumnDefinitions>
+            <Grid.RowDefinitions>
+                <RowDefinition Height="*"/>
+                <RowDefinition Height="100"/>
+            </Grid.RowDefinitions>
+        <Frame x:Name="_mainFrame" 
+               Grid.Row="0" 
+               Grid.Column="0"
+               Grid.ColumnSpan="2"
+               Template="{StaticResource FrameTemplate}" />
+     
+            <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+                <Border Name="mask" CornerRadius="5" Background="White"/>
+                <Border x:Name="itemBorder">
+                    <Border.OpacityMask>
+                        <VisualBrush Visual="{Binding ElementName=mask}"/>
+                    </Border.OpacityMask>
+                    <Image Source="/KTouch;component/Images/logo.jpg" />
+                </Border>
+            </Grid>
+
+            <s:SurfaceListBox x:Name="navigationListBox" Grid.Row="1" 
+                                          Grid.Column="1" 
+                                          Style="{StaticResource DefaultListBoxStyle}"
+                                          ItemsSource="{Binding CollectionList}"
+                                          SelectedItem="{Binding Collection}"
+            	                          HorizontalAlignment="Left"    
+                                          VerticalAlignment="Center">
+
+            </s:SurfaceListBox>
+        </Grid>
+       
 </s:SurfaceWindow>
