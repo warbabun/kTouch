@@ -13,11 +13,6 @@ namespace KTouch {
     /// </summary>
     public partial class kBrowser : SurfaceWindow {
 
-
-
-        
-
-
         private BrowserViewModel _vm;
 
         /// <summary>

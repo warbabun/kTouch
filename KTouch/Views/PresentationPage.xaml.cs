@@ -5,6 +5,7 @@ using KTouch.Controls.ViewModel;
 using KTouch.Units;
 
 namespace KTouch.Views {
+
     /// <summary>
     /// Interaction logic for PresentationPage.xaml
     /// </summary>

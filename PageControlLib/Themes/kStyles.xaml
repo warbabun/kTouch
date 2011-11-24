@@ -153,8 +153,8 @@
 		<Setter Property="BorderThickness" Value="0"/>
 		<Setter Property="HorizontalAlignment" Value="Center"/>
 		<Setter Property="HorizontalContentAlignment" Value="Center"/>
-		<Setter Property="Background" Value="White"/>
-		<Setter Property="Foreground" Value="Orange"/>
+		<Setter Property="Background" Value="Orange"/>
+		<Setter Property="Foreground" Value="White"/>
 		<Setter Property="FontFamily" Value="Arial"/>
 		<Setter Property="FontSize" Value="22"/>
 		<Setter Property="FontWeight" Value="Bold"/>
@@ -214,7 +214,9 @@
 	<Style x:Key="TagListBoxItemStyle" 
 			   TargetType="{x:Type Surface:SurfaceListBoxItem}" 
 			   BasedOn="{StaticResource DefaultListBoxItemStyle}">
-		<Style.Triggers>
+        <Setter Property="Background" Value="White"/>
+        <Setter Property="Foreground" Value="Orange"/>
+        <Style.Triggers>
 			<Trigger Property="IsSelected" Value="True">
 				<Setter Property="Background" Value="Orange" />
 				<Setter Property="Foreground" Value="White"/>
@@ -251,14 +253,23 @@
 		</Setter>
 	</Style>
 
-
-	<Style x:Key="FrontPageListBox" TargetType="{x:Type Surface:SurfaceListBox}" BasedOn="{StaticResource DefaultListBoxStyle}">
-		<Setter Property="Template">
+    <Style x:Key="FrontPageListBoxStyle" TargetType="{x:Type Surface:SurfaceListBox}" BasedOn="{StaticResource DefaultListBoxStyle}">
+        <Setter Property="HorizontalAlignment" Value="Left"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
-					<Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
-						<WrapPanel ItemHeight="300" ItemWidth="300" Orientation="Horizontal"  IsItemsHost="True" ClipToBounds="False" />
-					</Surface:SurfaceScrollViewer>
+                    <Grid x:Name="FrontPageListBoxLayout">
+                        <Grid.ColumnDefinitions>
+                            <ColumnDefinition Width="100"/>
+                            <ColumnDefinition Width="*"/>
+                        </Grid.ColumnDefinitions>
+                        <TextBlock Grid.Column="0" Background="Black"/>
+                        <Surface:SurfaceScrollViewer Grid.Column="1" HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+                            <WrapPanel ItemHeight="150" ItemWidth="150" Orientation="Horizontal"  IsItemsHost="True" ClipToBounds="False" />
+                        </Surface:SurfaceScrollViewer>
+                    </Grid>
+                   
 				</ControlTemplate>
 			</Setter.Value>
 		</Setter>
@@ -282,7 +293,7 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
 					<Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Disabled">
-						<WrapPanel ItemHeight="300" ItemWidth="300" Orientation="Horizontal"  IsItemsHost="True" ClipToBounds="False" />
+						<WrapPanel ItemHeight="300" ItemWidth="300" Orientation="Horizontal"  IsItemsHost="True" ClipToBounds="False"/>
 					</Surface:SurfaceScrollViewer>
 				</ControlTemplate>
 			</Setter.Value>

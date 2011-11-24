@@ -18,13 +18,17 @@
         <Grid.RowDefinitions>
             <RowDefinition />
             <RowDefinition />
+            <RowDefinition />
         </Grid.RowDefinitions>
-       
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBox}"
+
+        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"
                            Grid.Row="0" 
-                           ItemsSource="{Binding PresentationList}"/>
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBox}"
+                           ItemsSource="{Binding SuccessStoryList}"/>
+        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"
                            Grid.Row="1" 
+                           ItemsSource="{Binding SuccessStoryList}"/>
+        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"
+                           Grid.Row="2" 
                            ItemsSource="{Binding SuccessStoryList}"/>
         <!--<su:SurfaceListBox Style="{StaticResource DefaultListBoxStyle}"
                            Grid.Row="2" 
