@@ -194,6 +194,9 @@
     </None>
     <Resource Include="Images\fond.jpg" />
     <Resource Include="Images\logo.jpg" />
+    <Resource Include="Images\Layer 1.png">
+      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
+    </Resource>
     <Content Include="KTouch.exe.log4net">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

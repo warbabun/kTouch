@@ -6,6 +6,7 @@ using KTouch.Units;
 using KTouch.Views;
 using Microsoft.Surface.Presentation.Controls;
 using Blake.NUI.WPF.Gestures;
+using System.Windows.Navigation;
 namespace KTouch {
 
     /// <summary>
@@ -39,6 +40,7 @@ namespace KTouch {
                     _mainFrame.NavigationService.Navigate(new PresentationPage((Item)item));
                 }
                 this.navigationListBox.SelectedItem = item;
+                _mainFrame.NavigationUIVisibility = NavigationUIVisibility.Visible;
             }
         }
 
@@ -70,6 +72,8 @@ namespace KTouch {
         /// <param name="e">Event argument.</param>
         void kBrowser_Loaded(object sender, RoutedEventArgs e) {
             _mainFrame.NavigationService.Navigate(new FrontPage());
+            _mainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
+
         }
 
         private void CloseClick(object sender, RoutedEventArgs e) {

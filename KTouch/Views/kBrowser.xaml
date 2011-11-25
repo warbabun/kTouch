@@ -18,32 +18,49 @@
             <GradientStop Color="Orange" Offset="1.0" />
         </LinearGradientBrush>
 
-        <ControlTemplate x:Key="FrameTemplate" TargetType="{x:Type Frame}">
+        <ControlTemplate x:Key="FrameNavigationTemplate" TargetType="{x:Type Frame}">
             <Grid>
                 <DockPanel >
-                    <Grid DockPanel.Dock="Top" >
-                        <s:SurfaceButton 
+                    <Grid DockPanel.Dock="Left" >
+                        <!--<s:SurfaceButton 
                                      Width="50" 
                                      Height="50" 
-                                     BorderBrush="Black"
                                      Style="{StaticResource NavigationButtonExitStyle}" 
                                      Click="CloseClick"
-                                     HorizontalAlignment="Right"/>
-
-                        <s:SurfaceButton 
-                                     Width="50" 
-                                     Height="50" 
-                                     BorderBrush="Black"
-                                     Style="{StaticResource NavigationButtonHomeStyle}"
-                                     Click="HomeClick"
                                      IsEnabled="{TemplateBinding CanGoBack}"
-                                     HorizontalAlignment="Left"/>
+                                     HorizontalAlignment="Right"/>-->
+
+                        <s:SurfaceButton x:Name="Back"
+                                     Width="25" 
+                                     Height="25" 
+                                     BorderBrush="Black"
+                                     Style="{StaticResource NavigationButtonLeftStyle}"
+                                     Command="BrowseBack"
+                                     IsEnabled="{TemplateBinding CanGoBack}"
+                                     VerticalAlignment="Top"/>
                     </Grid>
 
-                    <ContentPresenter />
+                    <ContentPresenter  x:Name="PART_FrameCP"/>
                 </DockPanel>
             </Grid>
         </ControlTemplate>
+
+        <Style x:Key="BrowserFrameStyle" TargetType="{x:Type Frame}">
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type Frame}">
+                            <ContentPresenter x:Name="PART_FrameCP"/>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+            <Style.Triggers>
+                <Trigger Property="NavigationUIVisibility" Value="Visible">
+                    <Setter Property="Template" Value="{StaticResource FrameNavigationTemplate}"/>
+                </Trigger>
+            </Style.Triggers>
+        </Style>
+
+       
     </s:SurfaceWindow.Resources>
 
         
@@ -51,6 +68,7 @@
             <Border  VerticalAlignment="Bottom"  Background="{StaticResource MyBrush}" BorderThickness="1" BorderBrush="Black">
             </Border>
         </Grid>-->
+    
     <Grid Grid.Row="0" 
                                           Grid.Column="0"
                                           Grid.ColumnSpan="2">
@@ -66,9 +84,9 @@
                Grid.Row="0" 
                Grid.Column="0"
                Grid.ColumnSpan="2"
-               Template="{StaticResource FrameTemplate}" />
-     
-            <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center">
+               Style="{StaticResource BrowserFrameStyle}" NavigationUIVisibility="Hidden" />
+
+        <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" >
                 <Border Name="mask" CornerRadius="5" Background="White"/>
                 <Border x:Name="itemBorder">
                     <Border.OpacityMask>
@@ -80,134 +98,14 @@
 
             <s:SurfaceListBox x:Name="navigationListBox" Grid.Row="1" 
                                           Grid.Column="1" 
-                                          Style="{StaticResource DefaultListBoxStyle}"
+                                          Style="{StaticResource TagListBoxStyle}"
                                           ItemsSource="{Binding CollectionList}"
                                           SelectedItem="{Binding Collection}"
-            	                          HorizontalAlignment="Left"    
+            	                          HorizontalAlignment="Stretch"    
                                           VerticalAlignment="Center">
 
             </s:SurfaceListBox>
-        <!--<WrapPanel ItemHeight="30" ItemWidth="150" VerticalAlignment="Center" HorizontalAlignment="Center">
-            <WrapPanel.Resources>
-                <Style x:Key="navButton" TargetType="Button">
-                    <Setter Property="Margin" Value="10,0,10,0"/>
-                    <Setter Property="Template">
-                        <Setter.Value>
-                            <ControlTemplate TargetType="Button">
-                                <Grid x:Name="NAV">
-                                    <Grid.Resources>
-                                        <Storyboard x:Key="ripple">
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0.75"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="0"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.292"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="1.646"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.292"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="1.646"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="-0.042"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="-0.021"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0.5"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="0.25"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.Opacity)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0.75"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="0"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleX)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.308"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="1.616"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[0].(ScaleTransform.ScaleY)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1.308"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="1.616"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.X)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="0.269"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="0.538"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="image1" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="1"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" Storyboard.TargetName="contentPresenter" Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.2000000" Value="-5.494"/>
-                                                <EasingDoubleKeyFrame KeyTime="00:00:00.5000000" Value="1.006"/>
-                                            </DoubleAnimationUsingKeyFrames>
-                                        </Storyboard>
-                                    </Grid.Resources>
-                                    <Grid.Triggers>
-                                        <EventTrigger RoutedEvent="MouseEnter">
-                                            <BeginStoryboard Storyboard="{StaticResource ripple}"/>
-                                        </EventTrigger>
-                                    </Grid.Triggers>
-                                    <ContentPresenter x:Name="contentPresenter" RenderTransformOrigin="0.5,0.5" OpacityMask="Black" HorizontalAlignment="Center" VerticalAlignment="Center">
-                                        <ContentPresenter.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform/>
-                                            </TransformGroup>
-                                        </ContentPresenter.RenderTransform>
-                                    </ContentPresenter>
-                                    <Rectangle Fill="#FF4B4B4B" RadiusX="24" RadiusY="24" Width="1" HorizontalAlignment="Right" />
-                                    <Image x:Name="image1" Height="13" Width="44" Source="Layer 1.png" Stretch="Fill" Opacity="0" RenderTransformOrigin="0.5,0.5">
-                                        <Image.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform/>
-                                            </TransformGroup>
-                                        </Image.RenderTransform>
-                                    </Image>
-                                    <Image x:Name="image" Height="24" Width="82" Source="Layer 1.png" Stretch="Fill" Opacity="0" RenderTransformOrigin="0.5,0.5">
-                                        <Image.RenderTransform>
-                                            <TransformGroup>
-                                                <ScaleTransform/>
-                                                <SkewTransform/>
-                                                <RotateTransform/>
-                                                <TranslateTransform/>
-                                            </TransformGroup>
-                                        </Image.RenderTransform>
-                                    </Image>
-                                </Grid>
-                            </ControlTemplate>
-                        </Setter.Value>
-                    </Setter>
-                    <Setter Property="Background" Value="White"/>
-                    <Setter Property="Foreground" Value="Orange"/>
-                    <Setter Property="FontFamily" Value="Arial"/>
-                    <Setter Property="FontSize" Value="22"/>
-                    <Setter Property="FontWeight" Value="Bold"/>
-                </Style>
-            </WrapPanel.Resources>
-            <Button x:Name="HomeBtn"  Style="{StaticResource navButton}" Content="Home page"/>
-            <Button x:Name="AboutBtn" Style="{StaticResource navButton}" Content="About Us"  />
-            <Button x:Name="ServicesBtn" Style="{StaticResource navButton}" Content="Services" />
-            <Button x:Name="SolutionsBtn" Style="{StaticResource navButton}" Content="Solutions" />
-            <Button x:Name="CloseBtn" Style="{StaticResource navButton}"  Content="Contact Us"/>
-        </WrapPanel>-->
-
+       
     </Grid>
        
 </s:SurfaceWindow>

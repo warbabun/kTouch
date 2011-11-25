@@ -31,9 +31,9 @@ namespace KTouch.Controls.ViewModel {
             Loader<Item> loader = new Loader<Item>();
             _successStoryList = new ObservableCollection<Item>();
             _presentationList = new ObservableCollection<Item>();
-         //   _collectionList = new ObservableCollection<Item>();
-         //   loader.StartLoad(ref _collectionList, "MainContent", loader.LoadCollectionListByCollection);
-            loader.StartLoad(ref _successStoryList, "KleePres", loader.LoadItemListByCollectionName);
+            //   _collectionList = new ObservableCollection<Item>();
+            //   loader.StartLoad(ref _collectionList, "MainContent", loader.LoadCollectionListByCollection);
+            loader.StartLoad(ref _successStoryList, "Klee Group", loader.LoadItemListByCollectionName);
             loader.StartLoad(ref _presentationList, "Success Story", loader.LoadItemListByCollectionName);
         }
     }

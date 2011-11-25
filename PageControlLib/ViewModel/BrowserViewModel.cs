@@ -111,7 +111,7 @@ namespace KTouch.Controls.ViewModel {
             _nsvc = nsvc;
             _loader = new Loader<Item>();
             _collectionList = new ObservableCollection<Item>();
-            _loader.StartLoad(ref _collectionList, "MainContent", _loader.LoadCollectionListByCollectionName);
+            _loader.StartLoad(ref _collectionList, "Content", _loader.LoadCollectionListByCollectionName);
         }
     }
 }

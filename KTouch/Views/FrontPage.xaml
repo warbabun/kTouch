@@ -6,7 +6,6 @@
 			xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
 			xmlns:Core="clr-namespace:KTouch.Controls.Core;assembly=KTouch.Controls"
 			xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
-		
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			mc:Ignorable="d" 
@@ -16,23 +15,23 @@
 
     <Grid  Name="LayoutRoot" ClipToBounds="False">
         <Grid.RowDefinitions>
-            <RowDefinition />
+            <RowDefinition/>
             <RowDefinition />
             <RowDefinition />
         </Grid.RowDefinitions>
 
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"
+        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
                            Grid.Row="0" 
+                           Tag="Klee Group"
                            ItemsSource="{Binding SuccessStoryList}"/>
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"
+        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}" 
                            Grid.Row="1" 
+                           Tag="Offres de stages"
                            ItemsSource="{Binding SuccessStoryList}"/>
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"
+        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
                            Grid.Row="2" 
+                           Tag="Success Story"
                            ItemsSource="{Binding SuccessStoryList}"/>
-        <!--<su:SurfaceListBox Style="{StaticResource DefaultListBoxStyle}"
-                           Grid.Row="2" 
-                           ItemsSource="{Binding CollectionList}" 
-            	           HorizontalAlignment="Center"/>-->
+     
     </Grid>
 </Page>
