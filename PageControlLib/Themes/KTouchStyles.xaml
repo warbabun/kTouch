@@ -782,7 +782,7 @@
         </DoubleAnimationUsingKeyFrames>
     </Storyboard>
     <Storyboard x:Key="Ripple">
-        <DoubleAnimationUsingKeyFrames BeginTime="00:00:00" 
+        <!--<DoubleAnimationUsingKeyFrames BeginTime="00:00:00" 
                                                    Storyboard.TargetName="image" 
                                                    Storyboard.TargetProperty="(UIElement.Opacity)">
             <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
@@ -851,7 +851,7 @@
             <EasingDoubleKeyFrame KeyTime="00:00:00" Value="0"/>
             <EasingDoubleKeyFrame KeyTime="00:00:00.3000000" Value="1"/>
             <EasingDoubleKeyFrame KeyTime="00:00:01.1000000" Value="1"/>
-        </DoubleAnimationUsingKeyFrames>
+        </DoubleAnimationUsingKeyFrames>-->
         <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
                                                    Storyboard.TargetName="contentPresenter"
                                                    Storyboard.TargetProperty="(UIElement.RenderTransform).(TransformGroup.Children)[3].(TranslateTransform.Y)">

@@ -17,7 +17,7 @@
     <!--<WrapPanel Orientation="Horizontal" ItemHeight="200" ItemWidth="200"  Width="1400"/>-->
 
     <Grid  Name="LayoutRoot" ClipToBounds="False">
-        <su:SurfaceListBox Style="{StaticResource ListPageListBoxStyle}"
+        <su:SurfaceListBox Style="{StaticResource ListPageListBoxStyle}" HorizontalAlignment="Stretch" VerticalAlignment="Stretch"
                            ItemsSource="{Binding ItemList}" />
           
    

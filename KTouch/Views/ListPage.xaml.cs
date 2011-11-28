@@ -42,23 +42,23 @@ namespace KTouch {
         /// </summary>
         /// <param name="sender">The source of the GetureEvent.</param>
         /// <param name="e">An GestureEventArgs that contains the event data.</param>
-        private void OnTapGesture(object sender, GestureEventArgs e) {
-            this.Play(sender, e);
-            e.Handled = true;
-        }
+        //private void OnTapGesture(object sender, GestureEventArgs e) {
+        //    this.Play(sender, e);
+        //    e.Handled = true;
+        //}
 
         /// <summary>
         /// Plays the content element (kItem) in the PresentationPage.
         /// </summary>
         /// <param name="sender">The source of the event.</param>
         /// <param name="e">An RoutedEventArgs that contains the event data.</param>
-        private void Play(object sender, RoutedEventArgs e) {
-            if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
-                var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
-                if(item != null)
-                    kPage.ShowInViewer((Item)item.DataContext);
-            }
-            e.Handled = true;
-        }
+        //private void Play(object sender, RoutedEventArgs e) {
+        //    if(!kPage.XpsViewer.IsVisible && !kPage.MediaViewer.IsVisible) {
+        //        var item = (SurfaceListBoxItem)StaticAccessors.FindAncestor(typeof(SurfaceListBoxItem), e.OriginalSource);
+        //        if(item != null)
+        //            kPage.ShowInViewer((Item)item.DataContext);
+        //    }
+        //    e.Handled = true;
+        //}
     }
 }

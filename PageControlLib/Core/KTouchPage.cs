@@ -76,18 +76,18 @@ namespace KTouch.Controls.Core {
             base.OnPreviewTouchDown(e);
         }
 
-        public static void ShowInViewer(Item item) {
-            switch(item.Type) {
-                case "vid":
-                    MediaViewer.Source = item.FullName;
-                    MediaViewer.Visibility = Visibility.Visible;
-                    break;
-                default:
-                    kPage.XpsViewer.Document = item.FullName;
-                    XpsViewer.IsOpen = true;
-                    // XpsViewer.Visibility = Visibility.Visible;
-                    break;
-            }
-        }
+        //public static void ShowInViewer(Item item) {
+        //    switch(item.Type) {
+        //        case "vid":
+        //            MediaViewer.Source = item.FullName;
+        //            MediaViewer.Visibility = Visibility.Visible;
+        //            break;
+        //        default:
+        //            kPage.XpsViewer.Document = item.FullName;
+        //            XpsViewer.IsOpen = true;
+        //            // XpsViewer.Visibility = Visibility.Visible;
+        //            break;
+        //    }
+        //}
     }
 }

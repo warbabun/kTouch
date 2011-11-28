@@ -197,6 +197,7 @@
     <Resource Include="Images\Layer 1.png">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
+    <Resource Include="Images\logo_kleegroup.gif" />
     <Content Include="KTouch.exe.log4net">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

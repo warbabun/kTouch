@@ -1,7 +1,11 @@
 ﻿using System;
 using System.Collections.ObjectModel;
+using System.IO;
+using System.Linq;
 using System.Windows;
+using System.Windows.Documents;
 using System.Windows.Threading;
+using System.Windows.Xps.Packaging;
 using KTouch.Units;
 
 namespace KTouch.Controls.ViewModel {
@@ -30,7 +34,23 @@ namespace KTouch.Controls.ViewModel {
         public static void ItemChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             PresentationPageViewModel vm = (PresentationPageViewModel)d;
             vm.LastItem = (Item)e.NewValue;
+            vm.Document = (new XpsDocument(((Item)e.NewValue).FullName, FileAccess.Read)).GetFixedDocumentSequence();
         }
+
+
+
+        public FixedDocumentSequence Document {
+            get { return (FixedDocumentSequence)GetValue(DocumentProperty); }
+            set { SetValue(DocumentProperty, value); }
+        }
+
+        public static readonly DependencyProperty DocumentProperty =
+            DependencyProperty.Register("Document", typeof(FixedDocumentSequence), typeof(PresentationPageViewModel), new UIPropertyMetadata(null));
+
+        //public FixedDocumentSequence Document {
+        //    get;
+        //    set;
+        //}
 
         public Item LastItem {
             get { return (Item)GetValue(LastItemProperty); }
@@ -43,6 +63,33 @@ namespace KTouch.Controls.ViewModel {
         public static void LastItemChangedCallback(DependencyObject d, DependencyPropertyChangedEventArgs e) {
             PresentationPageViewModel vm = (PresentationPageViewModel)d;
             vm.Item = (Item)e.NewValue;
+        }
+
+        //public static readonly DependencyProperty ItemProperty =
+        //     DependencyProperty.Register("Item", typeof(string), typeof(PresentationPage), new FrameworkPropertyMetadata(OnItemPropertyChanged));
+
+        //public string Item {
+        //    get { return (string)GetValue(ItemProperty); }
+        //    set { SetValue(ItemProperty, value); }
+        //}
+
+        //private static void OnItemPropertyChanged(DependencyObject source, DependencyPropertyChangedEventArgs e) {
+        //    try {
+        //        PresentationPage page = (PresentationPage)source;
+        //        page.xpsViewer.Document = (new XpsDocument((string)e.NewValue, FileAccess.Read)).GetFixedDocumentSequence();
+        //        page.xpsViewer.FitToHeight();
+        //    } catch {
+        //    }
+        //}
+
+        public void Next() {
+            int currentIndex = ItemList.IndexOf(Item);
+            if (currentIndex == ItemList.Count - 1) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            Item = ItemList.ElementAt(currentIndex);
         }
 
         /// <summary>

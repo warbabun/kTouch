@@ -2,67 +2,41 @@
 			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:Surface="http://schemas.microsoft.com/surface/2008"
-			 xmlns:Helper="clr-namespace:KTouch.Controls"
-			 xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
-			 x:Name="kTouchXpsViewer"
-			 IsManipulationEnabled="True"
-             Background="{DynamicResource XpsItemBackgroundBrush}"
-			 ManipulationDelta="manipulationDelta"
-			 ManipulationStarting="manipulationStarting"
-			 ManipulationInertiaStarting="inertiaStarting">
+			 x:Name="kTouchXpsViewer">
     <UserControl.Resources>
+        
         <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
-            <Setter Property="ShowPageBorders" Value="False"/>
-            <!--<Setter Property="Padding" Value="20,15,20,15"/>
-            <Setter Property="Background" Value="{DynamicResource XpsItemBackgroundBrush}" />
-            <Setter Property="Background" Value="{DynamicResource XpsViewerBackground}" />-->
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="IsManipulationEnabled" Value="True"/>
+            <Setter Property="Padding" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type DocumentViewer}">
                         <Grid x:Name="mainBorder">
-                            <!-- Rounded mask (stretches to fill Grid) -->
-                            <Border Name="mask" CornerRadius="10" Opacity="0.4" Background="White"/>
-                            <!-- Main content container -->
+                            <Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"/>
                             <Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
-                                                         Padding="5"
+                                                         Background="{TemplateBinding Background}"
+                                                         Padding="{TemplateBinding Padding}"
                                                          HorizontalScrollBarVisibility="Disabled" 
                                                          VerticalScrollBarVisibility="Disabled">
-
-                                <!-- Use a VisualBrush of 'mask' as the opacity mask -->
-                                <!--<Surface:SurfaceScrollViewer.OpacityMask>
+                                <Surface:SurfaceScrollViewer.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=mask}"/>
-                                </Surface:SurfaceScrollViewer.OpacityMask>-->
+                                </Surface:SurfaceScrollViewer.OpacityMask>
                             </Surface:SurfaceScrollViewer>
-                            <Canvas IsHitTestVisible="True" IsManipulationEnabled="True" Background="Transparent"/>
+                            <Canvas IsHitTestVisible="{TemplateBinding IsManipulationEnabled}" 
+                                    IsManipulationEnabled="{TemplateBinding IsManipulationEnabled}" 
+                                    Background="Transparent"/>
                         </Grid>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
         </Style>
     </UserControl.Resources>
-	<Grid x:Name="LayoutRoot" >
-		<!--<Grid.ColumnDefinitions>
-			<ColumnDefinition Width="0.15*"/>
-			<ColumnDefinition Width="0.70*"/>
-			<ColumnDefinition Width="0.15*"/>
-		</Grid.ColumnDefinitions>
-		<Grid.RowDefinitions>
-			<RowDefinition Height="0.01*"/>
-			<RowDefinition Height="0.98*"/>
-			<RowDefinition Height="0.01*"/>
-		</Grid.RowDefinitions>-->
-		<!--Padding="{Binding ActualHeight, ConverterParameter=30, Converter={StaticResource marginConverter1}, RelativeSource={RelativeSource Self}}"-->
-		<DocumentViewer x:Name="xpsViewer"
+    <DocumentViewer x:Name="xpsViewer"
                         Style="{StaticResource DocumentViewerStyle}"
-						IsManipulationEnabled="True">
-		</DocumentViewer>
-
-		<!--<Surface:SurfaceButton x:Name="CloseBtn" 
-								VerticalAlignment="Top" HorizontalAlignment="Right"
-							   Margin="0,-15,-15,0"
-								Width="60"
-								Style="{DynamicResource CloseButtonStyle}" 
-								Grid.Column="1" Grid.Row="1" />-->
-	</Grid>
+                        ManipulationDelta="manipulationDelta"
+			            ManipulationStarting="manipulationStarting"
+			            ManipulationInertiaStarting="inertiaStarting"/>
 
 </UserControl>

@@ -27,11 +27,11 @@
         <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}" 
                            Grid.Row="1" 
                            Tag="Offres de stages"
-                           ItemsSource="{Binding SuccessStoryList}"/>
+                           ItemsSource="{Binding StageList}"/>
         <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
                            Grid.Row="2" 
                            Tag="Success Story"
-                           ItemsSource="{Binding SuccessStoryList}"/>
+                           ItemsSource="{Binding PresentationList}"/>
      
     </Grid>
 </Page>

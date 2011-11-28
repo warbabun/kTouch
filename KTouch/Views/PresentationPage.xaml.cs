@@ -1,8 +1,11 @@
-﻿using System;
+﻿using System.IO;
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
+using System.Windows.Xps.Packaging;
 using KTouch.Controls.ViewModel;
 using KTouch.Units;
+using Blake.NUI.WPF.Gestures;
 
 namespace KTouch.Views {
 
@@ -16,8 +19,54 @@ namespace KTouch.Views {
         public PresentationPage(Item item) {
             InitializeComponent();
             _vm = new PresentationPageViewModel(item);
+            xpsViewer.FitToHeight();
+            Events.RegisterGestureEventSupport(this);
+            Events.AddTapGestureHandler(xpsViewer, new GestureEventHandler(OnTapGesture));
             this.DataContext = _vm;
-            this.PreviewTouchDown += new EventHandler<TouchEventArgs>(kBrowser_PreviewTouchDown);
+            //    this.PreviewTouchDown += new EventHandler<TouchEventArgs>(kBrowser_PreviewTouchDown);
+        }
+
+        protected void OnTapGesture(object sender, GestureEventArgs e) {
+            _vm.Next();
+            e.Handled = true;
+        }
+
+        private void manipulationDelta(object sender, ManipulationDeltaEventArgs e) {
+            try {
+                if (e.DeltaManipulation.Translation != null) {
+                    double verticalOffset = xpsViewer.VerticalOffset - e.DeltaManipulation.Translation.Y * 3;
+                    double horizontalOffset = xpsViewer.HorizontalOffset - e.DeltaManipulation.Translation.X * 3;
+                    if (verticalOffset > 0)
+                        xpsViewer.VerticalOffset = verticalOffset;
+                    if (horizontalOffset > 0)
+                        xpsViewer.HorizontalOffset = horizontalOffset;
+                }
+                if (e.DeltaManipulation.Scale.X != 1) {
+                    if (xpsViewer.Zoom > 400)
+                        xpsViewer.Zoom = 400;
+                    else if (xpsViewer.Zoom < 20)
+                        xpsViewer.Zoom = 20;
+                    else
+                        xpsViewer.Zoom *= e.DeltaManipulation.Scale.X;
+                }
+            } catch {
+            } finally {
+                e.Handled = true;
+            }
+        }
+
+        private void manipulationStarting(object sender, ManipulationStartingEventArgs e) {
+            try {
+                e.ManipulationContainer = this;
+            } catch {
+            } finally {
+                e.Handled = true;
+            }
+        }
+
+        void inertiaStarting(object sender, ManipulationInertiaStartingEventArgs e) {
+            e.TranslationBehavior.DesiredDeceleration = 10.0 * 96.0 / (1000.0 * 1000.0);
+            e.Handled = true;
         }
 
         /// <summary>
@@ -25,8 +74,8 @@ namespace KTouch.Views {
         /// </summary>
         /// <param name="sender"></param>
         /// <param name="e"></param>
-        private void kBrowser_PreviewTouchDown(object sender, TouchEventArgs e) {
-            _vm.RestartTimer();
-        }
+        //private void kBrowser_PreviewTouchDown(object sender, TouchEventArgs e) {
+        //    _vm.RestartTimer();
+        //}
     }
 }

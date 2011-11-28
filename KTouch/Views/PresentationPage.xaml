@@ -11,29 +11,47 @@
 	  d:DesignWidth="1920"
 	  Title="PresentationPage"
 	  Background="Transparent">
-	
-	<Grid Name="LayoutRoot" ClipToBounds="False">
-		<Controls:KTouchXpsViewer x:Name="viewer" 
-									  Document="{Binding LastItem.FullName}"
-									  Margin="25,10,25,10"
-									 />
+    <Page.Resources>
+        <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
+            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Foreground" Value="Orange"/>
+            <Setter Property="IsManipulationEnabled" Value="True"/>
+            <Setter Property="Padding" Value="5"/>
+            <Setter Property="Template">
+                <Setter.Value>
+                    <ControlTemplate TargetType="{x:Type DocumentViewer}">
+                        <Grid x:Name="mainBorder">
+                            <Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"/>
+                            <Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
+                                                       
+                                                         Padding="{TemplateBinding Padding}"
+                                                         HorizontalScrollBarVisibility="Disabled" 
+                                                         VerticalScrollBarVisibility="Disabled">
+                                <Surface:SurfaceScrollViewer.OpacityMask>
+                                    <VisualBrush Visual="{Binding ElementName=mask}"/>
+                                </Surface:SurfaceScrollViewer.OpacityMask>
+                            </Surface:SurfaceScrollViewer>
+                            <Canvas IsHitTestVisible="{TemplateBinding IsManipulationEnabled}" 
+                                    IsManipulationEnabled="{TemplateBinding IsManipulationEnabled}" 
+                                    Background="Transparent"/>
+                        </Grid>
+                    </ControlTemplate>
+                </Setter.Value>
+            </Setter>
+        </Style>
+    </Page.Resources>
+    <Grid Name="LayoutRoot" ClipToBounds="False">
+        <!--<Controls:KTouchXpsViewer x:Name="viewer" 
+                                  Document="{Binding LastItem.FullName}"
+                                  Margin="25,10,25,10"/>-->
 
-        <!--<Surface:SurfaceListBox x:Name="xpsListBox" 
-									Style="{StaticResource OverlayListBoxStyle}"
-									SelectedItem="{Binding Item}"
-									ItemsSource="{Binding ItemList}" 
-									Grid.Row="1"
-									Visibility="{Binding Path=OverlayVisibility}"/>-->
-        <!--<Grid Name="GridOverlay" Grid.RowSpan="3" Grid.ColumnSpan="3">
-			
-			<Grid.RowDefinitions>
-				<RowDefinition Height="830*" />
-				<RowDefinition Height="220*"/>
-				<RowDefinition Height="30*" />
-			</Grid.RowDefinitions>
-
-			
-		</Grid>-->
-	</Grid>
+        <DocumentViewer x:Name="xpsViewer"
+                        Margin="25"
+                        Document="{Binding Document}"
+                        Style="{StaticResource DocumentViewerStyle}"
+                        ManipulationDelta="manipulationDelta"
+			            ManipulationStarting="manipulationStarting"
+			            ManipulationInertiaStarting="inertiaStarting"/>
+    </Grid>
 
 </Page>

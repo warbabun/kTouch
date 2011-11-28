@@ -6,6 +6,13 @@ namespace KTouch.Controls.ViewModel {
 
     public class FrontPageViewModel : DependencyObject {
 
+        private ObservableCollection<Item> _stageList;
+        public ObservableCollection<Item> StageList {
+            get {
+                return _stageList;
+            }
+        }
+
         private ObservableCollection<Item> _successStoryList;
         public ObservableCollection<Item> SuccessStoryList {
             get {
@@ -20,21 +27,14 @@ namespace KTouch.Controls.ViewModel {
             }
         }
 
-        //private readonly ObservableCollection<Item> _collectionList;
-        //public ObservableCollection<Item> CollectionList {
-        //    get {
-        //        return _collectionList;
-        //    }
-        //}
-
         public FrontPageViewModel() {
             Loader<Item> loader = new Loader<Item>();
             _successStoryList = new ObservableCollection<Item>();
             _presentationList = new ObservableCollection<Item>();
-            //   _collectionList = new ObservableCollection<Item>();
-            //   loader.StartLoad(ref _collectionList, "MainContent", loader.LoadCollectionListByCollection);
+            _stageList = new ObservableCollection<Item>();
             loader.StartLoad(ref _successStoryList, "Klee Group", loader.LoadItemListByCollectionName);
             loader.StartLoad(ref _presentationList, "Success Story", loader.LoadItemListByCollectionName);
+            loader.StartLoad(ref _stageList, "Offres de stages", loader.LoadItemListDescendantsByCollectionName);
         }
     }
 }

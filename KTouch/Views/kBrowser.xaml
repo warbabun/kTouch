@@ -2,54 +2,34 @@
                   xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
                   xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
         		  xmlns:s="http://schemas.microsoft.com/surface/2008" 
-        
                   Height="1080" 
                   Width="1920"                      
                   Title="kTouch"
                   WindowState="Maximized"
                   Background="White"
                   WindowStyle="None">
-        <!--<ImageBrush ImageSource="/KTouch.Controls;component/Themes/Resources/kTouch_FullScreen.png"/>-->
-        <!--<ImageBrush ImageSource="/KTouch.Controls;component/Themes/Resources/fond.jpg"/>-->
-
     <s:SurfaceWindow.Resources>
-        <LinearGradientBrush x:Key="MyBrush">
-            <GradientStop Color="White" Offset="0.1" />
-            <GradientStop Color="Orange" Offset="1.0" />
-        </LinearGradientBrush>
-
         <ControlTemplate x:Key="FrameNavigationTemplate" TargetType="{x:Type Frame}">
-            <Grid>
-                <DockPanel >
-                    <Grid DockPanel.Dock="Left" >
-                        <!--<s:SurfaceButton 
+            <DockPanel >
+                <Grid DockPanel.Dock="Left" >
+                    <s:SurfaceButton x:Name="Back"
                                      Width="50" 
                                      Height="50" 
-                                     Style="{StaticResource NavigationButtonExitStyle}" 
-                                     Click="CloseClick"
-                                     IsEnabled="{TemplateBinding CanGoBack}"
-                                     HorizontalAlignment="Right"/>-->
-
-                        <s:SurfaceButton x:Name="Back"
-                                     Width="25" 
-                                     Height="25" 
                                      BorderBrush="Black"
                                      Style="{StaticResource NavigationButtonLeftStyle}"
                                      Command="BrowseBack"
                                      IsEnabled="{TemplateBinding CanGoBack}"
                                      VerticalAlignment="Top"/>
-                    </Grid>
-
-                    <ContentPresenter  x:Name="PART_FrameCP"/>
-                </DockPanel>
-            </Grid>
+                </Grid>
+                <ContentPresenter  x:Name="PART_FrameCP"/>
+            </DockPanel>
         </ControlTemplate>
 
         <Style x:Key="BrowserFrameStyle" TargetType="{x:Type Frame}">
             <Setter Property="Template">
                 <Setter.Value>
                     <ControlTemplate TargetType="{x:Type Frame}">
-                            <ContentPresenter x:Name="PART_FrameCP"/>
+                        <ContentPresenter x:Name="PART_FrameCP"/>
                     </ControlTemplate>
                 </Setter.Value>
             </Setter>
@@ -59,53 +39,22 @@
                 </Trigger>
             </Style.Triggers>
         </Style>
-
-       
     </s:SurfaceWindow.Resources>
 
-        
-        <!--<Grid DockPanel.Dock="Top" Height="100">
-            <Border  VerticalAlignment="Bottom"  Background="{StaticResource MyBrush}" BorderThickness="1" BorderBrush="Black">
-            </Border>
-        </Grid>-->
-    
-    <Grid Grid.Row="0" 
-                                          Grid.Column="0"
-                                          Grid.ColumnSpan="2">
-            <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="200"/>
-                <ColumnDefinition Width="*"/>
-            </Grid.ColumnDefinitions>
-            <Grid.RowDefinitions>
-                <RowDefinition Height="*"/>
-                <RowDefinition Height="100"/>
-            </Grid.RowDefinitions>
+    <Grid x:Name="LayoutRoot">
+        <Grid.RowDefinitions>
+            <RowDefinition Height="*"/>
+            <RowDefinition Height="120"/>
+        </Grid.RowDefinitions>
         <Frame x:Name="_mainFrame" 
                Grid.Row="0" 
-               Grid.Column="0"
-               Grid.ColumnSpan="2"
-               Style="{StaticResource BrowserFrameStyle}" NavigationUIVisibility="Hidden" />
-
-        <Grid Grid.Row="1" Grid.Column="0" VerticalAlignment="Center" HorizontalAlignment="Center" >
-                <Border Name="mask" CornerRadius="5" Background="White"/>
-                <Border x:Name="itemBorder">
-                    <Border.OpacityMask>
-                        <VisualBrush Visual="{Binding ElementName=mask}"/>
-                    </Border.OpacityMask>
-                    <Image Source="/KTouch;component/Images/logo.jpg" />
-                </Border>
-            </Grid>
-
-            <s:SurfaceListBox x:Name="navigationListBox" Grid.Row="1" 
-                                          Grid.Column="1" 
-                                          Style="{StaticResource TagListBoxStyle}"
-                                          ItemsSource="{Binding CollectionList}"
-                                          SelectedItem="{Binding Collection}"
-            	                          HorizontalAlignment="Stretch"    
-                                          VerticalAlignment="Center">
-
-            </s:SurfaceListBox>
-       
+               Style="{StaticResource BrowserFrameStyle}" 
+               NavigationUIVisibility="Hidden"/>
+        <s:SurfaceListBox x:Name="navigationListBox" 
+                          Grid.Row="1" 
+                          Style="{StaticResource TagListBoxStyle}"
+                          ItemsSource="{Binding CollectionList}"
+                          SelectedItem="{Binding Collection}"/>
     </Grid>
-       
+
 </s:SurfaceWindow>
