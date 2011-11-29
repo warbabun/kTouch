@@ -12,10 +12,13 @@
 	  Title="PresentationPage"
 	  Background="Transparent">
     <Page.Resources>
+        <Color x:Key="ControlLightColor">White</Color>
+        <Color x:Key="ControlMediumColor">#FF7381F9</Color>
         <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
             <Setter Property="Background" Value="#C4FFFFFF"/>
             <Setter Property="Foreground" Value="Orange"/>
             <Setter Property="IsManipulationEnabled" Value="True"/>
+            <Setter Property="ShowPageBorders" Value="False"/>
             <Setter Property="Padding" Value="5"/>
             <Setter Property="Template">
                 <Setter.Value>
@@ -23,14 +26,18 @@
                         <Grid x:Name="mainBorder">
                             <Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"/>
                             <Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
-                                                       
+                                                         CanContentScroll="True"
                                                          Padding="{TemplateBinding Padding}"
                                                          HorizontalScrollBarVisibility="Disabled" 
-                                                         VerticalScrollBarVisibility="Auto">
+                                                         VerticalScrollBarVisibility="Visible">
                                 <!--<Surface:SurfaceScrollViewer.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=mask}"/>
                                 </Surface:SurfaceScrollViewer.OpacityMask>-->
+                                <Surface:SurfaceScrollViewer.BitmapEffect>
+                                    <DropShadowBitmapEffect Color="LightGray" />
+                                </Surface:SurfaceScrollViewer.BitmapEffect>
                             </Surface:SurfaceScrollViewer>
+
                             <Canvas IsHitTestVisible="{TemplateBinding IsManipulationEnabled}" 
                                     IsManipulationEnabled="{TemplateBinding IsManipulationEnabled}" 
                                     Background="Transparent"/>
@@ -40,18 +47,13 @@
             </Setter>
         </Style>
     </Page.Resources>
-    <Grid Name="LayoutRoot" ClipToBounds="False">
-        <!--<Controls:KTouchXpsViewer x:Name="viewer" 
-                                  Document="{Binding LastItem.FullName}"
-                                  Margin="25,10,25,10"/>-->
-
-        <DocumentViewer x:Name="xpsViewer"
-                        Margin="25"
+    <DocumentViewer x:Name="xpsViewer"
+                        Margin="5"
+                        Zoom="75"
                         Document="{Binding Document}"
                         Style="{StaticResource DocumentViewerStyle}"
                         ManipulationDelta="manipulationDelta"
 			            ManipulationStarting="manipulationStarting"
 			            ManipulationInertiaStarting="inertiaStarting"/>
-    </Grid>
 
 </Page>

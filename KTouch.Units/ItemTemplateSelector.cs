@@ -10,9 +10,9 @@ namespace KTouch.Units {
     public partial class ItemTemplateSelector : DataTemplateSelector {
 
         public override DataTemplate SelectTemplate(object data, DependencyObject container) {
-            if(data != null && data is Item) {
+            if (data != null && data is Item) {
                 Item item = data as Item;
-                if("dir".Equals(item.Type)) {
+                if ("dir".Equals(item.Type)) {
                     return CollectionTemplate;
                 } else {
                     return ItemTemplate;
@@ -25,7 +25,7 @@ namespace KTouch.Units {
         private static DataTemplate _collectionTemplate;
         protected DataTemplate CollectionTemplate {
             get {
-                if(_collectionTemplate == null) {
+                if (_collectionTemplate == null) {
                     _collectionTemplate = MakeCollectionTemplate();
                 }
                 return _collectionTemplate;
@@ -35,7 +35,7 @@ namespace KTouch.Units {
         private DataTemplate _itemTemplate;
         protected DataTemplate ItemTemplate {
             get {
-                if(_itemTemplate == null) {
+                if (_itemTemplate == null) {
                     _itemTemplate = MakeItemTemplate();
                 }
                 return _itemTemplate;
@@ -46,7 +46,7 @@ namespace KTouch.Units {
             XNamespace _xmlns = @"http://schemas.microsoft.com/winfx/2006/xaml/presentation";
             XElement templ =
                 new XElement(_xmlns + "DataTemplate", new XAttribute("xmlns", _xmlns),
-                    new XElement(_xmlns + "TextBlock", new XAttribute("TextWrapping", "WrapWithOverflow"), new XAttribute("Text", "{Binding Name}")));
+                    new XElement(_xmlns + "TextBlock", new XAttribute("TextAlignment", "Center"), new XAttribute("TextWrapping", "WrapWithOverflow"), new XAttribute("Text", "{Binding Name}")));
             DataTemplate dt = (DataTemplate)XamlReader.Load(templ.CreateReader());
             return dt;
         }
@@ -66,12 +66,12 @@ namespace KTouch.Units {
         public override Style SelectStyle(object item, DependencyObject container) {
             base.SelectStyle(item, container);
 
-            if(container == null || item == null)
+            if (container == null || item == null)
                 return null;
             else {
                 ScatterView scatterView = StaticAccessors.FindAncestor(typeof(ScatterView), container) as ScatterView;
                 try {
-                    if(((Item)item).Type.Equals("vid"))
+                    if (((Item)item).Type.Equals("vid"))
                         return (Style)scatterView.FindResource("VidScatterViewItemStyle");
                     else
                         return (Style)scatterView.FindResource("XpsScatterViewItemStyle");
@@ -86,16 +86,16 @@ namespace KTouch.Units {
         public override Style SelectStyle(object item, DependencyObject container) {
             base.SelectStyle(item, container);
 
-            if(container == null || item == null)
+            if (container == null || item == null)
                 return null;
             else {
                 var page = (Page)StaticAccessors.FindAncestor(typeof(Page), container);
                 try {
-                    if(((Item)item).Type.Equals("xps")) {
+                    if (((Item)item).Type.Equals("xps")) {
                         return (Style)page.FindResource("XpsListBoxItemStyle");
-                    } else if(((Item)item).Type.Equals("vid")) {
+                    } else if (((Item)item).Type.Equals("vid")) {
                         return (Style)page.FindResource("VidListBoxItemStyle");
-                    } else if(((Item)item).Type.Equals("pic")) {
+                    } else if (((Item)item).Type.Equals("pic")) {
                         return (Style)page.FindResource("PicListBoxItemStyle");
                     } else
                         return null;

@@ -45,7 +45,7 @@
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="120"/>
+            <RowDefinition Height="100"/>
         </Grid.RowDefinitions>
         <Frame x:Name="_mainFrame" 
                Grid.Row="0" 

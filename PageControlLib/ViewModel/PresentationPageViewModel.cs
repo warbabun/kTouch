@@ -11,6 +11,8 @@ using KTouch.Units;
 namespace KTouch.Controls.ViewModel {
     public class PresentationPageViewModel : DependencyObject {
 
+        public event EventHandler DocumentChanged;
+
         /// <summary>
         /// Timer.
         /// </summary>
@@ -37,15 +39,20 @@ namespace KTouch.Controls.ViewModel {
             vm.Document = (new XpsDocument(((Item)e.NewValue).FullName, FileAccess.Read)).GetFixedDocumentSequence();
         }
 
-
-
         public FixedDocumentSequence Document {
             get { return (FixedDocumentSequence)GetValue(DocumentProperty); }
             set { SetValue(DocumentProperty, value); }
         }
 
         public static readonly DependencyProperty DocumentProperty =
-            DependencyProperty.Register("Document", typeof(FixedDocumentSequence), typeof(PresentationPageViewModel), new UIPropertyMetadata(null));
+            DependencyProperty.Register("Document", typeof(FixedDocumentSequence), typeof(PresentationPageViewModel), new FrameworkPropertyMetadata(null, new PropertyChangedCallback(OnDocumentChanged)));
+
+        public static void OnDocumentChanged(DependencyObject d, DependencyPropertyChangedEventArgs e) {
+            PresentationPageViewModel vm = (PresentationPageViewModel)d;
+            if (vm.DocumentChanged != null) {
+                vm.DocumentChanged(null, null);
+            }
+        }
 
         //public FixedDocumentSequence Document {
         //    get;

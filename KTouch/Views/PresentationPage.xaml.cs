@@ -1,11 +1,8 @@
-﻿using System.IO;
-using System.Windows;
-using System.Windows.Controls;
+﻿using System.Windows.Controls;
 using System.Windows.Input;
-using System.Windows.Xps.Packaging;
+using Blake.NUI.WPF.Gestures;
 using KTouch.Controls.ViewModel;
 using KTouch.Units;
-using Blake.NUI.WPF.Gestures;
 
 namespace KTouch.Views {
 
@@ -19,11 +16,15 @@ namespace KTouch.Views {
         public PresentationPage(Item item) {
             InitializeComponent();
             _vm = new PresentationPageViewModel(item);
-            xpsViewer.FitToHeight();
+            _vm.DocumentChanged += new System.EventHandler(_vm_DocumentChanged);
             Events.RegisterGestureEventSupport(this);
             Events.AddTapGestureHandler(xpsViewer, new GestureEventHandler(OnTapGesture));
             this.DataContext = _vm;
             //    this.PreviewTouchDown += new EventHandler<TouchEventArgs>(kBrowser_PreviewTouchDown);
+        }
+
+        void _vm_DocumentChanged(object sender, System.EventArgs e) {
+            xpsViewer.Zoom = 60;
         }
 
         protected void OnTapGesture(object sender, GestureEventArgs e) {

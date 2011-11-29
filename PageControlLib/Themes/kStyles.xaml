@@ -154,6 +154,7 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="20"/>
+        <Setter Property="Padding" Value="0,0,20,0"/>
         <!--<Setter Property="Background" Value="Black"/>-->
         <!--<Setter Property="Background" Value="#DADADA"/>-->
         <!--<Setter Property="Background" Value="#DADADA"/>-->
@@ -165,6 +166,8 @@
         </Setter>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="ClipToBounds" Value="False"/>
+        <!--<Setter Property="FontFamily" Value="Calibri"/>-->
+        
         <Setter Property="FontFamily" Value="Arial Rounded MT"/>
         <!--<Setter Property="FontFamily" Value="Maiandra GD"/>-->
         <Setter Property="FontStretch" Value="SemiExpanded"/>
@@ -174,7 +177,8 @@
     </Style>
     <Style x:Key="ListBoxItemBaseStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
         <Setter Property="ClipToBounds" Value="False"/>
-        <Setter Property="Margin" Value="20"/>
+        <Setter Property="Margin" Value="15"/>
+        <Setter Property="Padding" Value="5"/>
         <Setter Property="Background" Value="White"/>
         <Setter Property="Foreground" Value="Black"/>
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
@@ -198,23 +202,28 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="WrapPanelBaseStyle" TargetType="{x:Type WrapPanel}">
+    <Style TargetType="{x:Type WrapPanel}">
         <Setter Property="Orientation" Value="Horizontal"/>
         <Setter Property="IsItemsHost" Value="True"/>
         <Setter Property="ClipToBounds" Value="False"/>
-        <Setter Property="ItemWidth" Value="250"/>
+        <Setter Property="ItemWidth" Value="300"/>
+    </Style>
+    <Style TargetType="{x:Type Surface:SurfaceScrollViewer}">
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
     </Style>
 
     <!-- Front page list box panel -->
     <ControlTemplate x:Key="FrontPageListBoxItemTemplate" 
                      TargetType="{x:Type Surface:SurfaceListBoxItem}">
-        <Grid>
-            <Border Background="{TemplateBinding Background}" CornerRadius="10" Padding="5">
-          
-                <ContentPresenter x:Name="item" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
-                                  VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-            </Border>
-        </Grid>
+        <Border Background="{TemplateBinding Background}" 
+                CornerRadius="10" 
+                Padding="{TemplateBinding Padding}">
+            <ContentPresenter x:Name="item" 
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
+        </Border>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed" Value="True">
                 <Trigger.EnterActions>
@@ -244,9 +253,9 @@
                     Background="{TemplateBinding Background}"/>
             <Viewbox Name="header"
                      Grid.Column="0">
-                <TextBlock Margin="5" 
-                           Width="120"
-                            HorizontalAlignment="Center" TextAlignment="Center"
+                <TextBlock Width="120"
+                           HorizontalAlignment="Center" 
+                           TextAlignment="Center"
                            TextWrapping="WrapWithOverflow" 
                            Text="{TemplateBinding Tag}"  
                            RenderTransformOrigin="0.5,0.5">
@@ -258,36 +267,42 @@
                 </TextBlock>
             </Viewbox>
             <Surface:SurfaceScrollViewer Name="content"
-                                         Grid.Column="1"
-                                         HorizontalScrollBarVisibility="Hidden" 
-                                         VerticalScrollBarVisibility="Disabled" 
-                                         ClipToBounds="{TemplateBinding ClipToBounds}" 
-                                         Margin="20,0,20,0">
-                <!--<Surface:SurfaceScrollViewer.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=mask}"/>
-                </Surface:SurfaceScrollViewer.OpacityMask>-->
-                <WrapPanel Style="{StaticResource WrapPanelBaseStyle}"/>
+                                         Grid.Column="1" 
+                                         Margin="{TemplateBinding Padding}" >
+                <WrapPanel />
             </Surface:SurfaceScrollViewer>
         </Grid>
     </ControlTemplate>
     <Style x:Key="FrontPageListBoxStyle" 
            TargetType="{x:Type Surface:SurfaceListBox}" 
            BasedOn="{StaticResource ListBoxBaseStyle}">
+        
         <Setter Property="ItemContainerStyle" Value="{StaticResource FrontPageListBoxItemStyle}"/>
         <Setter Property="Template" Value="{StaticResource FrontPageListBoxTemplate}"/>
     </Style>
 
     <!-- Tag list box panel -->
     <ControlTemplate x:Key="TagListBoxItemTemplate" 
-                     TargetType="{x:Type Surface:SurfaceListBoxItem}">
-        <Grid x:Name="NAV" Background="{TemplateBinding Background}" VerticalAlignment="{TemplateBinding VerticalContentAlignment}" HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
+                     TargetType="{x:Type Surface:SurfaceListBoxItem}" >
+        <Grid x:Name="NAV">
             <Grid.Triggers>
                 <EventTrigger RoutedEvent="MouseEnter">
                     <BeginStoryboard Storyboard="{StaticResource Ripple}"/>
                 </EventTrigger>
             </Grid.Triggers>
-            <ContentPresenter x:Name="contentPresenter" VerticalAlignment="Center" HorizontalAlignment="Center" 
-                              RenderTransformOrigin="0.5,0.5">
+            <Border ClipToBounds="True">
+                <Border Background="{TemplateBinding Background}"  
+                        BorderBrush="#FF4B4B4B" 
+                        BorderThickness="0,0,1,0" Margin="0,0,-1,0">
+                    <Border.Effect>
+                        <DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+                    </Border.Effect>
+                </Border>
+            </Border>
+            <ContentPresenter x:Name="contentPresenter" 
+                              RenderTransformOrigin="0.5,0.5"  
+                              VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
+                              HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
                 <ContentPresenter.RenderTransform>
                     <TransformGroup>
                         <ScaleTransform/>
@@ -297,33 +312,14 @@
                     </TransformGroup>
                 </ContentPresenter.RenderTransform>
             </ContentPresenter>
-            <Rectangle Fill="#FF4B4B4B" RadiusX="24" RadiusY="24" Width="1" HorizontalAlignment="Right" />
-            <!--<Image x:Name="image1" Height="13" Width="44" Source="/Images/Layer 1.png" Stretch="Fill" Opacity="0" RenderTransformOrigin="0.5,0.5">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>
-            <Image x:Name="image" Height="24" Width="82" Source="/Images/Layer 1.png" Stretch="Fill" Opacity="0" RenderTransformOrigin="0.5,0.5">
-                <Image.RenderTransform>
-                    <TransformGroup>
-                        <ScaleTransform/>
-                        <SkewTransform/>
-                        <RotateTransform/>
-                        <TranslateTransform/>
-                    </TransformGroup>
-                </Image.RenderTransform>
-            </Image>-->
         </Grid>
     </ControlTemplate>
     <Style x:Key="TagListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}" >
-        <Setter Property="VerticalContentAlignment" Value="Stretch"/>
-        <Setter Property="HorizontalContentAlignment" Value="Stretch"/>
+        <Setter Property="VerticalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Foreground" Value="Black"/>
+      
+        <!--<Setter Property="Padding" Value="5"/>-->
         <Setter Property="Template" Value="{StaticResource TagListBoxItemTemplate}"/>
         <Setter Property="ClipToBounds" Value="False"/>
         <Style.Triggers>
@@ -335,39 +331,34 @@
     </Style>
     <ControlTemplate x:Key="TagListBoxTemplate" 
                      TargetType="{x:Type Surface:SurfaceListBox}">
-        <Grid ClipToBounds="{TemplateBinding ClipToBounds}" >
+        <Grid >
             <Grid.ColumnDefinitions>
-                <ColumnDefinition Width="100"/>
+                <ColumnDefinition Width="80"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Name="mask" 
+            <Border Name="mask" Margin="{TemplateBinding Padding}"
                     CornerRadius="10" 
                     Grid.Column="0" 
                     Grid.ColumnSpan="2"
                     Background="{TemplateBinding Background}"/>
-            <Border Margin="0,10,0,10" Name="header" Width="80" HorizontalAlignment="Center"
-                     Grid.Column="0" CornerRadius="10">
+            <Border Name="header" Margin="{TemplateBinding Padding}"
+                    Grid.Column="0" 
+                    CornerRadius="10">
                 <Border.Background>
-                    <ImageBrush ImageSource="/KTouch;component/Images/logo_kleegroup.gif" Stretch="Fill"/>
+                    <ImageBrush ImageSource="/KTouch;component/Images/logo_kleegroup.gif" Stretch="Fill" />
                 </Border.Background>
             </Border>
 
             <Surface:SurfaceScrollViewer Name="content"
-                                         HorizontalScrollBarVisibility="Hidden" 
-                                         VerticalScrollBarVisibility="Disabled"
-                                         Grid.Column="1"
-                                         ClipToBounds="{TemplateBinding ClipToBounds}" 
-                                         Margin="20,5,20,5" >
-                <!--<Surface:SurfaceScrollViewer.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=mask}"/>
-                </Surface:SurfaceScrollViewer.OpacityMask>-->
-                <WrapPanel ItemHeight="{TemplateBinding ActualHeight}" Style="{StaticResource WrapPanelBaseStyle}" />
-        </Surface:SurfaceScrollViewer>
+                                         Grid.Column="1"  >
+                <WrapPanel ItemHeight="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=Self}}" ItemWidth="250"  />
+            </Surface:SurfaceScrollViewer>
         </Grid>
     </ControlTemplate>
     <Style x:Key="TagListBoxStyle" 
            TargetType="{x:Type Surface:SurfaceListBox}"
 		   BasedOn="{StaticResource ListBoxBaseStyle}">
+        <Setter Property="Padding" Value="0,5,0,5"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource TagListBoxItemStyle}"/>
         <Setter Property="Template" Value="{StaticResource TagListBoxTemplate}"/>
     </Style>
@@ -380,12 +371,8 @@
                     Background="{TemplateBinding Background}"/>
             <Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Disabled" 
                                          VerticalScrollBarVisibility="Hidden" 
-                                         Padding="10"
-                                         ClipToBounds="{TemplateBinding ClipToBounds}">
-                <!--<Surface:SurfaceScrollViewer.OpacityMask>
-                    <VisualBrush Visual="{Binding ElementName=mask}"/>
-                </Surface:SurfaceScrollViewer.OpacityMask>-->
-                <WrapPanel ItemHeight="250" Style="{StaticResource WrapPanelBaseStyle}" VerticalAlignment="Center" HorizontalAlignment="Center"/>
+                                         Padding="10">
+                <WrapPanel ItemWidth="330" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Surface:SurfaceScrollViewer>
         </Grid>
     </ControlTemplate>
