@@ -5,9 +5,10 @@
                   Height="1080" 
                   Width="1920"                      
                   Title="kTouch"
-                  WindowState="Maximized"
-                  Background="White"
-                  WindowStyle="None">
+                  WindowState="Maximized" WindowStyle="None">
+    <s:SurfaceWindow.Background>
+        <ImageBrush ImageSource="/KTouch;component/Images/wood.jpg" Stretch="Fill" TileMode="None" />
+    </s:SurfaceWindow.Background>
     <s:SurfaceWindow.Resources>
         <ControlTemplate x:Key="FrameNavigationTemplate" TargetType="{x:Type Frame}">
             <DockPanel >
@@ -48,6 +49,7 @@
         </Grid.RowDefinitions>
         <Frame x:Name="_mainFrame" 
                Grid.Row="0" 
+               Foreground="Black"
                Style="{StaticResource BrowserFrameStyle}" 
                NavigationUIVisibility="Hidden"/>
         <s:SurfaceListBox x:Name="navigationListBox" 
@@ -56,5 +58,5 @@
                           ItemsSource="{Binding CollectionList}"
                           SelectedItem="{Binding Collection}"/>
     </Grid>
-
+  
 </s:SurfaceWindow>

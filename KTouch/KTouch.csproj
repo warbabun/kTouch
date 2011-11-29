@@ -198,6 +198,8 @@
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Resource>
     <Resource Include="Images\logo_kleegroup.gif" />
+    <Resource Include="Images\wood.jpg" />
+    <Resource Include="Images\back.gif" />
     <Content Include="KTouch.exe.log4net">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

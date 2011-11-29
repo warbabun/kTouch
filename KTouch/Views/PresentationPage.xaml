@@ -13,7 +13,7 @@
 	  Background="Transparent">
     <Page.Resources>
         <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
-            <Setter Property="Background" Value="Black"/>
+            <Setter Property="Background" Value="#C4FFFFFF"/>
             <Setter Property="Foreground" Value="Orange"/>
             <Setter Property="IsManipulationEnabled" Value="True"/>
             <Setter Property="Padding" Value="5"/>
@@ -26,10 +26,10 @@
                                                        
                                                          Padding="{TemplateBinding Padding}"
                                                          HorizontalScrollBarVisibility="Disabled" 
-                                                         VerticalScrollBarVisibility="Disabled">
-                                <Surface:SurfaceScrollViewer.OpacityMask>
+                                                         VerticalScrollBarVisibility="Auto">
+                                <!--<Surface:SurfaceScrollViewer.OpacityMask>
                                     <VisualBrush Visual="{Binding ElementName=mask}"/>
-                                </Surface:SurfaceScrollViewer.OpacityMask>
+                                </Surface:SurfaceScrollViewer.OpacityMask>-->
                             </Surface:SurfaceScrollViewer>
                             <Canvas IsHitTestVisible="{TemplateBinding IsManipulationEnabled}" 
                                     IsManipulationEnabled="{TemplateBinding IsManipulationEnabled}" 
