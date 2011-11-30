@@ -24,7 +24,7 @@ namespace KTouch.Views {
         }
 
         void _vm_DocumentChanged(object sender, System.EventArgs e) {
-            xpsViewer.Zoom = 60;
+            xpsViewer.Zoom = 67;
         }
 
         protected void OnTapGesture(object sender, GestureEventArgs e) {
@@ -45,8 +45,8 @@ namespace KTouch.Views {
                 if (e.DeltaManipulation.Scale.X != 1) {
                     if (xpsViewer.Zoom > 400)
                         xpsViewer.Zoom = 400;
-                    else if (xpsViewer.Zoom < 20)
-                        xpsViewer.Zoom = 20;
+                    else if (xpsViewer.Zoom < 60)
+                        xpsViewer.Zoom = 60;
                     else
                         xpsViewer.Zoom *= e.DeltaManipulation.Scale.X;
                 }

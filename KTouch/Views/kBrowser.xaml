@@ -10,13 +10,14 @@
         <ImageBrush ImageSource="/KTouch;component/Images/wood.jpg" Stretch="Fill" TileMode="None" />
     </s:SurfaceWindow.Background>
     <s:SurfaceWindow.Resources>
+
         <ControlTemplate x:Key="FrameNavigationTemplate" TargetType="{x:Type Frame}">
             <DockPanel >
                 <Grid DockPanel.Dock="Left" >
                     <s:SurfaceButton x:Name="Back"
-                                     Width="50" 
-                                     Height="50" 
-                                     BorderBrush="Black"
+                                     Width="60" 
+                                     Height="60" 
+                                     BorderBrush="LightGray"
                                      Style="{StaticResource NavigationButtonLeftStyle}"
                                      Command="BrowseBack"
                                      IsEnabled="{TemplateBinding CanGoBack}"
@@ -45,7 +46,8 @@
     <Grid x:Name="LayoutRoot">
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
-            <RowDefinition Height="100"/>
+            <RowDefinition Height="60"/>
+            <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
         <Frame x:Name="_mainFrame" 
                Grid.Row="0" 
@@ -57,6 +59,13 @@
                           Style="{StaticResource TagListBoxStyle}"
                           ItemsSource="{Binding CollectionList}"
                           SelectedItem="{Binding Collection}"/>
+        <TextBlock Grid.Row="2" 
+                   FontFamily="Arial Rounded MT"  
+                   Foreground="White" 
+                   Opacity="0.5" 
+                   HorizontalAlignment="Right" 
+                   VerticalAlignment="Center" 
+                   Text="MGN"/>
     </Grid>
   
 </s:SurfaceWindow>

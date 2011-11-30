@@ -45,8 +45,12 @@ namespace KTouch.Units {
         private DataTemplate MakeCollectionTemplate() {
             XNamespace _xmlns = @"http://schemas.microsoft.com/winfx/2006/xaml/presentation";
             XElement templ =
-                new XElement(_xmlns + "DataTemplate", new XAttribute("xmlns", _xmlns),
-                    new XElement(_xmlns + "TextBlock", new XAttribute("TextAlignment", "Center"), new XAttribute("TextWrapping", "WrapWithOverflow"), new XAttribute("Text", "{Binding Name}")));
+                new XElement(_xmlns + "DataTemplate",
+                    new XAttribute("xmlns", _xmlns),
+                        new XElement(_xmlns + "TextBlock",
+                            new XAttribute("TextAlignment", "Center"),
+                            new XAttribute("TextWrapping", "WrapWithOverflow"),
+                            new XAttribute("Text", "{Binding Name}")));
             DataTemplate dt = (DataTemplate)XamlReader.Load(templ.CreateReader());
             return dt;
         }

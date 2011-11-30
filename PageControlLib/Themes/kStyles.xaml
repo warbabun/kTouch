@@ -3,11 +3,14 @@
 					xmlns:s2="clr-namespace:Microsoft.Surface.Presentation.Generic;assembly=Microsoft.Surface.Presentation.Generic" 
 					xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
 					xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
+                    xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
 					xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing">
 
     <Units:MultiplicationConverter x:Key="mConverter"/>
     <Units:ItemTemplateSelector x:Key="itemTemplateSelector"/>
-
+    <SolidColorBrush x:Key="BackgroundGray" Color="#96FFFFFF" />
+    <SolidColorBrush x:Key="ForegroundBrown" Color="#FF8F4825" />
+    
     <!-- Navigation buttons -->
     <Style x:Key="NavigationButtonBaseStyle" TargetType="{x:Type Surface:SurfaceButton}">
         <Style.Resources>
@@ -22,8 +25,8 @@
                 </DoubleAnimationUsingKeyFrames>
             </Storyboard>
         </Style.Resources>
-        <Setter Property="Margin" Value="20"/>
-        <Setter Property="Background" Value="Orange"/>
+        <Setter Property="Margin" Value="20,20,0,0"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
         <Setter Property="Opacity" Value="1"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -145,6 +148,8 @@
             </Setter.Value>
         </Setter>
     </Style>
+    
+   
 
     <ImageBrush x:Key="back" ImageSource="/KTouch;component/Images/back.gif" Stretch="Fill" TileMode="None" />
 
@@ -159,15 +164,11 @@
         <!--<Setter Property="Background" Value="#DADADA"/>-->
         <!--<Setter Property="Background" Value="#DADADA"/>-->
 
-        <Setter Property="Background">
-            <Setter.Value>
-                <SolidColorBrush Color="#C4FFFFFF" />
-            </Setter.Value>
-        </Setter>
-        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
         <Setter Property="ClipToBounds" Value="False"/>
         <!--<Setter Property="FontFamily" Value="Calibri"/>-->
-        
+
         <Setter Property="FontFamily" Value="Arial Rounded MT"/>
         <!--<Setter Property="FontFamily" Value="Maiandra GD"/>-->
         <Setter Property="FontStretch" Value="SemiExpanded"/>
@@ -180,7 +181,7 @@
         <Setter Property="Margin" Value="15"/>
         <Setter Property="Padding" Value="5"/>
         <Setter Property="Background" Value="White"/>
-        <Setter Property="Foreground" Value="Black"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
         <Setter Property="RenderTransformOrigin" Value="0.5,0.5"/>
         <Setter Property="RenderTransform">
             <Setter.Value>
@@ -191,7 +192,7 @@
         </Setter>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="Orange" />
+                <Setter Property="Background" Value="{StaticResource ForegroundBrown}" />
                 <Setter Property="Foreground" Value="White"/>
                 <Trigger.EnterActions>
                     <BeginStoryboard Storyboard="{StaticResource SelectItem}" />
@@ -217,13 +218,17 @@
     <!-- Front page list box panel -->
     <ControlTemplate x:Key="FrontPageListBoxItemTemplate" 
                      TargetType="{x:Type Surface:SurfaceListBoxItem}">
-        <Border Background="{TemplateBinding Background}" 
+        <aero:SystemDropShadowChrome Color="Gray" CornerRadius="10" Margin="6" >
+            <Border Background="{TemplateBinding Background}" 
                 CornerRadius="10" 
                 Padding="{TemplateBinding Padding}">
-            <ContentPresenter x:Name="item" 
+                <Viewbox MinHeight="250" Stretch="Fill" StretchDirection="DownOnly">
+                    <ContentPresenter x:Name="item"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
-        </Border>
+                </Viewbox>
+            </Border>
+        </aero:SystemDropShadowChrome>
         <ControlTemplate.Triggers>
             <Trigger Property="IsPressed" Value="True">
                 <Trigger.EnterActions>
@@ -276,7 +281,7 @@
     <Style x:Key="FrontPageListBoxStyle" 
            TargetType="{x:Type Surface:SurfaceListBox}" 
            BasedOn="{StaticResource ListBoxBaseStyle}">
-        
+
         <Setter Property="ItemContainerStyle" Value="{StaticResource FrontPageListBoxItemStyle}"/>
         <Setter Property="Template" Value="{StaticResource FrontPageListBoxTemplate}"/>
     </Style>
@@ -317,38 +322,41 @@
     <Style x:Key="TagListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}" >
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
-        <Setter Property="Foreground" Value="Black"/>
-      
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
+
         <!--<Setter Property="Padding" Value="5"/>-->
         <Setter Property="Template" Value="{StaticResource TagListBoxItemTemplate}"/>
         <Setter Property="ClipToBounds" Value="False"/>
         <Style.Triggers>
             <Trigger Property="IsSelected" Value="True">
-                <Setter Property="Background" Value="Orange" />
+                <Setter Property="Background" Value="{StaticResource ForegroundBrown}" />
                 <Setter Property="Foreground" Value="White"/>
             </Trigger>
         </Style.Triggers>
     </Style>
     <ControlTemplate x:Key="TagListBoxTemplate" 
                      TargetType="{x:Type Surface:SurfaceListBox}">
-        <Grid >
+        <Grid ClipToBounds="True" Margin="{TemplateBinding Padding}" >
             <Grid.ColumnDefinitions>
                 <ColumnDefinition Width="80"/>
                 <ColumnDefinition />
             </Grid.ColumnDefinitions>
-            <Border Name="mask" Margin="{TemplateBinding Padding}"
+            <Border Name="mask" 
                     CornerRadius="10" 
                     Grid.Column="0" 
                     Grid.ColumnSpan="2"
                     Background="{TemplateBinding Background}"/>
-            <Border Name="header" Margin="{TemplateBinding Padding}"
-                    Grid.Column="0" 
-                    CornerRadius="10">
-                <Border.Background>
-                    <ImageBrush ImageSource="/KTouch;component/Images/logo_kleegroup.gif" Stretch="Fill" />
-                </Border.Background>
-            </Border>
-
+            <aero:SystemDropShadowChrome Grid.Column="0"  Color="Gray" CornerRadius="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,2,1,2" >
+                <Grid>
+                    <Border x:Name="innerMask" CornerRadius="10" Background="White"></Border>
+                    <Viewbox Name="header"  Stretch="Fill">
+                        <Viewbox.OpacityMask>
+                            <VisualBrush Visual="{Binding ElementName=innerMask}"/>
+                        </Viewbox.OpacityMask>
+                        <Image Source="/KTouch;component/Images/logo_kleegroup.gif" />
+                    </Viewbox>
+                </Grid>
+            </aero:SystemDropShadowChrome>
             <Surface:SurfaceScrollViewer Name="content"
                                          Grid.Column="1"  >
                 <WrapPanel ItemHeight="{Binding Path=ActualHeight, RelativeSource={RelativeSource Mode=Self}}" ItemWidth="250"  />
@@ -358,7 +366,8 @@
     <Style x:Key="TagListBoxStyle" 
            TargetType="{x:Type Surface:SurfaceListBox}"
 		   BasedOn="{StaticResource ListBoxBaseStyle}">
-        <Setter Property="Padding" Value="0,5,0,5"/>
+        <Setter Property="Padding" Value="0,10,0,10"/>
+        <Setter Property="Margin" Value="20,0,20,0"/>
         <Setter Property="ItemContainerStyle" Value="{StaticResource TagListBoxItemStyle}"/>
         <Setter Property="Template" Value="{StaticResource TagListBoxTemplate}"/>
     </Style>
@@ -370,7 +379,7 @@
                     CornerRadius="10" 
                     Background="{TemplateBinding Background}"/>
             <Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Disabled" 
-                                         VerticalScrollBarVisibility="Hidden" 
+                                         VerticalScrollBarVisibility="Auto" 
                                          Padding="10">
                 <WrapPanel ItemWidth="330" VerticalAlignment="Center" HorizontalAlignment="Center"/>
             </Surface:SurfaceScrollViewer>
@@ -381,5 +390,34 @@
                BasedOn="{StaticResource FrontPageListBoxStyle}">
         <Setter Property="Template" Value="{StaticResource ListPageListBoxTemplate}"/>
     </Style>
+    
+    <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
+        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
+        <Setter Property="IsManipulationEnabled" Value="True"/>
+        <Setter Property="ShowPageBorders" Value="False"/>
+        <Setter Property="Padding" Value="5"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DocumentViewer}">
+                    <Grid x:Name="mainBorder">
+                        <Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"/>
+                        <Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
+                                                         CanContentScroll="True"
+                                                         Padding="{TemplateBinding Padding}"
+                                                         HorizontalScrollBarVisibility="Disabled" 
+                                                         VerticalScrollBarVisibility="Visible">
+                            <Surface:SurfaceScrollViewer.BitmapEffect>
+                                <DropShadowBitmapEffect Color="LightGray" />
+                            </Surface:SurfaceScrollViewer.BitmapEffect>
+                        </Surface:SurfaceScrollViewer>
 
+                        <Canvas IsHitTestVisible="{TemplateBinding IsManipulationEnabled}" 
+                                    IsManipulationEnabled="{TemplateBinding IsManipulationEnabled}" 
+                                    Background="Transparent"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
 </ResourceDictionary>
