@@ -61,7 +61,7 @@
                           SelectedItem="{Binding Collection}"/>
         <TextBlock Grid.Row="2" 
                    FontFamily="Arial Rounded MT"  
-                   Foreground="White" 
+                   Foreground="White"
                    Opacity="0.5" 
                    HorizontalAlignment="Right" 
                    VerticalAlignment="Center" 

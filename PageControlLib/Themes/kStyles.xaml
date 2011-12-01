@@ -222,7 +222,7 @@
             <Border Background="{TemplateBinding Background}" 
                 CornerRadius="10" 
                 Padding="{TemplateBinding Padding}">
-                <Viewbox MinHeight="250" Stretch="Fill" StretchDirection="DownOnly">
+                <Viewbox MinHeight="200" Stretch="UniformToFill" StretchDirection="DownOnly">
                     <ContentPresenter x:Name="item"
                               HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}" 
                               VerticalAlignment="{TemplateBinding VerticalContentAlignment}"/>
