@@ -63,8 +63,8 @@
 		</Grid.RowDefinitions>
 
 		<s:SurfaceListBox Grid.Row="0" Height="250" Style="{StaticResource ButtonBoxStyle}">
-            <s:SurfaceListBoxItem Content="{x:Static p:kTouchResources.LblDirectory}" ToolTip="{x:Static p:kTouchResources.TlpDirectory}"/>
-            <s:SurfaceListBoxItem Content="{x:Static p:kTouchResources.LblTransfer}" ToolTip="{x:Static p:kTouchResources.TlpTransfer}"/>
+            <s:SurfaceListBoxItem Content="{x:Static p:Resources.LblDirectory}" ToolTip="{x:Static p:Resources.TlpDirectory}"/>
+            <s:SurfaceListBoxItem Content="{x:Static p:Resources.LblTransfer}" ToolTip="{x:Static p:Resources.TlpTransfer}"/>
 		</s:SurfaceListBox>
 		
 		<Grid Grid.Row="1">

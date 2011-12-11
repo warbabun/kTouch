@@ -28,9 +28,9 @@ namespace KTouch {
                 throw new ArgumentNullException("sender");
             }
             SurfaceButton button = (SurfaceButton)sender;
-            if(KTouch.Properties.kTouchResources.LblDirectory.Equals(button.Content)) {
+            if(KTouch.Properties.Resources.LblDirectory.Equals(button.Content)) {
                 _viewModel.GetDirectory();
-            } else if(KTouch.Properties.kTouchResources.LblTransfer.Equals(button.Content)) {
+            } else if(KTouch.Properties.Resources.LblTransfer.Equals(button.Content)) {
                 _viewModel.TransferAll();
             }
         }
