@@ -13,14 +13,14 @@ namespace KTouch {
     /// <summary>
     /// Represents a window that supports content navigation.
     /// </summary>
-    public partial class kBrowser : SurfaceWindow {
+    public partial class Browser : SurfaceWindow {
 
         private BrowserViewModel _vm;
 
         /// <summary>
         /// Constructor.
         /// </summary>
-        public kBrowser() {
+        public Browser() {
             InitializeComponent();
             this.Loaded += new RoutedEventHandler(kBrowser_Loaded);
             _vm = new BrowserViewModel();

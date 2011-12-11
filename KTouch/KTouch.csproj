@@ -109,11 +109,7 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
-    <Compile Include="Properties\kTouchResources.Designer.cs">
-      <AutoGen>True</AutoGen>
-      <DesignTime>True</DesignTime>
-      <DependentUpon>kTouchResources.resx</DependentUpon>
-    </Compile>
+    <Compile Include="Properties\kTouchResources.Designer.cs" />
     <Compile Include="Utilities\ItemCollection.cs" />
     <Compile Include="Utilities\ItemTemplateSelector.cs" />
     <Compile Include="Utilities\Loader.cs" />
@@ -171,14 +167,14 @@
     <Compile Include="Views\ListPage.xaml.cs">
       <DependentUpon>ListPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Views\kBrowser.xaml">
+    <Page Include="Views\Browser.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
   </ItemGroup>
   <ItemGroup>
-    <Compile Include="Views\kBrowser.xaml.cs">
-      <DependentUpon>kBrowser.xaml</DependentUpon>
+    <Compile Include="Views\Browser.xaml.cs">
+      <DependentUpon>Browser.xaml</DependentUpon>
     </Compile>
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
@@ -219,10 +215,7 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
-    <EmbeddedResource Include="Properties\kTouchResources.resx">
-      <Generator>PublicResXFileCodeGenerator</Generator>
-      <LastGenOutput>kTouchResources.Designer.cs</LastGenOutput>
-    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\kTouchResources.resx" />
   </ItemGroup>
   <Import Project="$(MSBuildToolsPath)\Microsoft.CSharp.targets" />
   <!-- To modify your build process, add your task inside one of the targets below and uncomment it. 

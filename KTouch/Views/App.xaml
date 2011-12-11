@@ -7,7 +7,7 @@
 			 xmlns:local="clr-namespace:KTouch.Utilities"
 			 mc:Ignorable="d" 
 			 x:Class="KTouch.App" 
-			 StartupUri="kBrowser.xaml">
+			 StartupUri="Browser.xaml">
 	<Application.Resources>
 		<ResourceDictionary>		   
 			<ResourceDictionary.MergedDictionaries>
