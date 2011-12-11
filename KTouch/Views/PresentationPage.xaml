@@ -3,21 +3,18 @@
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-	  xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
-	  xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
-	  xmlns:b="clr-namespace:KTouch"
 	  mc:Ignorable="d" 
 	  d:DesignHeight="1080" 
 	  d:DesignWidth="1920"
-	  Title="PresentationPage"
-	  Background="Transparent">
-    <DocumentViewer x:Name="xpsViewer"
-                        Margin="20"
-                        Zoom="65.5"
-                        Document="{Binding Document}"
-                        Style="{StaticResource DocumentViewerStyle}"
-                        ManipulationDelta="manipulationDelta"
-			            ManipulationStarting="manipulationStarting"
-			            ManipulationInertiaStarting="inertiaStarting"/>
+	  Title="{Binding CurrentTitle}">
+	
+	<DocumentViewer x:Name="xpsViewer"
+						Margin="20"
+						Zoom="65.5"
+						Document="{Binding Document}"
+						Style="{StaticResource DocumentViewerStyle}"
+						ManipulationDelta="manipulationDelta"
+						ManipulationStarting="manipulationStarting"
+						ManipulationInertiaStarting="inertiaStarting"/>
 
 </Page>

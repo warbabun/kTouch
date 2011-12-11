@@ -7,7 +7,7 @@ using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
 
-namespace KTouch.Units {
+namespace KTouch.Utilities {
 
     /// <summary>
     /// Thumbnail output format.

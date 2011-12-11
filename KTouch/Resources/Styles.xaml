@@ -2,11 +2,11 @@
 					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 					xmlns:s2="clr-namespace:Microsoft.Surface.Presentation.Generic;assembly=Microsoft.Surface.Presentation.Generic" 
 					xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
-					xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
 					xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
+					xmlns:local="clr-namespace:KTouch.Utilities"
 					xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing">
 
-	<Units:ItemTemplateSelector x:Key="itemTemplateSelector"/>
+	<local:ItemTemplateSelector x:Key="itemTemplateSelector"/>
 	<SolidColorBrush x:Key="BackgroundGray" Color="#96FFFFFF" />
 	<SolidColorBrush x:Key="ForegroundBrown" Color="#FF8F4825" />
 	
@@ -150,8 +150,6 @@
 	
    
 
-	<ImageBrush x:Key="back" ImageSource="/KTouch;component/Images/back.gif" Stretch="Fill" TileMode="None" />
-
 	<!-- Base styles -->
 	<Style x:Key="ListBoxBaseStyle" TargetType="{x:Type Surface:SurfaceListBox}">
 		<Setter Property="HorizontalAlignment" Value="Stretch"/>
@@ -194,10 +192,10 @@
 				<Setter Property="Background" Value="{StaticResource ForegroundBrown}" />
 				<Setter Property="Foreground" Value="White"/>
 				<Trigger.EnterActions>
-					<BeginStoryboard Storyboard="{StaticResource SelectItem}" />
+					<BeginStoryboard Storyboard="{StaticResource Select}" />
 				</Trigger.EnterActions>
 				<Trigger.ExitActions>
-					<BeginStoryboard Storyboard="{StaticResource UnselectItem}" />
+					<BeginStoryboard Storyboard="{StaticResource Unselect}" />
 				</Trigger.ExitActions>
 			</Trigger>
 		</Style.Triggers>
@@ -352,7 +350,7 @@
 						<Viewbox.OpacityMask>
 							<VisualBrush Visual="{Binding ElementName=innerMask}"/>
 						</Viewbox.OpacityMask>
-						<Image Source="/KTouch;component/Images/logo_kleegroup.gif" />
+						<Image Source="/KTouch;component/Resources/logo_kleegroup.gif" />
 					</Viewbox>
 				</Grid>
 			</aero:SystemDropShadowChrome>

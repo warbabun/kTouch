@@ -1,5 +1,5 @@
 ﻿using System.Collections.Generic;
-namespace KTouch.Units {
+namespace KTouch.Utilities {
     public static class SupportedExtensions {
 
         /// <summary>

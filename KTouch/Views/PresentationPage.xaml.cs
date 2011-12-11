@@ -1,8 +1,10 @@
-﻿using System.Windows.Controls;
+﻿using System;
+using System.Windows;
+using System.Windows.Controls;
 using System.Windows.Input;
-using Blake.NUI.WPF.Gestures;
-using KTouch.Controls.ViewModel;
-using KTouch.Units;
+using System.Xml.Linq;
+using KTouch.ViewModel;
+using Microsoft.Surface.Presentation.Input;
 
 namespace KTouch.Views {
 
@@ -13,40 +15,59 @@ namespace KTouch.Views {
 
         private PresentationPageViewModel _vm;
 
-        public PresentationPage(Item item) {
+        /// <summary>
+        /// Constructor.
+        /// </summary>
+        /// <param name="item">XElement object.</param>
+        public PresentationPage(XElement item) {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(PresentationPage_Loaded);
             _vm = new PresentationPageViewModel(item);
-            _vm.DocumentChanged += new System.EventHandler(_vm_DocumentChanged);
-            Events.RegisterGestureEventSupport(this);
-            Events.AddTapGestureHandler(xpsViewer, new GestureEventHandler(OnTapGesture));
             this.DataContext = _vm;
-            //    this.PreviewTouchDown += new EventHandler<TouchEventArgs>(kBrowser_PreviewTouchDown);
         }
 
-        void _vm_DocumentChanged(object sender, System.EventArgs e) {
-            xpsViewer.Zoom = 67;
+        /// <summary>
+        /// Handles Loaded event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        void PresentationPage_Loaded(object sender, System.Windows.RoutedEventArgs e) {
+            TouchExtensions.AddTapGestureHandler(xpsViewer, new EventHandler<TouchEventArgs>(OnTapGesture));
         }
 
-        protected void OnTapGesture(object sender, GestureEventArgs e) {
+        /// <summary>
+        /// Handles Tap event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        protected void OnTapGesture(object sender, TouchEventArgs e) {
             _vm.Next();
+            xpsViewer.Zoom = 65.5;
             e.Handled = true;
         }
 
+        #region Manipulation
+
+        /// <summary>
+        /// Handles ManipulationDelta event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void manipulationDelta(object sender, ManipulationDeltaEventArgs e) {
             try {
-                if (e.DeltaManipulation.Translation != null) {
+                if(e.DeltaManipulation.Translation != null) {
                     double verticalOffset = xpsViewer.VerticalOffset - e.DeltaManipulation.Translation.Y * 3;
                     double horizontalOffset = xpsViewer.HorizontalOffset - e.DeltaManipulation.Translation.X * 3;
-                    if (verticalOffset > 0)
+                    if(verticalOffset > 0)
                         xpsViewer.VerticalOffset = verticalOffset;
-                    if (horizontalOffset > 0)
+                    if(horizontalOffset > 0)
                         xpsViewer.HorizontalOffset = horizontalOffset;
                 }
-                if (e.DeltaManipulation.Scale.X != 1) {
-                    if (xpsViewer.Zoom > 400)
+                if(e.DeltaManipulation.Scale.X != 1) {
+                    if(xpsViewer.Zoom > 400)
                         xpsViewer.Zoom = 400;
-                    else if (xpsViewer.Zoom < 60)
-                        xpsViewer.Zoom = 60;
+                    else if(xpsViewer.Zoom < 65)
+                        xpsViewer.Zoom = 65;
                     else
                         xpsViewer.Zoom *= e.DeltaManipulation.Scale.X;
                 }
@@ -56,6 +77,11 @@ namespace KTouch.Views {
             }
         }
 
+        /// <summary>
+        /// Handles ManipulationStarting event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void manipulationStarting(object sender, ManipulationStartingEventArgs e) {
             try {
                 e.ManipulationContainer = this;
@@ -65,18 +91,16 @@ namespace KTouch.Views {
             }
         }
 
+        /// <summary>
+        /// Handles InerniaStarting event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         void inertiaStarting(object sender, ManipulationInertiaStartingEventArgs e) {
             e.TranslationBehavior.DesiredDeceleration = 10.0 * 96.0 / (1000.0 * 1000.0);
             e.Handled = true;
         }
 
-        /// <summary>
-        /// Handles the PreviewTouchDown event.
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        //private void kBrowser_PreviewTouchDown(object sender, TouchEventArgs e) {
-        //    _vm.RestartTimer();
-        //}
+        #endregion //Manipulation
     }
 }

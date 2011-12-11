@@ -1,7 +1,7 @@
 ﻿using System;
 using System.Windows.Threading;
 
-namespace KTouch.Units {
+namespace KTouch.Utilities {
     public class VisibilityTimer {
 
         /// <summary>

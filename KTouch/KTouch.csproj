@@ -81,33 +81,25 @@
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
   <ItemGroup>
-    <Reference Include="Blake.NUI.WPF, Version=0.1.0.0, Culture=neutral, processorArchitecture=MSIL">
-      <HintPath>..\..\Build\Lib\Blake.NUI.WPF.dll</HintPath>
-    </Reference>
-    <Reference Include="FluidKit">
-      <HintPath>..\..\Build\Lib\FluidKit.dll</HintPath>
-    </Reference>
     <Reference Include="log4net">
       <HintPath>..\..\Build\Lib\log4net.dll</HintPath>
     </Reference>
     <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Surface.Presentation, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
-    <Reference Include="Microsoft.Surface.Presentation.Generic, Version=1.5.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL">
-      <Private>True</Private>
-    </Reference>
+    <Reference Include="Microsoft.Surface.Presentation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Microsoft.Surface.Presentation.Generic, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
     <Reference Include="System.Xaml">
       <RequiredTargetFramework>4.0</RequiredTargetFramework>
     </Reference>
     <Reference Include="System.Xml.Linq" />
-    <Reference Include="UIAutomationProvider" />
     <Reference Include="WindowsBase" />
     <Reference Include="PresentationCore" />
     <Reference Include="PresentationFramework" />
@@ -122,6 +114,18 @@
       <DesignTime>True</DesignTime>
       <DependentUpon>kTouchResources.resx</DependentUpon>
     </Compile>
+    <Compile Include="Utilities\ItemCollection.cs" />
+    <Compile Include="Utilities\ItemTemplateSelector.cs" />
+    <Compile Include="Utilities\Loader.cs" />
+    <Compile Include="Utilities\RelayCommand.cs" />
+    <Compile Include="Utilities\SupportedExtenstions.cs" />
+    <Compile Include="Utilities\ThumbnailCreator.cs" />
+    <Compile Include="Utilities\VisibilityTimer.cs" />
+    <Compile Include="ViewModel\BaseViewModel.cs" />
+    <Compile Include="ViewModel\BrowserViewModel.cs" />
+    <Compile Include="ViewModel\ImportFilesViewModel.cs" />
+    <Compile Include="ViewModel\PresentationPageViewModel.cs" />
+    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\FrontPage.xaml.cs">
       <DependentUpon>FrontPage.xaml</DependentUpon>
     </Compile>
@@ -132,9 +136,18 @@
     <Compile Include="Views\PresentationPage.xaml.cs">
       <DependentUpon>PresentationPage.xaml</DependentUpon>
     </Compile>
-    <Compile Include="Views\RealisationsView.xaml.cs">
-      <DependentUpon>RealisationsView.xaml</DependentUpon>
-    </Compile>
+    <Page Include="Resources\Brushes.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Styles.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Resources\Storyboards.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
     <Page Include="Views\FrontPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -147,35 +160,16 @@
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
     </Page>
-    <Page Include="Views\RealisationsView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\StagesView.xaml">
-      <SubType>Designer</SubType>
-      <Generator>MSBuild:Compile</Generator>
-    </Page>
     <Page Include="Views\ListPage.xaml">
       <SubType>Designer</SubType>
       <Generator>MSBuild:Compile</Generator>
-    </Page>
-    <Page Include="Views\SolutionsView.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
     </Page>
     <Compile Include="Views\App.xaml.cs">
       <DependentUpon>App.xaml</DependentUpon>
       <SubType>Code</SubType>
     </Compile>
-    <Compile Include="Views\StagesView.xaml.cs">
-      <DependentUpon>StagesView.xaml</DependentUpon>
-    </Compile>
     <Compile Include="Views\ListPage.xaml.cs">
       <DependentUpon>ListPage.xaml</DependentUpon>
-    </Compile>
-    <Compile Include="Views\SolutionsView.xaml.cs">
-      <DependentUpon>SolutionsView.xaml</DependentUpon>
-      <SubType>Code</SubType>
     </Compile>
     <Page Include="Views\kBrowser.xaml">
       <SubType>Designer</SubType>
@@ -189,17 +183,14 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="README.txt" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
-    <Resource Include="Images\fond.jpg" />
-    <Resource Include="Images\logo.jpg" />
-    <Resource Include="Images\Layer 1.png">
-      <CopyToOutputDirectory>Always</CopyToOutputDirectory>
-    </Resource>
-    <Resource Include="Images\logo_kleegroup.gif" />
-    <Resource Include="Images\wood.jpg" />
-    <Resource Include="Images\back.gif" />
+    <Resource Include="Resources\logo_kleegroup.gif" />
+    <Resource Include="Resources\wood.jpg" />
+    <Resource Include="Resources\back.gif" />
+    <Resource Include="Resources\noimage.jpg" />
     <Content Include="KTouch.exe.log4net">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>
@@ -226,16 +217,6 @@
       <ProductName>Windows Installer 3.1</ProductName>
       <Install>true</Install>
     </BootstrapperPackage>
-  </ItemGroup>
-  <ItemGroup>
-    <ProjectReference Include="..\KTouch.Units\KTouch.Units.csproj">
-      <Project>{090E6F01-A5BE-4815-8A0B-D3E6E5389173}</Project>
-      <Name>KTouch.Units</Name>
-    </ProjectReference>
-    <ProjectReference Include="..\PageControlLib\KTouch.Controls.csproj">
-      <Project>{F2331F28-A784-40A2-8099-07D3D8D0ED64}</Project>
-      <Name>KTouch.Controls</Name>
-    </ProjectReference>
   </ItemGroup>
   <ItemGroup>
     <EmbeddedResource Include="Properties\kTouchResources.resx">

@@ -1,20 +1,25 @@
 ﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 			 xmlns:s="http://schemas.microsoft.com/surface/2008"
-			 xmlns:sys="clr-namespace:System;assembly=mscorlib"
+			 xmlns:system="clr-namespace:System;assembly=mscorlib"
 			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
+			 xmlns:local="clr-namespace:KTouch.Utilities"
 			 mc:Ignorable="d" 
 			 x:Class="KTouch.App" 
 			 StartupUri="kBrowser.xaml">
 	<Application.Resources>
 		<ResourceDictionary>		   
 			<ResourceDictionary.MergedDictionaries>
-				<ResourceDictionary Source="/KTouch.Controls;component/Themes/KTouchStyles.xaml"/>
-				<ResourceDictionary Source="/KTouch.Controls;component/Themes/BrushDictionnary.xaml"/>
-				<ResourceDictionary Source="/KTouch.Controls;component/Themes/ConvertersDictionnary.xaml"/>
-				<ResourceDictionary Source="/KTouch.Controls;component/Themes/kStyles.xaml"/>
-			</ResourceDictionary.MergedDictionaries>		
-		</ResourceDictionary>		
+				<ResourceDictionary Source="/KTouch;component/Resources/Storyboards.xaml"/>
+				<ResourceDictionary Source="/KTouch;component/Resources/Styles.xaml"/>
+				<ResourceDictionary Source="/KTouch;component/Resources/Brushes.xaml"/>
+			</ResourceDictionary.MergedDictionaries>
+			<ObjectDataProvider ObjectType="{x:Type local:Loader}" x:Key="loader">
+				<ObjectDataProvider.ConstructorParameters>
+					<system:String>E:\Programming\KTouch\Main\Content\Content</system:String>
+				</ObjectDataProvider.ConstructorParameters>
+			</ObjectDataProvider>
+		</ResourceDictionary>
 	</Application.Resources>
 </Application>

@@ -1,37 +1,61 @@
 ﻿<Page x:Class="KTouch.FrontPage" 
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			xmlns:s2="clr-namespace:Microsoft.Surface.Presentation.Generic;assembly=Microsoft.Surface.Presentation.Generic" 
 			xmlns:su="http://schemas.microsoft.com/surface/2008" 
-			xmlns:Controls="clr-namespace:KTouch.Controls;assembly=KTouch.Controls"
-			xmlns:Core="clr-namespace:KTouch.Controls.Core;assembly=KTouch.Controls"
-			xmlns:Units="clr-namespace:KTouch.Units;assembly=KTouch.Units"
+			xmlns:system="clr-namespace:System;assembly=mscorlib"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 			mc:Ignorable="d" 
 			d:DesignHeight="1080" 
-			d:DesignWidth="1920"
-			Background="{Binding Path=Foreground, RelativeSource={RelativeSource Mode=FindAncestor, AncestorType={x:Type Frame}}}">
+			d:DesignWidth="1920">
+	
+	<Page.Resources>
+		<ObjectDataProvider x:Key="loaderPresentationList"
+							ObjectInstance="{StaticResource loader}" 
+							MethodName="LoadItemDescendantListByFullNameAndType">
+			<ObjectDataProvider.MethodParameters>
+				<system:String>Klee Group</system:String>
+				<system:String>.xps</system:String>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
 
-    <Grid  Name="LayoutRoot" ClipToBounds="False">
-        <Grid.RowDefinitions>
-            <RowDefinition/>
-            <RowDefinition />
-            <RowDefinition />
-        </Grid.RowDefinitions>
+		<ObjectDataProvider x:Key="loaderSuccessStoryList"
+							ObjectInstance="{StaticResource loader}" 
+							MethodName="LoadItemDescendantListByFullNameAndType">
+			<ObjectDataProvider.MethodParameters>
+				<system:String>Success Story</system:String>
+				<system:String>.xps</system:String>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+		<ObjectDataProvider x:Key="loaderStageList"
+							ObjectInstance="{StaticResource loader}" 
+							MethodName="LoadItemDescendantListByFullNameAndType">
+			<ObjectDataProvider.MethodParameters>
+				<system:String>Offres de stages</system:String>
+				<system:String>.xps</system:String>
+			</ObjectDataProvider.MethodParameters>
+		</ObjectDataProvider>
+	</Page.Resources>
+	
+	<Grid  Name="LayoutRoot" ClipToBounds="False">
+		<Grid.RowDefinitions>
+			<RowDefinition/>
+			<RowDefinition />
+			<RowDefinition />
+		</Grid.RowDefinitions>
 
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
-                           Grid.Row="0" 
-                           Tag="Klee Group"
-                           ItemsSource="{Binding SuccessStoryList}"/>
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}" 
-                           Grid.Row="1" 
-                           Tag="Offres de stages"
-                           ItemsSource="{Binding StageList}"/>
-        <su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
-                           Grid.Row="2" 
-                           Tag="Success Story"
-                           ItemsSource="{Binding PresentationList}"/>
-     
-    </Grid>
+		<su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
+						   Grid.Row="0" 
+						   Tag="Klee Group"
+						   ItemsSource="{Binding Source={StaticResource loaderPresentationList}}"/>
+		<su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}" 
+						   Grid.Row="1" 
+						   Tag="Offres de stages"
+						   ItemsSource="{Binding Source={StaticResource loaderStageList}}"/>
+		<su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
+						   Grid.Row="2" 
+						   Tag="Success Story"
+						   ItemsSource="{Binding Source={StaticResource loaderSuccessStoryList}}"/>
+	 
+	</Grid>
 </Page>

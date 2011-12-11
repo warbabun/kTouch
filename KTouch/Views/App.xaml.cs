@@ -1,26 +1,15 @@
 ﻿using System;
-using System.Configuration;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
-using System.Xml.Linq;
-using KTouch.Units;
 using log4net;
 
 namespace KTouch {
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>
     public partial class App : Application {
-
-        /// <summary>
-        /// Returns 'true' if the application content is loaded.
-        /// </summary>
-        public bool IsContentLoaded {
-            get;
-            private set;
-        }
-
 
         /// <summary>
         /// Starts a Windows Presentation Foundation (WPF) application.
@@ -30,23 +19,13 @@ namespace KTouch {
         /// when the application shuts down. 
         /// By default, the exit code value is 0. </param>
         protected override void OnStartup(StartupEventArgs e) {
-            Console.Out.WriteLine("Hello ");
             ILog log = LogManager.GetLogger("KTouch");
-            if (log.IsInfoEnabled) {
-
+            if(log.IsInfoEnabled) {
                 log.Info("Demarrage de l'application");
             }
             base.OnStartup(e);
             /* TODO : Never to use this because it overflows the system. */
             //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
-//            ItemsLoader.LoadCollections(ConfigurationManager.AppSettings["InputCollections"]);
-  //          Loader<object>.LoadXDocument(ConfigurationManager.AppSettings["ContentDirectory"]);
-            Loader<object>.LoadFileTree(ConfigurationManager.AppSettings["ContentDirectory"]);
-            Loader<object>.DocumentLoaded += new EventHandler(kLoader_DocumentLoaded);
-        }
-
-        void kLoader_DocumentLoaded(object sender, EventArgs e) {
-            this.IsContentLoaded = true;
         }
 
         /// <summary>
@@ -55,7 +34,7 @@ namespace KTouch {
         /// <param name="e">An System.Windows.ExitEventArgs that contains the event data.</param>
         protected override void OnExit(ExitEventArgs e) {
             ILog log = LogManager.GetLogger("KTouch");
-            if (log.IsInfoEnabled) {
+            if(log.IsInfoEnabled) {
                 log.Info("Fermeture de l'application");
             }
             base.OnExit(e);
@@ -67,7 +46,7 @@ namespace KTouch {
         /// <param name="e">A System.Windows.Navigation.NavigationEventArgs that contains the event data.</param>
         protected override void OnLoadCompleted(NavigationEventArgs e) {
             ILog log = LogManager.GetLogger("KTouch");
-            if (log.IsDebugEnabled) {
+            if(log.IsDebugEnabled) {
                 log.Info("LoadCompleted");
             }
             base.OnLoadCompleted(e);

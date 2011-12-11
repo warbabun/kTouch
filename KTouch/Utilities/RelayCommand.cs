@@ -2,7 +2,7 @@
 using System.Diagnostics;
 using System.Windows.Input;
 
-namespace KTouch.Units {
+namespace KTouch.Utilities {
     /// <summary>
     /// A command whose sole purpose is to 
     /// relay its functionality to other
