@@ -5,56 +5,10 @@
 		xmlns:s="http://schemas.microsoft.com/surface/2008"
 		xmlns:p="clr-namespace:KTouch.Properties"
 		x:Class="KTouch.ImportFiles"
-		Background="{DynamicResource FrontPageBackground}"
+		Background="{StaticResource wood}"
 		mc:Ignorable="d" 
 		d:DesignHeight="1080" 
 		d:DesignWidth="1920">
-
-    <Page.Resources>
-		<Style TargetType="{x:Type s:SurfaceButton}">
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Foreground" Value="Gold"/>
-			<Setter Property="Margin" Value="20"/>
-			<Setter Property="FontFamily" Value="Arial"/>
-			<Setter Property="FontSize" Value="24"/>
-			<Setter Property="FontStretch" Value="SemiExpanded"/>
-			<Setter Property="FontWeight" Value="SemiBold"/>
-		</Style>
-
-		<Style x:Key="ButtonBoxItemStyle" TargetType="{x:Type s:SurfaceListBoxItem}">
-			<Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type s:SurfaceListBoxItem}">
-						<s:SurfaceButton x:Name="BtnAction" Content="{TemplateBinding Content}" Click="BtnAction_Click"/>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<Style x:Key="ButtonBoxStyle" TargetType="{x:Type s:SurfaceListBox}">
-			<Setter Property="ItemContainerStyle" Value="{StaticResource ButtonBoxItemStyle}"/>
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="VerticalAlignment" Value="Center"/>
-			<Setter Property="HorizontalAlignment" Value="Center"/>
-			<Setter Property="Template">
-				<Setter.Value>
-					<ControlTemplate TargetType="{x:Type s:SurfaceListBox}">
-						<s:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
-							<StackPanel Orientation="Horizontal" IsItemsHost="True"/>
-						</s:SurfaceScrollViewer>
-					</ControlTemplate>
-				</Setter.Value>
-			</Setter>
-		</Style>
-
-		<Style x:Key="ListBoxStyle" TargetType="{x:Type s:SurfaceListBox}">
-			<Setter Property="Background" Value="Transparent"/>
-			<Setter Property="Foreground" Value="Gold"/>
-			<Setter Property="FontFamily" Value="Arial"/>
-			<Setter Property="FontSize" Value="14"/>
-		</Style>
-    </Page.Resources>
 
 	<Grid>
 		<Grid.RowDefinitions>

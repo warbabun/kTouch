@@ -1,6 +1,7 @@
 ﻿using System;
 using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using KTouch.ViewModel;
 using Microsoft.Surface.Presentation.Controls;
 
@@ -15,6 +16,7 @@ namespace KTouch {
         public ImportFiles() {
             InitializeComponent();
             _viewModel = new ImportFilesViewModel();
+            this.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(BtnAction_Click));
             this.DataContext = _viewModel;
         }
 

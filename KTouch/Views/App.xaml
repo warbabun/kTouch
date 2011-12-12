@@ -1,12 +1,8 @@
-﻿<Application xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
+﻿<Application x:Class="KTouch.App" 
+			 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation" 
 			 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			 xmlns:s="http://schemas.microsoft.com/surface/2008"
 			 xmlns:system="clr-namespace:System;assembly=mscorlib"
-			 xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
-			 xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			 xmlns:local="clr-namespace:KTouch.Utilities"
-			 mc:Ignorable="d" 
-			 x:Class="KTouch.App" 
 			 StartupUri="Browser.xaml">
 	<Application.Resources>
 		<ResourceDictionary>		   

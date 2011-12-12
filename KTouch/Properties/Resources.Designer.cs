@@ -22,7 +22,7 @@ namespace KTouch.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    internal class Resources {
+    public class Resources {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
@@ -36,7 +36,7 @@ namespace KTouch.Properties {
         ///   Returns the cached ResourceManager instance used by this class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Resources.ResourceManager ResourceManager {
+        public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
                     global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KTouch.Properties.Resources", typeof(Resources).Assembly);
@@ -51,7 +51,7 @@ namespace KTouch.Properties {
         ///   resource lookups using this strongly typed resource class.
         /// </summary>
         [global::System.ComponentModel.EditorBrowsableAttribute(global::System.ComponentModel.EditorBrowsableState.Advanced)]
-        internal static global::System.Globalization.CultureInfo Culture {
+        public static global::System.Globalization.CultureInfo Culture {
             get {
                 return resourceCulture;
             }
@@ -63,7 +63,7 @@ namespace KTouch.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Directory.
         /// </summary>
-        internal static string LblDirectory {
+        public static string LblDirectory {
             get {
                 return ResourceManager.GetString("LblDirectory", resourceCulture);
             }
@@ -72,7 +72,7 @@ namespace KTouch.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Transfer.
         /// </summary>
-        internal static string LblTransfer {
+        public static string LblTransfer {
             get {
                 return ResourceManager.GetString("LblTransfer", resourceCulture);
             }
@@ -81,7 +81,7 @@ namespace KTouch.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Choose a directory to import files from.
         /// </summary>
-        internal static string TlpDirectory {
+        public static string TlpDirectory {
             get {
                 return ResourceManager.GetString("TlpDirectory", resourceCulture);
             }
@@ -90,7 +90,7 @@ namespace KTouch.Properties {
         /// <summary>
         ///   Looks up a localized string similar to Choose a directory to export files to.
         /// </summary>
-        internal static string TlpTransfer {
+        public static string TlpTransfer {
             get {
                 return ResourceManager.GetString("TlpTransfer", resourceCulture);
             }

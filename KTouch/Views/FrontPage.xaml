@@ -1,7 +1,7 @@
 ﻿<Page x:Class="KTouch.FrontPage" 
 			xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 			xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-			xmlns:su="http://schemas.microsoft.com/surface/2008" 
+			xmlns:s="http://schemas.microsoft.com/surface/2008" 
 			xmlns:system="clr-namespace:System;assembly=mscorlib"
 			xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 			xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
@@ -44,15 +44,15 @@
 			<RowDefinition />
 		</Grid.RowDefinitions>
 
-		<su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
+		<s:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
 						   Grid.Row="0" 
 						   Tag="Klee Group"
 						   ItemsSource="{Binding Source={StaticResource loaderPresentationList}}"/>
-		<su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}" 
+		<s:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}" 
 						   Grid.Row="1" 
 						   Tag="Offres de stages"
 						   ItemsSource="{Binding Source={StaticResource loaderStageList}}"/>
-		<su:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
+		<s:SurfaceListBox Style="{StaticResource FrontPageListBoxStyle}"  
 						   Grid.Row="2" 
 						   Tag="Success Story"
 						   ItemsSource="{Binding Source={StaticResource loaderSuccessStoryList}}"/>

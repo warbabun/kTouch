@@ -417,4 +417,49 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
+	
+	<!-- ImportFiles page -->
+	<Style TargetType="{x:Type Surface:SurfaceButton}">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Foreground" Value="Gold"/>
+		<Setter Property="Margin" Value="20"/>
+		<Setter Property="FontFamily" Value="Arial"/>
+		<Setter Property="FontSize" Value="24"/>
+		<Setter Property="FontStretch" Value="SemiExpanded"/>
+		<Setter Property="FontWeight" Value="SemiBold"/>
+	</Style>
+
+	<Style x:Key="ButtonBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
+		<Setter Property="Width" Value="{Binding ActualHeight, RelativeSource={RelativeSource Self}}"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBoxItem}">
+					<Surface:SurfaceButton x:Name="BtnAction" Content="{TemplateBinding Content}" />
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ButtonBoxStyle" TargetType="{x:Type Surface:SurfaceListBox}">
+		<Setter Property="ItemContainerStyle" Value="{StaticResource ButtonBoxItemStyle}"/>
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="VerticalAlignment" Value="Center"/>
+		<Setter Property="HorizontalAlignment" Value="Center"/>
+		<Setter Property="Template">
+			<Setter.Value>
+				<ControlTemplate TargetType="{x:Type Surface:SurfaceListBox}">
+					<Surface:SurfaceScrollViewer HorizontalScrollBarVisibility="Hidden" VerticalScrollBarVisibility="Disabled">
+						<StackPanel Orientation="Horizontal" IsItemsHost="True"/>
+					</Surface:SurfaceScrollViewer>
+				</ControlTemplate>
+			</Setter.Value>
+		</Setter>
+	</Style>
+
+	<Style x:Key="ListBoxStyle" TargetType="{x:Type Surface:SurfaceListBox}">
+		<Setter Property="Background" Value="Transparent"/>
+		<Setter Property="Foreground" Value="Gold"/>
+		<Setter Property="FontFamily" Value="Arial"/>
+		<Setter Property="FontSize" Value="14"/>
+	</Style>
 </ResourceDictionary>
