@@ -20,12 +20,12 @@ namespace KTouch {
         /// By default, the exit code value is 0. </param>
         protected override void OnStartup(StartupEventArgs e) {
             ILog log = LogManager.GetLogger("KTouch");
-            if(log.IsInfoEnabled) {
+            if (log.IsInfoEnabled) {
                 log.Info("Demarrage de l'application");
             }
             base.OnStartup(e);
             /* TODO : Never to use this because it overflows the system. */
-            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
         }
 
         /// <summary>
@@ -34,7 +34,7 @@ namespace KTouch {
         /// <param name="e">An System.Windows.ExitEventArgs that contains the event data.</param>
         protected override void OnExit(ExitEventArgs e) {
             ILog log = LogManager.GetLogger("KTouch");
-            if(log.IsInfoEnabled) {
+            if (log.IsInfoEnabled) {
                 log.Info("Fermeture de l'application");
             }
             base.OnExit(e);
@@ -46,7 +46,7 @@ namespace KTouch {
         /// <param name="e">A System.Windows.Navigation.NavigationEventArgs that contains the event data.</param>
         protected override void OnLoadCompleted(NavigationEventArgs e) {
             ILog log = LogManager.GetLogger("KTouch");
-            if(log.IsDebugEnabled) {
+            if (log.IsDebugEnabled) {
                 log.Info("LoadCompleted");
             }
             base.OnLoadCompleted(e);

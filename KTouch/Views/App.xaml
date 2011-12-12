@@ -13,7 +13,7 @@
 			</ResourceDictionary.MergedDictionaries>
 			<ObjectDataProvider ObjectType="{x:Type local:Loader}" x:Key="loader">
 				<ObjectDataProvider.ConstructorParameters>
-					<system:String>E:\Programming\KTouch\Main\Content\Content</system:String>
+                    <system:String>C:\Content</system:String>
 				</ObjectDataProvider.ConstructorParameters>
 			</ObjectDataProvider>
 		</ResourceDictionary>

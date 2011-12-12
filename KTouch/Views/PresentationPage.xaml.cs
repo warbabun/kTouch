@@ -42,7 +42,7 @@ namespace KTouch.Views {
         /// <param name="e">Event argument.</param>
         protected void OnTapGesture(object sender, TouchEventArgs e) {
             _vm.Next();
-            xpsViewer.Zoom = 65.5;
+            xpsViewer.Zoom = 66;
             e.Handled = true;
         }
 
@@ -55,18 +55,18 @@ namespace KTouch.Views {
         /// <param name="e">Event argument.</param>
         private void manipulationDelta(object sender, ManipulationDeltaEventArgs e) {
             try {
-                if(e.DeltaManipulation.Translation != null) {
+                if (e.DeltaManipulation.Translation != null) {
                     double verticalOffset = xpsViewer.VerticalOffset - e.DeltaManipulation.Translation.Y * 3;
                     double horizontalOffset = xpsViewer.HorizontalOffset - e.DeltaManipulation.Translation.X * 3;
-                    if(verticalOffset > 0)
+                    if (verticalOffset > 0)
                         xpsViewer.VerticalOffset = verticalOffset;
-                    if(horizontalOffset > 0)
+                    if (horizontalOffset > 0)
                         xpsViewer.HorizontalOffset = horizontalOffset;
                 }
-                if(e.DeltaManipulation.Scale.X != 1) {
-                    if(xpsViewer.Zoom > 400)
+                if (e.DeltaManipulation.Scale.X != 1) {
+                    if (xpsViewer.Zoom > 400)
                         xpsViewer.Zoom = 400;
-                    else if(xpsViewer.Zoom < 65)
+                    else if (xpsViewer.Zoom < 65)
                         xpsViewer.Zoom = 65;
                     else
                         xpsViewer.Zoom *= e.DeltaManipulation.Scale.X;

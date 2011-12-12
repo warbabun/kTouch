@@ -9,8 +9,17 @@
 	<local:ItemTemplateSelector x:Key="itemTemplateSelector"/>
 	<SolidColorBrush x:Key="BackgroundGray" Color="#96FFFFFF" />
 	<SolidColorBrush x:Key="ForegroundBrown" Color="#FF8F4825" />
-	
-	<!-- Navigation buttons -->
+    
+    <!-- Glow Shadow style -->
+    <Style x:Key="ShadowChromeStyle" TargetType="{x:Type s2:SurfaceShadowChrome}">
+        <Setter Property="CornerRadius" Value="2"/>
+        <Setter Property="Color" Value="GhostWhite"/>
+        <Setter Property="Opacity" Value="0"/>
+        <Setter Property="Grid.Row" Value="0"/>
+        <Setter Property="Grid.RowSpan" Value="2"/>
+    </Style>
+    
+    <!-- Navigation buttons -->
 	<Style x:Key="NavigationButtonBaseStyle" TargetType="{x:Type Surface:SurfaceButton}">
 		<Style.Resources>
 			<Storyboard x:Key="StartDim">
@@ -61,8 +70,8 @@
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type Surface:SurfaceButton}">
 					<ControlTemplate.Resources>
-
-					</ControlTemplate.Resources>
+                   
+                    </ControlTemplate.Resources>
 					<Grid>
 						<ed:BlockArrow Fill="{TemplateBinding Background}" 
 									   Opacity="{TemplateBinding Opacity}" 
@@ -147,8 +156,6 @@
 			</Setter.Value>
 		</Setter>
 	</Style>
-	
-   
 
 	<!-- Base styles -->
 	<Style x:Key="ListBoxBaseStyle" TargetType="{x:Type Surface:SurfaceListBox}">
@@ -164,9 +171,9 @@
 		<Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
 		<Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
 		<Setter Property="ClipToBounds" Value="False"/>
-		<!--<Setter Property="FontFamily" Value="Calibri"/>-->
+		<Setter Property="FontFamily" Value="Calibri"/>
 
-		<Setter Property="FontFamily" Value="Arial Rounded MT"/>
+		<!--<Setter Property="FontFamily" Value="Arial Rounded MT"/>-->
 		<!--<Setter Property="FontFamily" Value="Maiandra GD"/>-->
 		<Setter Property="FontStretch" Value="SemiExpanded"/>
 		<Setter Property="FontWeight" Value="Bold"/>
@@ -286,7 +293,7 @@
 	<!-- Tag list box panel -->
 	<ControlTemplate x:Key="TagListBoxItemTemplate" 
 					 TargetType="{x:Type Surface:SurfaceListBoxItem}" >
-		<Grid x:Name="NAV">
+		<Grid x:Name="NAV" >
 			<Grid.Triggers>
 				<EventTrigger RoutedEvent="MouseEnter">
 					<BeginStoryboard Storyboard="{StaticResource Ripple}"/>
@@ -294,34 +301,34 @@
 			</Grid.Triggers>
 			<Border ClipToBounds="True">
 				<Border Background="{TemplateBinding Background}"  
-						BorderBrush="#FF4B4B4B" 
-						BorderThickness="0,0,1,0" Margin="0,0,-1,0">
+						BorderBrush="{StaticResource BackgroundGray}" 
+						BorderThickness="0,0,4,0" Margin="-1.25,0,-4.5,0">
 					<Border.Effect>
-						<DropShadowEffect ShadowDepth="0" BlurRadius="10"/>
+						<DropShadowEffect ShadowDepth="0" BlurRadius="7"/>
 					</Border.Effect>
 				</Border>
 			</Border>
-			<ContentPresenter x:Name="contentPresenter" 
-							  RenderTransformOrigin="0.5,0.5"  
-							  VerticalAlignment="{TemplateBinding VerticalContentAlignment}" 
-							  HorizontalAlignment="{TemplateBinding HorizontalContentAlignment}">
-				<ContentPresenter.RenderTransform>
-					<TransformGroup>
-						<ScaleTransform/>
-						<SkewTransform/>
-						<RotateTransform/>
-						<TranslateTransform/>
-					</TransformGroup>
-				</ContentPresenter.RenderTransform>
-			</ContentPresenter>
+        
+            <Viewbox x:Name="contentPresenter" 
+					 Grid.Column="0"  RenderTransformOrigin="0.5,0.5" Stretch="Uniform" StretchDirection="Both" HorizontalAlignment="Stretch" VerticalAlignment="Stretch" >
+                <Viewbox.RenderTransform>
+                    <TransformGroup>
+                        <ScaleTransform/>
+                        <SkewTransform/>
+                        <RotateTransform/>
+                        <TranslateTransform/>
+                    </TransformGroup>
+                </Viewbox.RenderTransform>
+                <ContentPresenter Margin="10"/>
+            </Viewbox>
+           
 		</Grid>
 	</ControlTemplate>
 	<Style x:Key="TagListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}" >
 		<Setter Property="VerticalContentAlignment" Value="Center"/>
-		<Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="HorizontalContentAlignment" Value="Center"/>
+        <Setter Property="Background" Value="Transparent"/>
 		<Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
-
-		<!--<Setter Property="Padding" Value="5"/>-->
 		<Setter Property="Template" Value="{StaticResource TagListBoxItemTemplate}"/>
 		<Setter Property="ClipToBounds" Value="False"/>
 		<Style.Triggers>
@@ -393,11 +400,11 @@
 		<Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
 		<Setter Property="IsManipulationEnabled" Value="True"/>
 		<Setter Property="ShowPageBorders" Value="False"/>
-		<Setter Property="Padding" Value="20"/>
+		<Setter Property="Padding" Value="40"/>
 		<Setter Property="Template">
 			<Setter.Value>
 				<ControlTemplate TargetType="{x:Type DocumentViewer}">
-					<Grid x:Name="mainBorder">
+					<Grid x:Name="mainBorder" >
 						<Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"/>
 						<Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
 														 CanContentScroll="True"
@@ -405,7 +412,7 @@
 														 HorizontalScrollBarVisibility="Disabled" 
 														 VerticalScrollBarVisibility="Visible">
 							<Surface:SurfaceScrollViewer.BitmapEffect>
-								<DropShadowBitmapEffect Color="LightGray" />
+								<DropShadowBitmapEffect Color="Gray" />
 							</Surface:SurfaceScrollViewer.BitmapEffect>
 						</Surface:SurfaceScrollViewer>
 

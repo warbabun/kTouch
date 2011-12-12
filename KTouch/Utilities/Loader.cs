@@ -48,14 +48,14 @@ namespace KTouch.Utilities {
                 .Where(d => d.GetDirectories().Any())
                 .ToList();
             // Resursive call for each subdirectory.
-            foreach(DirectoryInfo directory in directoryList) {
+            foreach (DirectoryInfo directory in directoryList) {
                 current.Add(WalkDirectoryTree(directory));
             }
             // Now, process all the file directories directly under this folder.
             List<DirectoryInfo> fileFolderList = root.GetDirectories()
                 .Except(directoryList)
                 .ToList();
-            foreach(DirectoryInfo fileDirectory in fileFolderList) {
+            foreach (DirectoryInfo fileDirectory in fileFolderList) {
                 // Now process all the files directly under this folder.
                 List<FileInfo> fileList = null;
                 try {
@@ -63,12 +63,12 @@ namespace KTouch.Utilities {
                         .GetFiles("*.*")
                         .Where(f => SupportedExtensions.SupportedExtensionList.Contains(f.Extension))
                         .ToList();
-                } catch(UnauthorizedAccessException e) {
+                } catch (UnauthorizedAccessException e) {
                     Console.WriteLine(e.Message);
-                } catch(DirectoryNotFoundException e) {
+                } catch (DirectoryNotFoundException e) {
                     Console.WriteLine(e.Message);
                 }
-                foreach(FileInfo file in fileList) {
+                foreach (FileInfo file in fileList) {
                     current.Add(
                         new XElement("Item",
                             new XAttribute("Name", file.Directory.Name),
@@ -93,7 +93,7 @@ namespace KTouch.Utilities {
             ICollection<FileInfo> existingThumbs = file.Directory.GetFiles("*.*")
                 .Where(f => SupportedExtensions.SupportedThumbnailExtensionList.Contains(f.Extension))
                 .ToList();
-            if(existingThumbs.Any()) {
+            if (existingThumbs.Any()) {
                 thumbnail = existingThumbs.First().FullName;
             } else {
                 thumbnail = "/Resources/noimage.jpg";
@@ -149,8 +149,8 @@ namespace KTouch.Utilities {
         /// </summary>
         public void SetItemTag() {
             var rootElements = this._root.Elements();
-            foreach(var item in rootElements) {
-                foreach(var descendant in item.DescendantsAndSelf()) {
+            foreach (var item in rootElements) {
+                foreach (var descendant in item.DescendantsAndSelf()) {
                     descendant.SetAttributeValue("Tag", (string)item.Attribute("Name"));
                 }
             }

@@ -10,7 +10,7 @@
 	
 	<DocumentViewer x:Name="xpsViewer"
 						Margin="20"
-						Zoom="65.5"
+						Zoom="66"
 						Document="{Binding Document}"
 						Style="{StaticResource DocumentViewerStyle}"
 						ManipulationDelta="manipulationDelta"
