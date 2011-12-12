@@ -183,7 +183,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Resource Include="README.txt" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>
