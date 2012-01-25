@@ -96,8 +96,8 @@ namespace KTouch.Utilities {
             if (existingThumbs.Any()) {
                 thumbnail = existingThumbs.First().FullName;
             } else {
-                thumbnail = "/Resources/noimage.jpg";
-                //thumbnail = ThumbnailCreator.CreateThumbnail(file.FullName);
+                //thumbnail = "/Resources/noimage.jpg";
+                thumbnail = ThumbnailCreator.CreateThumbnail(file.FullName);
             }
             return thumbnail;
         }

@@ -25,7 +25,7 @@ namespace KTouch {
             }
             base.OnStartup(e);
             /* TODO : Never to use this because it overflows the system. */
-            AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
         }
 
         /// <summary>
