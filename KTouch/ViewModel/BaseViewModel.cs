@@ -1,4 +1,5 @@
 ﻿using System.Collections.ObjectModel;
+using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Xml.Linq;
@@ -42,7 +43,7 @@ namespace KTouch.ViewModel {
         /// </summary>
         /// <param name="value">String new value.</param>
         protected virtual void OnItemChanged(XElement item) {
-            if(item != null) {
+            if (item != null) {
                 this.CurrentTitle = (string)item.Attribute("FullName");
             }
         }
@@ -109,12 +110,29 @@ namespace KTouch.ViewModel {
         public BaseViewModel(XElement item) {
             Item = item;
             ObjectDataProvider provider = Application.Current.FindResource("loader") as ObjectDataProvider;
-            if(provider != null) {
+            if (provider != null) {
                 Loader loader = (Loader)provider.ObjectInstance;
                 _itemList = new ObservableCollection<XElement>(item.Elements());
             }
         }
 
         #endregion //Constructors
+
+        #region Functions
+
+        /// <summary>
+        /// Proceeds to the next element in the ItemList.
+        /// </summary>
+        public void Next() {
+            int currentIndex = ItemList.IndexOf(Item);
+            if (currentIndex == ItemList.Count - 1) {
+                currentIndex = 0;
+            } else {
+                currentIndex++;
+            }
+            Item = ItemList.ElementAt(currentIndex);
+        }
+
+        #endregion //Functions
     }
 }

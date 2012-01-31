@@ -39,26 +39,13 @@ namespace KTouch.ViewModel {
             DependencyProperty.Register("Document", typeof(FixedDocumentSequence), typeof(PresentationPageViewModel), new FrameworkPropertyMetadata(null));
 
         /// <summary>
-        /// Proceeds to the next element in the ItemList.
-        /// </summary>
-        public void Next() {
-            int currentIndex = ItemList.IndexOf(Item);
-            if(currentIndex == ItemList.Count - 1) {
-                currentIndex = 0;
-            } else {
-                currentIndex++;
-            }
-            Item = ItemList.ElementAt(currentIndex);
-        }
-
-        /// <summary>
         /// Constructor.
         /// </summary>
         /// <param name="item">Current item.</param>
         public PresentationPageViewModel(XElement item) {
             this.Item = item;
             ObjectDataProvider provider = Application.Current.FindResource("loader") as ObjectDataProvider;
-            if(provider != null) {
+            if (provider != null) {
                 Loader loader = (Loader)provider.ObjectInstance;
                 this._itemList = new ObservableCollection<XElement>(item.Parent.Elements().Where(e => !string.Equals("dir", (string)e.Attribute("Type"))));
             }

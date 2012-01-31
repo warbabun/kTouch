@@ -87,6 +87,9 @@
     <Reference Include="Microsoft.Expression.Drawing, Version=4.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Surface.Presentation, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
     <Reference Include="Microsoft.Surface.Presentation.Generic, Version=2.0.0.0, Culture=neutral, PublicKeyToken=31bf3856ad364e35, processorArchitecture=MSIL" />
+    <Reference Include="Mindscape.WpfElements">
+      <HintPath>C:\Program Files\Mindscape\WPF Elements\Bin\Mindscape.WpfElements.dll</HintPath>
+    </Reference>
     <Reference Include="PresentationFramework.Aero" />
     <Reference Include="ReachFramework" />
     <Reference Include="System" />
@@ -123,9 +126,13 @@
     <Compile Include="Utilities\VisibilityTimer.cs" />
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BrowserViewModel.cs" />
+    <Compile Include="ViewModel\VideoPageViewModel.cs" />
     <Compile Include="ViewModel\ImportFilesViewModel.cs" />
     <Compile Include="ViewModel\PresentationPageViewModel.cs" />
     <Compile Include="ViewModel\ViewModelBase.cs" />
+    <Compile Include="Views\VideoPage.xaml.cs">
+      <DependentUpon>VideoPage.xaml</DependentUpon>
+    </Compile>
     <Compile Include="Views\FrontPage.xaml.cs">
       <DependentUpon>FrontPage.xaml</DependentUpon>
     </Compile>
@@ -145,6 +152,10 @@
       <SubType>Designer</SubType>
     </Page>
     <Page Include="Resources\Storyboards.xaml">
+      <Generator>MSBuild:Compile</Generator>
+      <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Views\VideoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </Page>
@@ -183,6 +194,10 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Resources\expandBlack.png" />
+    <Resource Include="Resources\expandWhite.png" />
+    <Resource Include="Resources\playBlack.png" />
+    <Resource Include="Resources\playWhite.png" />
     <None Include="App.config">
       <SubType>Designer</SubType>
     </None>

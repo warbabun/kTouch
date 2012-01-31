@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Xml.Linq;
+using KTouch.Utilities;
 using KTouch.ViewModel;
 using KTouch.Views;
 using Microsoft.Surface.Presentation.Controls;
@@ -82,12 +83,15 @@ namespace KTouch {
             if (dataSource != null) {
                 XElement item = dataSource as XElement;
                 if (item == null) {
-                    _mainFrame.NavigationService.Navigate(new FrontPage());
+                    return;
+                    //_mainFrame.NavigationService.Navigate(new FrontPage());
                 } else {
                     string currentSelection = (string)item.Attribute("FullName");
                     if (_vm.CurrentTitle != currentSelection) {
                         if (string.Equals("dir", (string)item.Attribute("Type"))) {
                             _mainFrame.NavigationService.Navigate(new ListPage(item));
+                        } else if (SupportedExtensions.SupportedMediaExtensionList.Contains((string)item.Attribute("Type"))) {
+                            _mainFrame.NavigationService.Navigate(new VideoPage(item));
                         } else {
                             _mainFrame.NavigationService.Navigate(new PresentationPage(item));
                         }
