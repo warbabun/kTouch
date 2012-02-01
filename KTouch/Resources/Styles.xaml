@@ -531,5 +531,19 @@
         <Setter Property="Background" Value="{DynamicResource expandWhite}" />
         <Setter Property="Foreground" Value="{DynamicResource expandBlack}" />
     </Style>
+    
+    <!-- VideoPlayer slider style -->
+    
+    <Style x:Key="VideoSliderStyle" TargetType="{x:Type Surface:SurfaceSlider}">
+        <Setter Property="Grid.Column" Value="1"/>
+        <Setter Property="Focusable" Value="False"/>
+        <Setter Property="Margin" Value="5,0,5,0"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Minimum" Value="0"/>
+        <Setter Property="Maximum" Value="1"/>
+        <Setter Property="Value" Value="0"/>
+        <Setter Property="SmallChange" Value="0"/>
+        <Setter Property="LargeChange" Value="0"/>
+    </Style>
 
 </ResourceDictionary>

@@ -51,11 +51,10 @@
                     </Grid.ColumnDefinitions>
                     <s:SurfaceButton Grid.Column="0" Style="{DynamicResource PlayBtnStyle}" Command="MediaCommands.Play"/>
                     <s:SurfaceButton Grid.Column="2" Style="{DynamicResource ExpandBtnStyle}" Click="ExpandButton_Click"/>
-                    <s:SurfaceSlider Grid.Column="1" 
-                                             Name="sliderTime" 
-                                             VerticalAlignment="Center" 
-                                             Thumb.DragStarted="sliderTime_DragStarted"
-                                             Thumb.DragCompleted="sliderTime_DragCompleted"/>
+                    <s:SurfaceSlider Name="sliderTime" 
+                                     Style="{StaticResource VideoSliderStyle}"
+                                     Thumb.DragStarted="sliderTime_DragStarted"
+                                     Thumb.DragCompleted="sliderTime_DragCompleted"/>
                 </Grid>
             </Border>
             </Border>

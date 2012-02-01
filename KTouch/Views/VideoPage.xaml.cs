@@ -6,6 +6,7 @@ using System.Windows.Input;
 using System.Windows.Threading;
 using System.Xml.Linq;
 using KTouch.ViewModel;
+using Microsoft.Surface.Presentation.Input;
 
 namespace KTouch.Views {
 
@@ -15,12 +16,12 @@ namespace KTouch.Views {
     public partial class VideoPage : Page {
 
         private bool fullScreen = false;
+        private bool _isPause = false;
         private VideoPageViewModel _vm;
         private bool _isDragging = false;
         private DispatcherTimer _timer = null;
-        object _winContext = null;
-        object _pageContext = null;
-        private XElement _currentItem;
+        private object _winContext = null;
+        private TimeSpan? _position;
 
         /// <summary>
         /// Constructor.
@@ -42,7 +43,24 @@ namespace KTouch.Views {
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(500);
             _timer.Tick += new EventHandler(_timer_Tick);
+            TouchExtensions.AddTapGestureHandler(mediaPlayerMain, new EventHandler<TouchEventArgs>(OnTapGesture));
+            mediaPlayerMain.MouseLeftButtonUp += new MouseButtonEventHandler(mediaPlayerMain_MouseLeftButtonUp);
             PlayMedia();
+        }
+
+        /// <summary>
+        /// Handles mouse click event on the media element.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void mediaPlayerMain_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            if (_isPause) {
+                this.PlayMedia();
+            } else {
+                this.PausePlayback();
+            }
+            _isPause = !_isPause;
+            e.Handled = true;
         }
 
         /// <summary>
@@ -51,21 +69,31 @@ namespace KTouch.Views {
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
         protected void OnTapGesture(object sender, TouchEventArgs e) {
+            if (_isPause) {
+                this.PlayMedia();
+            } else {
+                this.PausePlayback();
+            }
+            _isPause = !_isPause;
             e.Handled = true;
         }
 
+        /// <summary>
+        /// Handles switch between fullscreen and regular mode.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void ExpandButton_Click(object sender, RoutedEventArgs e) {
             Window win = App.Current.MainWindow;
             if (!fullScreen) {
                 _winContext = win.Content;
-                _pageContext = this;
-                win.Content = _pageContext;
-            } else if (_pageContext != null) {
+                win.Content = this;
+            } else if (_winContext != null) {
+                VideoPage p = (VideoPage)win.Content;
+                _position = p.mediaPlayerMain.Position;
                 win.Content = _winContext;
-                ((Frame)((Grid)win.Content).Children[0]).Content = (VideoPage)_pageContext;
-                //((Frame)((Grid)_winContext).Children[0]).Content = _pageContext;
-            } else {
-                win.Content = new Browser();
+                Frame f = (Frame)((Grid)win.Content).Children[0];
+                f.NavigationService.Refresh();
             }
             fullScreen = !fullScreen;
         }
@@ -94,6 +122,10 @@ namespace KTouch.Views {
         /// </summary>
         private void mediaPlayerMain_MediaOpened(object sender, RoutedEventArgs e) {
             sliderTime.IsEnabled = mediaPlayerMain.IsLoaded;
+            if (_position.HasValue) {
+                mediaPlayerMain.Position = _position.Value;
+                _position = null;
+            }
             PlayMedia();
         }
 
@@ -114,15 +146,6 @@ namespace KTouch.Views {
         private void sliderTime_DragCompleted(object sender, DragCompletedEventArgs e) {
             _isDragging = false;
             mediaPlayerMain.Position = TimeSpan.FromMilliseconds(sliderTime.Value * mediaPlayerMain.NaturalDuration.TimeSpan.TotalMilliseconds);
-        }
-
-        /// <summary>
-        /// On kTouchMediaPlayer loaded behaviour
-        /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void kTouchMediaPlayer_Loaded(object sender, RoutedEventArgs e) {
-            PlayMedia();
         }
 
         /// <summary>
