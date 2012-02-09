@@ -2,6 +2,7 @@
 using System.Windows;
 using System.Windows.Data;
 using System.Xml.Linq;
+using KTouch.Properties;
 using KTouch.Utilities;
 
 namespace KTouch.ViewModel {
@@ -18,12 +19,12 @@ namespace KTouch.ViewModel {
         /// </summary>
         /// <param name="value">String new value.</param>
         protected override void OnCurrentTitleChanged(string value) {
-            if(string.IsNullOrEmpty(value)) {
+            if (string.IsNullOrEmpty(value)) {
                 return;
             }
             XElement currentElement = this._currentLoader.LoadItemByFullName(value);
-            foreach(XElement e in this.ItemList) {
-                if(string.Equals((string)currentElement.Attribute("Tag"), (string)e.Attribute("Name"))) {
+            foreach (XElement e in this.ItemList) {
+                if (string.Equals((string)currentElement.Attribute(Tags.Tag), (string)e.Attribute(Tags.Name))) {
                     this.Item = e;
                     return;
                 }
@@ -35,7 +36,7 @@ namespace KTouch.ViewModel {
         /// </summary>
         public BrowserViewModel() {
             ObjectDataProvider provider = Application.Current.FindResource("loader") as ObjectDataProvider;
-            if(provider != null) {
+            if (provider != null) {
                 _currentLoader = (Loader)provider.ObjectInstance;
                 _itemList = new ObservableCollection<XElement>(_currentLoader.Root.Elements());
                 _currentLoader.SetItemTag();

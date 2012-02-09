@@ -4,9 +4,11 @@
 					xmlns:Surface="http://schemas.microsoft.com/surface/2008" 
 					xmlns:aero="clr-namespace:Microsoft.Windows.Themes;assembly=PresentationFramework.Aero"
 					xmlns:local="clr-namespace:KTouch.Utilities"
-					xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing">
+					xmlns:ed="http://schemas.microsoft.com/expression/2010/drawing"
+		            xmlns:p="clr-namespace:KTouch.Properties">
 
     <local:ItemTemplateSelector x:Key="itemTemplateSelector"/>
+
     <SolidColorBrush x:Key="BackgroundGray" Color="#96FFFFFF" />
     <SolidColorBrush x:Key="ForegroundBrown" Color="#FF8F4825" />
 
@@ -393,36 +395,8 @@
 			   TargetType="{x:Type Surface:SurfaceListBox}" 
 			   BasedOn="{StaticResource FrontPageListBoxStyle}">
         <Setter Property="Template" Value="{StaticResource ListPageListBoxTemplate}"/>
-    </Style>
-
-    <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
-        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
-        <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
-        <Setter Property="IsManipulationEnabled" Value="True"/>
-        <Setter Property="ShowPageBorders" Value="False"/>
-        <Setter Property="Padding" Value="40"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type DocumentViewer}">
-                    <Grid x:Name="mainBorder" >
-                        <Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"/>
-                        <Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
-														 CanContentScroll="True"
-														 Padding="{TemplateBinding Padding}"
-														 HorizontalScrollBarVisibility="Disabled" 
-														 VerticalScrollBarVisibility="Visible">
-                            <Surface:SurfaceScrollViewer.BitmapEffect>
-                                <DropShadowBitmapEffect Color="Gray" />
-                            </Surface:SurfaceScrollViewer.BitmapEffect>
-                        </Surface:SurfaceScrollViewer>
-
-                        <Canvas IsHitTestVisible="{TemplateBinding IsManipulationEnabled}" 
-									IsManipulationEnabled="{TemplateBinding IsManipulationEnabled}" 
-									Background="Transparent"/>
-                    </Grid>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+        <Setter Property="HorizontalAlignment" Value="Stretch"/>
+        <Setter Property="VerticalAlignment" Value="Stretch"/>
     </Style>
 
     <!-- ImportFiles page -->
@@ -532,6 +506,8 @@
         <Setter Property="Foreground" Value="{DynamicResource expandBlack}" />
     </Style>
     
+    
+    
     <!-- VideoPlayer slider style -->
     
     <Style x:Key="VideoSliderStyle" TargetType="{x:Type Surface:SurfaceSlider}">
@@ -546,4 +522,85 @@
         <Setter Property="LargeChange" Value="0"/>
     </Style>
 
+    <ControlTemplate x:Key="FrameNavigationTemplate" TargetType="{x:Type Frame}">
+        <DockPanel >
+            <Grid DockPanel.Dock="Left" >
+                <Surface:SurfaceButton x:Name="Back"
+                                     Width="60" 
+                                     Height="60" 
+                                     BorderBrush="LightGray"
+                                     Style="{StaticResource NavigationButtonLeftStyle}"
+                                     Command="BrowseBack"
+                                     IsEnabled="{TemplateBinding CanGoBack}"
+                                     VerticalAlignment="Top"/>
+            </Grid>
+            <ContentPresenter  x:Name="PART_FrameCP"/>
+        </DockPanel>
+    </ControlTemplate>
+    
+    <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
+        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
+        <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
+        <Setter Property="IsManipulationEnabled" Value="True"/>
+        <Setter Property="ShowPageBorders" Value="False"/>
+        <Setter Property="Padding" Value="40"/>
+        <Setter Property="Margin" Value="20"/>
+        <Setter Property="Zoom" Value="66"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type DocumentViewer}">
+                    <Grid x:Name="mainBorder" >
+                        <Border Name="mask" CornerRadius="10" Background="{TemplateBinding Background}"/>
+                        <Surface:SurfaceScrollViewer x:Name="PART_ContentHost" 
+														 CanContentScroll="True"
+														 Padding="{TemplateBinding Padding}"
+														 HorizontalScrollBarVisibility="Disabled" 
+														 VerticalScrollBarVisibility="Visible">
+                            <Surface:SurfaceScrollViewer.BitmapEffect>
+                                <DropShadowBitmapEffect Color="Gray" />
+                            </Surface:SurfaceScrollViewer.BitmapEffect>
+                        </Surface:SurfaceScrollViewer>
+
+                        <Canvas IsHitTestVisible="{TemplateBinding IsManipulationEnabled}" 
+									IsManipulationEnabled="{TemplateBinding IsManipulationEnabled}" 
+									Background="Transparent"/>
+                    </Grid>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <Style x:Key="BrowserFrameStyle" TargetType="{x:Type Frame}">
+        <Setter Property="NavigationUIVisibility" Value="Hidden"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Frame}">
+                    <ContentPresenter x:Name="PART_FrameCP"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="NavigationUIVisibility" Value="Visible">
+                <Setter Property="Template" Value="{StaticResource FrameNavigationTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
+    
+    <Style x:Key="CreatedByTextboxStyle" TargetType="TextBlock">
+        <Setter Property="FontFamily" Value="Arial Rounded MT"/>
+        <Setter Property="Foreground" Value="White"/>
+        <Setter Property="Opacity" Value="0.5"/>
+        <Setter Property="HorizontalAlignment" Value="Right"/>
+        <Setter Property="VerticalAlignment" Value="Center"/>
+        <Setter Property="Text" Value="{x:Static p:Resources.MGN}"/>
+    </Style>
+    
+    <Style x:Key="VideoPlayerStyle" TargetType="{x:Type local:VideoElement}">
+        <Setter Property="Margin" Value="20"/>
+    </Style>
+
+    <Style x:Key="MaskBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
+    </Style>
 </ResourceDictionary>

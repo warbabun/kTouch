@@ -117,27 +117,40 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LblDirectory" xml:space="preserve">
-    <value>Directory</value>
-    <comment>Label for Directory button.</comment>
+  <data name="AVI" xml:space="preserve">
+    <value>.avi</value>
+    <comment>Avi file.</comment>
   </data>
-  <data name="LblTransfer" xml:space="preserve">
-    <value>Transfer</value>
-    <comment>Label for Transfer button.</comment>
+  <data name="DIR" xml:space="preserve">
+    <value>dir</value>
+    <comment>Directory.</comment>
   </data>
-  <data name="MGN" xml:space="preserve">
-    <value>MGN</value>
+  <data name="GIF" xml:space="preserve">
+    <value>.gif</value>
+    <comment>Gif file.</comment>
   </data>
-  <data name="NoImage" xml:space="preserve">
-    <value>/Resources/noimage.jpg</value>
-    <comment>Image when no image is provided.</comment>
+  <data name="JPG" xml:space="preserve">
+    <value>.jpg</value>
+    <comment>Jpg file.</comment>
   </data>
-  <data name="TlpDirectory" xml:space="preserve">
-    <value>Choose a directory to import files from</value>
-    <comment>Tooltip for Directory button.</comment>
+  <data name="MP4" xml:space="preserve">
+    <value>.mp4</value>
+    <comment>Mp4 file.</comment>
   </data>
-  <data name="TlpTransfer" xml:space="preserve">
-    <value>Choose a directory to export files to</value>
-    <comment>Tooltip for Transfer button.</comment>
+  <data name="MPG" xml:space="preserve">
+    <value>.mpg</value>
+    <comment>Mpg file.</comment>
+  </data>
+  <data name="PNG" xml:space="preserve">
+    <value>.png</value>
+    <comment>Png file.</comment>
+  </data>
+  <data name="WMV" xml:space="preserve">
+    <value>.wmv</value>
+    <comment>Wmv file.</comment>
+  </data>
+  <data name="XPS" xml:space="preserve">
+    <value>.xps</value>
+    <comment>Xps file.</comment>
   </data>
 </root>

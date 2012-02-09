@@ -2,19 +2,19 @@
 	  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
 	  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
 	  xmlns:s="http://schemas.microsoft.com/surface/2008" 
+      
 	  xmlns:mc="http://schemas.openxmlformats.org/markup-compatibility/2006" 
 	  xmlns:d="http://schemas.microsoft.com/expression/blend/2008" 
 	  mc:Ignorable="d" 
 	  d:DesignHeight="1080" 
 	  d:DesignWidth="1920"
-	  Background="Transparent"
+	  
 	  Title="{Binding CurrentTitle}">
 	
-	<Grid Name="LayoutRoot" 
-		  ClipToBounds="False">
+	<Grid>
+        
 		<s:SurfaceListBox Style="{StaticResource ListPageListBoxStyle}" 
-						   HorizontalAlignment="Stretch" 
-						   VerticalAlignment="Stretch"
-						   ItemsSource="{Binding ItemList}"/>
+						  ItemsSource="{Binding ItemList}"/>
 	</Grid>
+    
 </Page>

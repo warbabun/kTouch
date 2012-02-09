@@ -1,70 +1,34 @@
 ﻿<s:SurfaceWindow x:Class="KTouch.Browser" 
-                  xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-                  xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
-        		  xmlns:s="http://schemas.microsoft.com/surface/2008" 
-                  Height="1080" 
-                  Width="1920"             
-                  Background="{StaticResource wood}"
-                  WindowState="Maximized" WindowStyle="None">
+                 xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
+                 xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+        		 xmlns:s="http://schemas.microsoft.com/surface/2008" 
+                 Height="1080" 
+                 Width="1920"             
+                 Background="{StaticResource browserBackground}"
+                 WindowState="Maximized" 
+                 WindowStyle="None">
     
-    <s:SurfaceWindow.Resources>
-        <ControlTemplate x:Key="FrameNavigationTemplate" TargetType="{x:Type Frame}">
-            <DockPanel >
-                <Grid DockPanel.Dock="Left" >
-                    <s:SurfaceButton x:Name="Back"
-                                     Width="60" 
-                                     Height="60" 
-                                     BorderBrush="LightGray"
-                                     Style="{StaticResource NavigationButtonLeftStyle}"
-                                     Command="BrowseBack"
-                                     IsEnabled="{TemplateBinding CanGoBack}"
-                                     VerticalAlignment="Top"/>
-                </Grid>
-                <ContentPresenter  x:Name="PART_FrameCP"/>
-            </DockPanel>
-        </ControlTemplate>
-
-        <Style x:Key="BrowserFrameStyle" TargetType="{x:Type Frame}">
-            <Setter Property="Template">
-                <Setter.Value>
-                    <ControlTemplate TargetType="{x:Type Frame}">
-                        <ContentPresenter x:Name="PART_FrameCP"/>
-                    </ControlTemplate>
-                </Setter.Value>
-            </Setter>
-            <Style.Triggers>
-                <Trigger Property="NavigationUIVisibility" Value="Visible">
-                    <Setter Property="Template" Value="{StaticResource FrameNavigationTemplate}"/>
-                </Trigger>
-            </Style.Triggers>
-        </Style>
-    </s:SurfaceWindow.Resources>
-
     <Grid x:Name="LayoutRoot">
+        
         <Grid.RowDefinitions>
             <RowDefinition Height="*"/>
             <RowDefinition Height="60"/>
             <RowDefinition Height="10"/>
         </Grid.RowDefinitions>
+        
         <Frame x:Name="_mainFrame" 
-               Grid.Row="0" 
-               Foreground="Black"
-               Style="{StaticResource BrowserFrameStyle}" 
-               NavigationUIVisibility="Hidden"/>
+               Grid.Row="0"
+               Style="{StaticResource BrowserFrameStyle}"/>
+        
         <s:SurfaceListBox x:Name="navigationListBox" 
                           Grid.Row="1" 
                           Style="{StaticResource TagListBoxStyle}"
                           ItemsSource="{Binding ItemList}"
-                          SelectedItem="{Binding Item}"
-                         />
-   
-        <TextBlock Grid.Row="2" 
-                   FontFamily="Arial Rounded MT"  
-                   Foreground="White"
-                   Opacity="0.5" 
-                   HorizontalAlignment="Right" 
-                   VerticalAlignment="Center" 
-                   Text="MGN"/>
+                          SelectedItem="{Binding Item}"/>
+
+        <TextBlock Grid.Row="2"
+                   Style="{StaticResource CreatedByTextboxStyle}"/>
+        
     </Grid>
   
 </s:SurfaceWindow>

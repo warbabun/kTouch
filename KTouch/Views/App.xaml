@@ -11,11 +11,7 @@
 				<ResourceDictionary Source="/KTouch;component/Resources/Styles.xaml"/>
 				<ResourceDictionary Source="/KTouch;component/Resources/Brushes.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
-			<ObjectDataProvider ObjectType="{x:Type local:Loader}" x:Key="loader">
-				<ObjectDataProvider.ConstructorParameters>
-                    <system:String>C:\Content</system:String>
-				</ObjectDataProvider.ConstructorParameters>
-			</ObjectDataProvider>
+			<ObjectDataProvider ObjectType="{x:Type local:Loader}" x:Key="loader"/>
 		</ResourceDictionary>
-	</Application.Resources>
+	</Application.Resources>    
 </Application>

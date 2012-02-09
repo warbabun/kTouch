@@ -3,6 +3,7 @@ using System.Linq;
 using System.Windows;
 using System.Windows.Data;
 using System.Xml.Linq;
+using KTouch.Properties;
 using KTouch.Utilities;
 
 namespace KTouch.ViewModel {
@@ -44,7 +45,7 @@ namespace KTouch.ViewModel {
         /// <param name="value">String new value.</param>
         protected virtual void OnItemChanged(XElement item) {
             if (item != null) {
-                this.CurrentTitle = (string)item.Attribute("FullName");
+                this.CurrentTitle = (string)item.Attribute(Tags.FullName);
             }
         }
 

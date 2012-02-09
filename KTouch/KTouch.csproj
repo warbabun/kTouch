@@ -112,24 +112,37 @@
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
     </ApplicationDefinition>
+    <Compile Include="Properties\Extensions.Designer.cs">
+      <DependentUpon>Extensions.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
+    <Compile Include="Properties\Tags.Designer.cs">
+      <DependentUpon>Tags.resx</DependentUpon>
+      <AutoGen>True</AutoGen>
+      <DesignTime>True</DesignTime>
+    </Compile>
     <Compile Include="Properties\Resources.Designer.cs">
       <AutoGen>True</AutoGen>
       <DesignTime>True</DesignTime>
       <DependentUpon>Resources.resx</DependentUpon>
     </Compile>
-    <Compile Include="Utilities\ItemCollection.cs" />
     <Compile Include="Utilities\ItemTemplateSelector.cs" />
     <Compile Include="Utilities\Loader.cs" />
-    <Compile Include="Utilities\RelayCommand.cs" />
     <Compile Include="Utilities\SupportedExtenstions.cs" />
     <Compile Include="Utilities\ThumbnailCreator.cs" />
-    <Compile Include="Utilities\VisibilityTimer.cs" />
+    <Compile Include="Utilities\VideoElement.xaml.cs">
+      <DependentUpon>VideoElement.xaml</DependentUpon>
+    </Compile>
+    <Compile Include="Utilities\XpsViewer.xaml.cs">
+      <DependentUpon>XpsViewer.xaml</DependentUpon>
+    </Compile>
     <Compile Include="ViewModel\BaseViewModel.cs" />
     <Compile Include="ViewModel\BrowserViewModel.cs" />
+    <Compile Include="ViewModel\FrontPageViewModel.cs" />
     <Compile Include="ViewModel\VideoPageViewModel.cs" />
     <Compile Include="ViewModel\ImportFilesViewModel.cs" />
     <Compile Include="ViewModel\PresentationPageViewModel.cs" />
-    <Compile Include="ViewModel\ViewModelBase.cs" />
     <Compile Include="Views\VideoPage.xaml.cs">
       <DependentUpon>VideoPage.xaml</DependentUpon>
     </Compile>
@@ -154,6 +167,14 @@
     <Page Include="Resources\Storyboards.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
+    </Page>
+    <Page Include="Utilities\VideoElement.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
+    </Page>
+    <Page Include="Utilities\XpsViewer.xaml">
+      <SubType>Designer</SubType>
+      <Generator>MSBuild:Compile</Generator>
     </Page>
     <Page Include="Views\VideoPage.xaml">
       <Generator>MSBuild:Compile</Generator>
@@ -233,6 +254,14 @@
     </BootstrapperPackage>
   </ItemGroup>
   <ItemGroup>
+    <EmbeddedResource Include="Properties\Extensions.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Extensions.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
+    <EmbeddedResource Include="Properties\Tags.resx">
+      <Generator>PublicResXFileCodeGenerator</Generator>
+      <LastGenOutput>Tags.Designer.cs</LastGenOutput>
+    </EmbeddedResource>
     <EmbeddedResource Include="Properties\Resources.resx">
       <Generator>PublicResXFileCodeGenerator</Generator>
       <LastGenOutput>Resources.Designer.cs</LastGenOutput>

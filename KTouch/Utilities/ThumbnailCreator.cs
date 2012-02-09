@@ -6,6 +6,7 @@ using System.Windows.Documents;
 using System.Windows.Media;
 using System.Windows.Media.Imaging;
 using System.Windows.Xps.Packaging;
+using KTouch.Properties;
 
 namespace KTouch.Utilities {
 
@@ -81,7 +82,7 @@ namespace KTouch.Utilities {
                     _bitmapEncoder = new GifBitmapEncoder();
                     break;
                 default:
-                    _outputFileExtension = SupportedExtensions.PNG;
+                    _outputFileExtension = Extensions.PNG;
                     _bitmapEncoder = new PngBitmapEncoder();
                     break;
             }
@@ -108,8 +109,8 @@ namespace KTouch.Utilities {
         /// </summary>
         /// <param name="sourceFile">Source file.</param>
         /// <returns>Thumbnail file full path with extension.</returns>
+        /// <TODO>This must be asynchroniously.</TODO>
         private string ProcessFile(string sourceFile) {
-            /* TODO: This must be asynchroniously */
             try {
                 Visual visual;
                 IntSize visualSize;

@@ -1,11 +1,12 @@
 ﻿<ResourceDictionary xmlns="http://schemas.microsoft.com/winfx/2006/xaml/presentation"
-					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml">
+					xmlns:x="http://schemas.microsoft.com/winfx/2006/xaml"
+                    xmlns:p="clr-namespace:KTouch.Properties">
 
-	<ImageBrush x:Key="wood" ImageSource="/KTouch;component/Resources/wood.jpg" Stretch="Fill" TileMode="None" />
-	<ImageBrush x:Key="back" ImageSource="/KTouch;component/Resources/back.gif" Stretch="Fill" TileMode="None" />
-
+    <ImageBrush x:Key="browserBackground" ImageSource="/KTouch;component/Resources/wood.jpg" Stretch="Fill" TileMode="None" />
     <ImageBrush x:Key="playWhite" ImageSource="/KTouch;component/Resources/playWhite.png" Stretch="Uniform" TileMode="None" />
     <ImageBrush x:Key="playBlack" ImageSource="/KTouch;component/Resources/playBlack.png" Stretch="Uniform" TileMode="None" />
     <ImageBrush x:Key="expandWhite" ImageSource="/KTouch;component/Resources/expandWhite.png" Stretch="Uniform" TileMode="None" />
     <ImageBrush x:Key="expandBlack" ImageSource="/KTouch;component/Resources/expandBlack.png" Stretch="Uniform" TileMode="None" />
+
+   
 </ResourceDictionary>

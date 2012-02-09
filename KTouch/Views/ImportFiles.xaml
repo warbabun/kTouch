@@ -5,7 +5,7 @@
 		xmlns:s="http://schemas.microsoft.com/surface/2008"
 		xmlns:p="clr-namespace:KTouch.Properties"
 		x:Class="KTouch.ImportFiles"
-		Background="{StaticResource wood}"
+		Background="{StaticResource browserBackground}"
 		mc:Ignorable="d" 
 		d:DesignHeight="1080" 
 		d:DesignWidth="1920">

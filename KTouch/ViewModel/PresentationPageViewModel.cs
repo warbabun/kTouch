@@ -6,6 +6,7 @@ using System.Windows.Data;
 using System.Windows.Documents;
 using System.Windows.Xps.Packaging;
 using System.Xml.Linq;
+using KTouch.Properties;
 using KTouch.Utilities;
 
 namespace KTouch.ViewModel {
@@ -21,7 +22,7 @@ namespace KTouch.ViewModel {
         /// <param name="item">XElement new value.</param>
         protected override void OnItemChanged(XElement item) {
             base.OnItemChanged(item);
-            this.Document = (new XpsDocument((string)item.Attribute("FullName"), FileAccess.Read)).GetFixedDocumentSequence();
+            this.Document = (new XpsDocument((string)item.Attribute(Tags.FullName), FileAccess.Read)).GetFixedDocumentSequence();
         }
 
         /// <summary>
@@ -47,7 +48,7 @@ namespace KTouch.ViewModel {
             ObjectDataProvider provider = Application.Current.FindResource("loader") as ObjectDataProvider;
             if (provider != null) {
                 Loader loader = (Loader)provider.ObjectInstance;
-                this._itemList = new ObservableCollection<XElement>(item.Parent.Elements().Where(e => !string.Equals("dir", (string)e.Attribute("Type"))));
+                this._itemList = new ObservableCollection<XElement>(item.Parent.Elements().Where(e => !string.Equals(SupportedExtensions.DIR, (string)e.Attribute(Tags.Type))));
             }
         }
     }

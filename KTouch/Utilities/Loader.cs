@@ -1,8 +1,10 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Configuration;
 using System.IO;
 using System.Linq;
 using System.Xml.Linq;
+using KTouch.Properties;
 
 namespace KTouch.Utilities {
 
@@ -12,6 +14,24 @@ namespace KTouch.Utilities {
     public class Loader {
 
         private readonly XElement _root;
+
+        /// <summary>
+        /// Gets the default source directory to take information from.
+        /// </summary>
+        protected string SourceDirectory {
+            get {
+                return ConfigurationManager.AppSettings["SourceDirectory"].ToString();
+            }
+        }
+
+        /// <summary>
+        /// Returns true if needed to create thumbs for the content.
+        /// </summary>
+        protected bool IsCreateMissingThumbs {
+            get {
+                return string.Equals("true", ConfigurationManager.AppSettings["IsCreateMissingThumbs"].ToString());
+            }
+        }
 
         /// <summary>
         /// Returns the root element of the tree.
@@ -25,9 +45,8 @@ namespace KTouch.Utilities {
         /// <summary>
         /// Constructor.
         /// </summary>
-        /// <param name="source">Source directory path.</param>
-        public Loader(string source) {
-            _root = this.WalkDirectoryTree(new DirectoryInfo(source));
+        public Loader() {
+            _root = this.WalkDirectoryTree(new DirectoryInfo(SourceDirectory));
         }
 
         /// <summary>
@@ -37,26 +56,30 @@ namespace KTouch.Utilities {
         /// <returns>Tree of XElement objects.</returns>
         private XElement WalkDirectoryTree(DirectoryInfo root) {
             XElement current =
-                new XElement("Item",
-                    new XAttribute("Name", root.Name),
-                    new XAttribute("FullName", root.FullName),
-                    new XAttribute("Type", "dir"),
-                    new XAttribute("Parent", root.Parent.FullName));
+                new XElement(Tags.Item,
+                    new XAttribute(Tags.Name, root.Name),
+                    new XAttribute(Tags.FullName, root.FullName),
+                    new XAttribute(Tags.Type, SupportedExtensions.DIR),
+                    new XAttribute(Tags.Parent, root.Parent.FullName));
+
             // First find all the subdirectories (exculing file only directories) under this directory.
             List<DirectoryInfo> directoryList = root
                 .GetDirectories()
                 .Where(d => d.GetDirectories().Any())
                 .ToList();
+
             // Resursive call for each subdirectory.
             foreach (DirectoryInfo directory in directoryList) {
                 current.Add(WalkDirectoryTree(directory));
             }
+
             // Now, process all the file directories directly under this folder.
             List<DirectoryInfo> fileFolderList = root.GetDirectories()
                 .Except(directoryList)
                 .ToList();
+
+            // Now process all the files directly under this folder.
             foreach (DirectoryInfo fileDirectory in fileFolderList) {
-                // Now process all the files directly under this folder.
                 List<FileInfo> fileList = null;
                 try {
                     fileList = fileDirectory
@@ -70,13 +93,13 @@ namespace KTouch.Utilities {
                 }
                 foreach (FileInfo file in fileList) {
                     current.Add(
-                        new XElement("Item",
-                            new XAttribute("Name", file.Directory.Name),
-                            new XAttribute("FullName", file.FullName),
-                            new XAttribute("Type", file.Extension),
-                            new XAttribute("Thumbnail", GetFileThumbnail(file)),
-                            new XAttribute("Parent", root.Parent.FullName),
-                            new XAttribute("Description", "Add me!")
+                        new XElement(Tags.Item,
+                            new XAttribute(Tags.Name, file.Directory.Name),
+                            new XAttribute(Tags.FullName, file.FullName),
+                            new XAttribute(Tags.Type, file.Extension),
+                            new XAttribute(Tags.Thumb, GetFileThumbnail(file)),
+                            new XAttribute(Tags.Parent, root.Parent.FullName),
+                            new XAttribute(Tags.Desc, "Add me!")
                         ));
                 }
             }
@@ -95,9 +118,10 @@ namespace KTouch.Utilities {
                 .ToList();
             if (existingThumbs.Any()) {
                 thumbnail = existingThumbs.First().FullName;
+            } else if (IsCreateMissingThumbs) {
+                thumbnail = ThumbnailCreator.CreateThumbnail(file.FullName);
             } else {
-                thumbnail = "/Resources/noimage.jpg";
-                //thumbnail = ThumbnailCreator.CreateThumbnail(file.FullName);
+                thumbnail = Resources.NoImage;
             }
             return thumbnail;
         }
@@ -111,8 +135,8 @@ namespace KTouch.Utilities {
         /// <returns>XElement object.</returns>
         public XElement LoadItemByFullName(object fullName) {
             string value = (string)fullName;
-            var collection = from e in _root.Descendants("Item")
-                             where value.Equals((string)e.Attribute("FullName"))
+            var collection = from e in _root.Descendants(Tags.Item)
+                             where value.Equals((string)e.Attribute(Tags.FullName))
                              select e;
             return collection.FirstOrDefault();
         }
@@ -124,8 +148,8 @@ namespace KTouch.Utilities {
         /// <returns>XElement object.</returns>
         public XElement LoadItemByName(object name) {
             string value = (string)name;
-            var collection = from e in _root.DescendantsAndSelf("Item")
-                             where value.Equals((string)e.Attribute("Name"))
+            var collection = from e in _root.DescendantsAndSelf(Tags.Item)
+                             where value.Equals((string)e.Attribute(Tags.Name))
                              select e;
             return collection.FirstOrDefault();
         }
@@ -138,8 +162,8 @@ namespace KTouch.Utilities {
         /// <returns>List of XElement objects.</returns>
         public IEnumerable<XElement> LoadItemDescendantListByFullNameAndType(object fullName, object type) {
             var collection = from e in this.LoadItemByName(fullName).Descendants()
-                             where !string.Equals("Supprimer", (string)e.Parent.Attribute("Name"))
-                                && string.Equals((string)type, (string)e.Attribute("Type"))
+                             where !string.Equals("Supprimer", (string)e.Parent.Attribute(Tags.Name))
+                                && string.Equals((string)type, (string)e.Attribute(Tags.Type))
                              select e;
             return collection;
         }
@@ -151,7 +175,7 @@ namespace KTouch.Utilities {
             var rootElements = this._root.Elements();
             foreach (var item in rootElements) {
                 foreach (var descendant in item.DescendantsAndSelf()) {
-                    descendant.SetAttributeValue("Tag", (string)item.Attribute("Name"));
+                    descendant.SetAttributeValue(Tags.Tag, (string)item.Attribute(Tags.Name));
                 }
             }
         }

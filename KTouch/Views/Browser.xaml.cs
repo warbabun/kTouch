@@ -4,6 +4,7 @@ using System.Windows.Controls;
 using System.Windows.Input;
 using System.Windows.Navigation;
 using System.Xml.Linq;
+using KTouch.Properties;
 using KTouch.Utilities;
 using KTouch.ViewModel;
 using KTouch.Views;
@@ -16,7 +17,7 @@ namespace KTouch {
     /// </summary>
     public partial class Browser : SurfaceWindow {
 
-        private BrowserViewModel _vm;
+        private readonly BrowserViewModel _vm;
 
         /// <summary>
         /// Constructor.
@@ -84,13 +85,12 @@ namespace KTouch {
                 XElement item = dataSource as XElement;
                 if (item == null) {
                     return;
-                    //_mainFrame.NavigationService.Navigate(new FrontPage());
                 } else {
-                    string currentSelection = (string)item.Attribute("FullName");
+                    string currentSelection = (string)item.Attribute(Tags.FullName);
                     if (_vm.CurrentTitle != currentSelection) {
-                        if (string.Equals("dir", (string)item.Attribute("Type"))) {
+                        if (string.Equals(SupportedExtensions.DIR, (string)item.Attribute(Tags.Type))) {
                             _mainFrame.NavigationService.Navigate(new ListPage(item));
-                        } else if (SupportedExtensions.SupportedMediaExtensionList.Contains((string)item.Attribute("Type"))) {
+                        } else if (SupportedExtensions.SupportedMediaExtensionList.Contains((string)item.Attribute(Tags.Type))) {
                             _mainFrame.NavigationService.Navigate(new VideoPage(item));
                         } else {
                             _mainFrame.NavigationService.Navigate(new PresentationPage(item));

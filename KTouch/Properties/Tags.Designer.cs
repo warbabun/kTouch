@@ -22,14 +22,14 @@ namespace KTouch.Properties {
     [global::System.CodeDom.Compiler.GeneratedCodeAttribute("System.Resources.Tools.StronglyTypedResourceBuilder", "4.0.0.0")]
     [global::System.Diagnostics.DebuggerNonUserCodeAttribute()]
     [global::System.Runtime.CompilerServices.CompilerGeneratedAttribute()]
-    public class Resources {
+    public class Tags {
         
         private static global::System.Resources.ResourceManager resourceMan;
         
         private static global::System.Globalization.CultureInfo resourceCulture;
         
         [global::System.Diagnostics.CodeAnalysis.SuppressMessageAttribute("Microsoft.Performance", "CA1811:AvoidUncalledPrivateCode")]
-        internal Resources() {
+        internal Tags() {
         }
         
         /// <summary>
@@ -39,7 +39,7 @@ namespace KTouch.Properties {
         public static global::System.Resources.ResourceManager ResourceManager {
             get {
                 if (object.ReferenceEquals(resourceMan, null)) {
-                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KTouch.Properties.Resources", typeof(Resources).Assembly);
+                    global::System.Resources.ResourceManager temp = new global::System.Resources.ResourceManager("KTouch.Properties.Tags", typeof(Tags).Assembly);
                     resourceMan = temp;
                 }
                 return resourceMan;
@@ -61,56 +61,74 @@ namespace KTouch.Properties {
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Directory.
+        ///   Looks up a localized string similar to Description.
         /// </summary>
-        public static string LblDirectory {
+        public static string Desc {
             get {
-                return ResourceManager.GetString("LblDirectory", resourceCulture);
+                return ResourceManager.GetString("Desc", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Transfer.
+        ///   Looks up a localized string similar to FullName.
         /// </summary>
-        public static string LblTransfer {
+        public static string FullName {
             get {
-                return ResourceManager.GetString("LblTransfer", resourceCulture);
+                return ResourceManager.GetString("FullName", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to MGN.
+        ///   Looks up a localized string similar to Item.
         /// </summary>
-        public static string MGN {
+        public static string Item {
             get {
-                return ResourceManager.GetString("MGN", resourceCulture);
+                return ResourceManager.GetString("Item", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to /Resources/noimage.jpg.
+        ///   Looks up a localized string similar to Name.
         /// </summary>
-        public static string NoImage {
+        public static string Name {
             get {
-                return ResourceManager.GetString("NoImage", resourceCulture);
+                return ResourceManager.GetString("Name", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a directory to import files from.
+        ///   Looks up a localized string similar to Parent.
         /// </summary>
-        public static string TlpDirectory {
+        public static string Parent {
             get {
-                return ResourceManager.GetString("TlpDirectory", resourceCulture);
+                return ResourceManager.GetString("Parent", resourceCulture);
             }
         }
         
         /// <summary>
-        ///   Looks up a localized string similar to Choose a directory to export files to.
+        ///   Looks up a localized string similar to Tag.
         /// </summary>
-        public static string TlpTransfer {
+        public static string Tag {
             get {
-                return ResourceManager.GetString("TlpTransfer", resourceCulture);
+                return ResourceManager.GetString("Tag", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Thumbnail.
+        /// </summary>
+        public static string Thumb {
+            get {
+                return ResourceManager.GetString("Thumb", resourceCulture);
+            }
+        }
+        
+        /// <summary>
+        ///   Looks up a localized string similar to Type.
+        /// </summary>
+        public static string Type {
+            get {
+                return ResourceManager.GetString("Type", resourceCulture);
             }
         }
     }

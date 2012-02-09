@@ -117,27 +117,36 @@
   <resheader name="writer">
     <value>System.Resources.ResXResourceWriter, System.Windows.Forms, Version=4.0.0.0, Culture=neutral, PublicKeyToken=b77a5c561934e089</value>
   </resheader>
-  <data name="LblDirectory" xml:space="preserve">
-    <value>Directory</value>
-    <comment>Label for Directory button.</comment>
+  <data name="Desc" xml:space="preserve">
+    <value>Description</value>
+    <comment>Tag for item's field Description.</comment>
   </data>
-  <data name="LblTransfer" xml:space="preserve">
-    <value>Transfer</value>
-    <comment>Label for Transfer button.</comment>
+  <data name="FullName" xml:space="preserve">
+    <value>FullName</value>
+    <comment>Tag for item's field FullName.</comment>
   </data>
-  <data name="MGN" xml:space="preserve">
-    <value>MGN</value>
+  <data name="Item" xml:space="preserve">
+    <value>Item</value>
+    <comment>Tag for an Item.</comment>
   </data>
-  <data name="NoImage" xml:space="preserve">
-    <value>/Resources/noimage.jpg</value>
-    <comment>Image when no image is provided.</comment>
+  <data name="Name" xml:space="preserve">
+    <value>Name</value>
+    <comment>Tag for item's field Name.</comment>
   </data>
-  <data name="TlpDirectory" xml:space="preserve">
-    <value>Choose a directory to import files from</value>
-    <comment>Tooltip for Directory button.</comment>
+  <data name="Parent" xml:space="preserve">
+    <value>Parent</value>
+    <comment>Tag for item's field Parent.</comment>
   </data>
-  <data name="TlpTransfer" xml:space="preserve">
-    <value>Choose a directory to export files to</value>
-    <comment>Tooltip for Transfer button.</comment>
+  <data name="Tag" xml:space="preserve">
+    <value>Tag</value>
+    <comment>Tag for item's field Tag.</comment>
+  </data>
+  <data name="Thumb" xml:space="preserve">
+    <value>Thumbnail</value>
+    <comment>Tag for item's field Thumbnail.</comment>
+  </data>
+  <data name="Type" xml:space="preserve">
+    <value>Type</value>
+    <comment>Tag for item's field Type.</comment>
   </data>
 </root>

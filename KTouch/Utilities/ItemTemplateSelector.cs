@@ -2,6 +2,7 @@
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml.Linq;
+using KTouch.Properties;
 
 namespace KTouch.Utilities {
 
@@ -18,7 +19,7 @@ namespace KTouch.Utilities {
         /// </summary>
         protected DataTemplate FolderTemplate {
             get {
-                if(_folderTemplate == null) {
+                if (_folderTemplate == null) {
                     _folderTemplate = MakeFolderTemplate();
                 }
                 return _folderTemplate;
@@ -30,7 +31,7 @@ namespace KTouch.Utilities {
         /// </summary>
         protected DataTemplate ItemTemplate {
             get {
-                if(_itemTemplate == null) {
+                if (_itemTemplate == null) {
                     _itemTemplate = MakeItemTemplate();
                 }
                 return _itemTemplate;
@@ -45,9 +46,9 @@ namespace KTouch.Utilities {
         /// <returns>Returns a System.Windows.DataTemplate or null. The default value is null.</returns>
         public override DataTemplate SelectTemplate(object data, DependencyObject container) {
             XElement item = data as XElement;
-            if(item == null) {
+            if (item == null) {
                 return null;
-            } else if("dir".Equals((string)item.Attribute("Type"))) {
+            } else if (SupportedExtensions.DIR.Equals((string)item.Attribute(Tags.Type))) {
                 return FolderTemplate;
             } else {
                 return ItemTemplate;

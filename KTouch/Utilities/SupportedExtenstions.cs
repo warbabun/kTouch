@@ -1,4 +1,5 @@
 ﻿using System.Collections.Generic;
+using KTouch.Properties;
 namespace KTouch.Utilities {
     public static class SupportedExtensions {
 
@@ -42,6 +43,11 @@ namespace KTouch.Utilities {
         /// </summary>
         public const string GIF = ".gif";
 
+        /// <summary>
+        /// Shortcut for directory.
+        /// </summary>
+        public const string DIR = "dir";
+
         private static List<string> _supportedExtensionList;
         private static List<string> _supportedDocumentExtensionList;
         private static List<string> _supportedMediaExtensionList;
@@ -68,7 +74,7 @@ namespace KTouch.Utilities {
             get {
                 if (_supportedDocumentExtensionList == null) {
                     _supportedDocumentExtensionList = new List<string> {
-                        SupportedExtensions.XPS,                
+                        Extensions.XPS,                
                     };
                 }
                 return _supportedDocumentExtensionList;
@@ -82,10 +88,10 @@ namespace KTouch.Utilities {
             get {
                 if (_supportedMediaExtensionList == null) {
                     _supportedMediaExtensionList = new List<string>{
-                        SupportedExtensions.AVI,
-                        SupportedExtensions.MP4,
-                        SupportedExtensions.MPG,
-                        SupportedExtensions.WMV,
+                        Extensions.AVI,
+                        Extensions.MP4,
+                        Extensions.MPG,
+                        Extensions.WMV,
                     };
                 }
                 return _supportedMediaExtensionList;
@@ -99,9 +105,9 @@ namespace KTouch.Utilities {
             get {
                 if (_supportedThumbnailExtensionList == null) {
                     _supportedThumbnailExtensionList = new List<string> {
-                        SupportedExtensions.GIF,
-                        SupportedExtensions.JPG,
-                        SupportedExtensions.PNG,
+                        Extensions.GIF,
+                        Extensions.JPG,
+                        Extensions.PNG,
                     };
                 }
                 return _supportedThumbnailExtensionList;
