@@ -80,6 +80,9 @@
   <PropertyGroup>
     <NoWin32Manifest>true</NoWin32Manifest>
   </PropertyGroup>
+  <PropertyGroup>
+    <ApplicationIcon>Baby Polar Bear.ico</ApplicationIcon>
+  </PropertyGroup>
   <ItemGroup>
     <Reference Include="log4net, Version=1.2.10.0, Culture=neutral, PublicKeyToken=1b44e1d426115821, processorArchitecture=MSIL">
       <HintPath>lib\log4net.dll</HintPath>
@@ -156,10 +159,6 @@
     <Compile Include="Views\PresentationPage.xaml.cs">
       <DependentUpon>PresentationPage.xaml</DependentUpon>
     </Compile>
-    <Page Include="Resources\Brushes.xaml">
-      <Generator>MSBuild:Compile</Generator>
-      <SubType>Designer</SubType>
-    </Page>
     <Page Include="Resources\Styles.xaml">
       <Generator>MSBuild:Compile</Generator>
       <SubType>Designer</SubType>
@@ -215,6 +214,7 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
+    <Resource Include="Resources\Baby Polar Bear.ico" />
     <Resource Include="Resources\expandBlack.png" />
     <Resource Include="Resources\expandWhite.png" />
     <Resource Include="Resources\playBlack.png" />
@@ -226,6 +226,7 @@
     <Resource Include="Resources\wood.jpg" />
     <Resource Include="Resources\back.gif" />
     <Resource Include="Resources\noimage.jpg" />
+    <Resource Include="Baby Polar Bear.ico" />
     <Content Include="KTouch.exe.log4net">
       <CopyToOutputDirectory>Always</CopyToOutputDirectory>
     </Content>

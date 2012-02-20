@@ -34,13 +34,18 @@ namespace KTouch {
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
-        void kBrowser_Loaded(object sender, RoutedEventArgs e) {
+        private void kBrowser_Loaded(object sender, RoutedEventArgs e) {
             _mainFrame.Navigated += new NavigatedEventHandler(_mainFrame_Navigated);
-            _mainFrame.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(_mainFrame_PreviewMouseLeftButtonUp);
-            navigationListBox.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(_mainFrame_PreviewMouseLeftButtonUp);
             _mainFrame.NavigationService.Navigate(new FrontPage());
-            TouchExtensions.AddTapGestureHandler(_mainFrame, new EventHandler<TouchEventArgs>(OnTapGesture));
-            TouchExtensions.AddTapGestureHandler(navigationListBox, new EventHandler<TouchEventArgs>(OnTapGesture));
+
+            TouchExtensions.AddTapGestureHandler(_mainFrame, new EventHandler<TouchEventArgs>(_mainFrame_TapGesture));
+            _mainFrame.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(_mainFrame_MouseLeftButtonUp);
+            TouchExtensions.AddTapGestureHandler(navigationListBox, new EventHandler<TouchEventArgs>(navigationListBox_TapGesture));
+            navigationListBox.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(navigationListBox_MouseLeftButtonUp);
+        }
+
+        void _mainFrame_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -48,7 +53,7 @@ namespace KTouch {
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event arguments.</param>
-        void _mainFrame_Navigated(object sender, NavigationEventArgs e) {
+        private void _mainFrame_Navigated(object sender, NavigationEventArgs e) {
             if (e.Content is FrontPage) {
                 _mainFrame.NavigationUIVisibility = NavigationUIVisibility.Hidden;
                 this.navigationListBox.SelectedIndex = -1;
@@ -59,31 +64,52 @@ namespace KTouch {
         }
 
         /// <summary>
-        /// Handles tap event.
+        /// Handles tap event on the main frame.
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
-        protected void OnTapGesture(object sender, TouchEventArgs e) {
+        private void _mainFrame_TapGesture(object sender, TouchEventArgs e) {
             this.HandleEvent(((FrameworkElement)e.OriginalSource).DataContext);
         }
 
         /// <summary>
-        /// Handles mouse click event.
+        /// Handles tap event on the navigation panel.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
-        private void _mainFrame_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void navigationListBox_TapGesture(object sender, TouchEventArgs e) {
+            this.HandleEvent(((FrameworkElement)e.OriginalSource).DataContext, true);
+        }
+
+        /// <summary>
+        /// Handles mouse click event on the main frame.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void _mainFrame_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
             this.HandleEvent(((FrameworkElement)e.OriginalSource).DataContext);
+        }
+
+        /// <summary>
+        /// Handles mouse click event on the navigation panel.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void navigationListBox_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            this.HandleEvent(((FrameworkElement)e.OriginalSource).DataContext, true);
         }
 
         /// <summary>
         /// Handles navigation.
         /// </summary>
         /// <param name="dataSource">Collection item.</param>
-        private void HandleEvent(object dataSource) {
+        private void HandleEvent(object dataSource, bool isReturnFrontPage = false) {
             if (dataSource != null) {
                 XElement item = dataSource as XElement;
                 if (item == null) {
+                    if (isReturnFrontPage) {
+                        _mainFrame.NavigationService.Navigate(new FrontPage());
+                    }
                     return;
                 } else {
                     string currentSelection = (string)item.Attribute(Tags.FullName);

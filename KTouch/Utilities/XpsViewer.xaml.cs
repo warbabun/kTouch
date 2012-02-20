@@ -1,18 +1,105 @@
 ﻿using System;
+using System.IO;
+using System.Windows;
 using System.Windows.Controls;
+using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Xps.Packaging;
+using System.Xml.Linq;
+using KTouch.Properties;
+using Microsoft.Surface.Presentation.Input;
 
 namespace KTouch.Utilities {
+
     /// <summary>
     /// Interaction logic for XpsViewer.xaml
     /// </summary>
     public partial class XpsViewer : UserControl {
 
+        // An event that clients can use to be notified whenever the
+        // content changes.
+        public event ChangedEventHandler SourceChanged;
+
+        // Invoke the SourceChanged event; called whenever list changes
+        protected virtual void OnSourceChanged(EventArgs e) {
+            if (SourceChanged != null)
+                SourceChanged(this, e);
+        }
+
+        /// <summary>
+        /// Exposes a FixedDocumentSequence for XpsViewer's source.
+        /// </summary>
+        public XElement Source {
+            get { return (XElement)GetValue(SourceProperty); }
+            set { SetValue(SourceProperty, value); }
+        }
+
+        /// <summary>
+        /// Source DependencyProperty.
+        /// </summary>
+        public static readonly DependencyProperty SourceProperty =
+            DependencyProperty.Register("Source", typeof(XElement), typeof(XpsViewer), new FrameworkPropertyMetadata(new PropertyChangedCallback(SourceChangedCallback)));
+
+        /// <summary>
+        /// DP callback on Source changed.
+        /// </summary>
+        /// <param name="sender">DependencyObject sender.</param>
+        /// <param name="e">DependencyPropertyChangedEventArgs argument.</param>
+        public static void SourceChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
+            XElement item = (XElement)e.NewValue;
+            XpsViewer viewer = (XpsViewer)sender;
+            viewer.xpsViewer.Document = (new XpsDocument((string)item.Attribute(Tags.FullName), FileAccess.Read)).GetFixedDocumentSequence();
+            viewer.OnSourceChanged(EventArgs.Empty);
+        }
+
+        /// <summary>
+        /// Constructor.
+        /// </summary>
         public XpsViewer() {
             InitializeComponent();
+            this.Loaded += new RoutedEventHandler(XpsViewer_Loaded);
+        }
+
+        /// <summary>
+        /// Handles Loaded event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void XpsViewer_Loaded(object sender, RoutedEventArgs e) {
             this.xpsViewer.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(manipulationDelta);
             this.xpsViewer.ManipulationStarting += new EventHandler<ManipulationStartingEventArgs>(manipulationStarting);
             this.xpsViewer.ManipulationInertiaStarting += new EventHandler<ManipulationInertiaStartingEventArgs>(inertiaStarting);
+            TouchExtensions.AddTapGestureHandler(this.xpsViewer, new EventHandler<TouchEventArgs>(OnTapGesture));
+            //  this.xpsViewer.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(xpsViewer_MouseLeftButtonUp);
+            this.xpsViewer.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(OnMouseClick));
+
+        }
+
+        /// <summary>
+        /// Handles PreviewMouseLeftButtonUp event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void xpsViewer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
+            this.xpsViewer.Zoom = 66;
+        }
+
+        /// <summary>
+        /// Handles Tap event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void OnTapGesture(object sender, TouchEventArgs e) {
+            this.xpsViewer.Zoom = 66;
+        }
+
+        /// <summary>
+        /// Handles mouse click event.
+        /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
+        private void OnMouseClick(object sender, RoutedEventArgs e) {
+            this.xpsViewer.Zoom = 66;
         }
 
         #region Manipulation

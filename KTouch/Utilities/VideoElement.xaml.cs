@@ -23,6 +23,16 @@ namespace KTouch.Utilities {
         private object _winContext = null;
         private TimeSpan? _position;
 
+        // An event that clients can use to be notified whenever the
+        // content changes.
+        public event ChangedEventHandler SourceChanged;
+
+        // Invoke the SourceChanged event; called whenever list changes
+        protected virtual void OnSourceChanged(EventArgs e) {
+            if (SourceChanged != null)
+                SourceChanged(this, e);
+        }
+
         /// <summary>
         /// Exposes an Uri object for VideoPlayer's source.
         /// </summary>
@@ -44,7 +54,9 @@ namespace KTouch.Utilities {
         /// <param name="e">DependencyPropertyChangedEventArgs argument.</param>
         public static void SourceChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
             XElement item = (XElement)e.NewValue;
-            ((VideoElement)sender).mediaPlayerMain.Source = new Uri((string)item.Attribute(Tags.FullName), UriKind.Absolute);
+            VideoElement player = (VideoElement)sender;
+            player.mediaPlayerMain.Source = new Uri((string)item.Attribute(Tags.FullName), UriKind.Absolute);
+            player.OnSourceChanged(EventArgs.Empty);
         }
 
         /// <summary>

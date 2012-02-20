@@ -8,11 +8,16 @@
 		            xmlns:p="clr-namespace:KTouch.Properties">
 
     <local:ItemTemplateSelector x:Key="itemTemplateSelector"/>
-
     <SolidColorBrush x:Key="BackgroundGray" Color="#96FFFFFF" />
     <SolidColorBrush x:Key="ForegroundBrown" Color="#FF8F4825" />
+    <ImageBrush x:Key="browserBackground" ImageSource="/KTouch;component/Resources/wood.jpg" Stretch="Fill" TileMode="None" />
+    <ImageBrush x:Key="playWhite" ImageSource="/KTouch;component/Resources/playWhite.png" Stretch="Uniform" TileMode="None" />
+    <ImageBrush x:Key="playBlack" ImageSource="/KTouch;component/Resources/playBlack.png" Stretch="Uniform" TileMode="None" />
+    <ImageBrush x:Key="expandWhite" ImageSource="/KTouch;component/Resources/expandWhite.png" Stretch="Uniform" TileMode="None" />
+    <ImageBrush x:Key="expandBlack" ImageSource="/KTouch;component/Resources/expandBlack.png" Stretch="Uniform" TileMode="None" />
+    <Image x:Key="ImageHome" Source="/KTouch;component/Resources/logo_kleegroup.gif" />
 
-    <!-- Glow Shadow style -->
+    <!-- Glow Shadow style. -->
     <Style x:Key="ShadowChromeStyle" TargetType="{x:Type s2:SurfaceShadowChrome}">
         <Setter Property="CornerRadius" Value="2"/>
         <Setter Property="Color" Value="GhostWhite"/>
@@ -21,7 +26,30 @@
         <Setter Property="Grid.RowSpan" Value="2"/>
     </Style>
 
-    <!-- Navigation buttons -->
+    <!-- Border that creates a rounded-corners mask. -->
+    <Style x:Key="MaskBorderStyle" TargetType="Border">
+        <Setter Property="CornerRadius" Value="10"/>
+        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
+    </Style>
+
+    <!-- Generic style that is applied on each element of type WrapPanel. -->
+    <Style TargetType="{x:Type WrapPanel}">
+        <Setter Property="Orientation" Value="Horizontal"/>
+        <Setter Property="IsItemsHost" Value="True"/>
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="ItemWidth" Value="300"/>
+    </Style>
+
+    <!-- Generic style that is applied on each element of type SurfaceScrollViewer. -->
+    <Style TargetType="{x:Type Surface:SurfaceScrollViewer}">
+        <Setter Property="ClipToBounds" Value="False"/>
+        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
+        <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
+    </Style>
+
+    <!-- Base styles -->
+
+    <!-- Navigation button -->
     <Style x:Key="NavigationButtonBaseStyle" TargetType="{x:Type Surface:SurfaceButton}">
         <Style.Resources>
             <Storyboard x:Key="StartDim">
@@ -65,123 +93,25 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style x:Key="NavigationButtonLeftStyle" 
-		   TargetType="{x:Type Surface:SurfaceButton}" 
-		   BasedOn="{StaticResource NavigationButtonBaseStyle}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Surface:SurfaceButton}">
-                    <ControlTemplate.Resources>
 
-                    </ControlTemplate.Resources>
-                    <Grid>
-                        <ed:BlockArrow Fill="{TemplateBinding Background}" 
-									   Opacity="{TemplateBinding Opacity}" 
-									   Orientation="Left"  
-									   Stroke="{TemplateBinding BorderBrush}"/>
-                        <s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
-												Style="{DynamicResource ShadowChromeStyle}"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed"
-									 Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="NavigationButtonHomeStyle" 
-		   TargetType="{x:Type Surface:SurfaceButton}" 
-		   BasedOn="{StaticResource NavigationButtonBaseStyle}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Surface:SurfaceButton}">
-                    <Grid>
-                        <ed:BlockArrow Fill="{TemplateBinding Background}" 
-									   Opacity="{TemplateBinding Opacity}" 
-									   Orientation="Up"  
-									   Stroke="{TemplateBinding BorderBrush}"/>
-                        <s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
-												Style="{DynamicResource ShadowChromeStyle}"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed"
-									 Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-    <Style x:Key="NavigationButtonExitStyle" 
-		   TargetType="{x:Type Surface:SurfaceButton}" 
-		   BasedOn="{StaticResource NavigationButtonBaseStyle}">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Surface:SurfaceButton}">
-                    <Grid>
-                        <Path Data="M480,224 L463.5,239.5 439.5,215.5 415.5,239.5 399.5,223.5 423.5,199.5 399.5,175.5 415.5,159.5 439.5,183.5 463.5,159.5 479.5,175.5 455.5,199.5 z"
-							  Stretch="Fill" 
-							  Fill="{TemplateBinding Background}" 
-							  Opacity="{TemplateBinding Opacity}" 
-							  Stroke="{TemplateBinding BorderBrush}"/>
-                        <s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
-												Style="{DynamicResource ShadowChromeStyle}"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed"
-									 Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
-                            </Trigger.ExitActions>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-    </Style>
-
-    <!-- Base styles -->
+    <!-- List box -->
     <Style x:Key="ListBoxBaseStyle" TargetType="{x:Type Surface:SurfaceListBox}">
         <Setter Property="HorizontalAlignment" Value="Stretch"/>
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
         <Setter Property="Margin" Value="20"/>
         <Setter Property="Padding" Value="0,0,20,0"/>
-        <!--<Setter Property="Background" Value="Black"/>-->
-        <!--<Setter Property="Background" Value="#DADADA"/>-->
-        <!--<Setter Property="Background" Value="#DADADA"/>-->
-
         <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
         <Setter Property="ClipToBounds" Value="False"/>
         <Setter Property="FontFamily" Value="Calibri"/>
-
-        <!--<Setter Property="FontFamily" Value="Arial Rounded MT"/>-->
-        <!--<Setter Property="FontFamily" Value="Maiandra GD"/>-->
         <Setter Property="FontStretch" Value="SemiExpanded"/>
         <Setter Property="FontWeight" Value="Bold"/>
         <Setter Property="FontSize" Value="25"/>
         <Setter Property="ItemTemplateSelector" Value="{StaticResource itemTemplateSelector}"/>
     </Style>
+    
+    <!-- List box item -->
     <Style x:Key="ListBoxItemBaseStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}">
         <Setter Property="ClipToBounds" Value="False"/>
         <Setter Property="Margin" Value="15"/>
@@ -209,17 +139,58 @@
             </Trigger>
         </Style.Triggers>
     </Style>
-    <Style TargetType="{x:Type WrapPanel}">
-        <Setter Property="Orientation" Value="Horizontal"/>
-        <Setter Property="IsItemsHost" Value="True"/>
-        <Setter Property="ClipToBounds" Value="False"/>
-        <Setter Property="ItemWidth" Value="300"/>
+   
+    <!-- Video player -->
+    <Style TargetType="{x:Type Surface:SurfaceButton}" x:Key="VideoPlayerBaseBtnStyle">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceButton}">
+                    <ControlTemplate.Resources>
+                        <Storyboard x:Key="Press">
+                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+									Storyboard.TargetName="PressOverlay"
+									Storyboard.TargetProperty="(UIElement.Opacity)">
+                                <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                        <Storyboard x:Key="Release">
+                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
+									Storyboard.TargetName="PressOverlay"
+									Storyboard.TargetProperty="(UIElement.Opacity)">
+                                <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="0" />
+                            </DoubleAnimationUsingKeyFrames>
+                        </Storyboard>
+                    </ControlTemplate.Resources>
+                    <Grid x:Name="Grid"
+							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="5">
+                        <Rectangle  x:Name="ButtonBody"	Fill="{TemplateBinding Background}"						
+									SnapsToDevicePixels ="{TemplateBinding SnapsToDevicePixels}"/>
+                        <Rectangle  x:Name="PressOverlay"
+								Opacity="0"
+								Fill="{TemplateBinding Foreground}"		             
+								SnapsToDevicePixels ="{TemplateBinding SnapsToDevicePixels}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed"
+								Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource Press}" />
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource Release}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                        <Trigger Property="IsEnabled" Value="False">
+                            <Setter Property="Opacity" Value="1" TargetName="PressOverlay"/>
+                            <Setter Property="Opacity" Value="0" TargetName="ButtonBody"/>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
     </Style>
-    <Style TargetType="{x:Type Surface:SurfaceScrollViewer}">
-        <Setter Property="ClipToBounds" Value="False"/>
-        <Setter Property="HorizontalScrollBarVisibility" Value="Hidden"/>
-        <Setter Property="VerticalScrollBarVisibility" Value="Disabled"/>
-    </Style>
+    
+    <!-- Lists' styles. -->
 
     <!-- Front page list box panel -->
     <ControlTemplate x:Key="FrontPageListBoxItemTemplate" 
@@ -246,11 +217,13 @@
             </Trigger>
         </ControlTemplate.Triggers>
     </ControlTemplate>
+    
     <Style x:Key="FrontPageListBoxItemStyle" 
 		   TargetType="{x:Type Surface:SurfaceListBoxItem}" 
 		   BasedOn="{StaticResource ListBoxItemBaseStyle}">
         <Setter Property="Template" Value="{StaticResource FrontPageListBoxItemTemplate}"/>
     </Style>
+    
     <ControlTemplate x:Key="FrontPageListBoxTemplate" TargetType="{x:Type Surface:SurfaceListBox}">
         <Grid ClipToBounds="{TemplateBinding ClipToBounds}">
             <Grid.ColumnDefinitions>
@@ -284,6 +257,7 @@
             </Surface:SurfaceScrollViewer>
         </Grid>
     </ControlTemplate>
+    
     <Style x:Key="FrontPageListBoxStyle" 
 		   TargetType="{x:Type Surface:SurfaceListBox}" 
 		   BasedOn="{StaticResource ListBoxBaseStyle}">
@@ -326,6 +300,7 @@
 
         </Grid>
     </ControlTemplate>
+    
     <Style x:Key="TagListBoxItemStyle" TargetType="{x:Type Surface:SurfaceListBoxItem}" >
         <Setter Property="VerticalContentAlignment" Value="Center"/>
         <Setter Property="HorizontalContentAlignment" Value="Center"/>
@@ -340,6 +315,7 @@
             </Trigger>
         </Style.Triggers>
     </Style>
+    
     <ControlTemplate x:Key="TagListBoxTemplate" 
 					 TargetType="{x:Type Surface:SurfaceListBox}">
         <Grid ClipToBounds="True" Margin="{TemplateBinding Padding}" >
@@ -352,14 +328,13 @@
 					Grid.Column="0" 
 					Grid.ColumnSpan="2"
 					Background="{TemplateBinding Background}"/>
-            <aero:SystemDropShadowChrome Grid.Column="0"  Color="Gray" CornerRadius="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,2,1,2" >
+            <aero:SystemDropShadowChrome Grid.Column="0" Color="Gray" CornerRadius="10" HorizontalAlignment="Left" VerticalAlignment="Top" Margin="1,2,1,2" >
                 <Grid>
-                    <Border x:Name="innerMask" CornerRadius="10" Background="White"></Border>
-                    <Viewbox Name="header"  Stretch="Fill">
+                    <Border x:Name="innerMask" CornerRadius="10" Background="White"/>
+                    <Viewbox x:Name="header"  Stretch="Fill" Child="{StaticResource ImageHome}">
                         <Viewbox.OpacityMask>
                             <VisualBrush Visual="{Binding ElementName=innerMask}"/>
                         </Viewbox.OpacityMask>
-                        <Image Source="/KTouch;component/Resources/logo_kleegroup.gif" />
                     </Viewbox>
                 </Grid>
             </aero:SystemDropShadowChrome>
@@ -369,6 +344,7 @@
             </Surface:SurfaceScrollViewer>
         </Grid>
     </ControlTemplate>
+    
     <Style x:Key="TagListBoxStyle" 
 		   TargetType="{x:Type Surface:SurfaceListBox}"
 		   BasedOn="{StaticResource ListBoxBaseStyle}">
@@ -444,54 +420,15 @@
         <Setter Property="FontSize" Value="14"/>
     </Style>
 
-    <Style TargetType="{x:Type Surface:SurfaceButton}" x:Key="VideoPlayerBaseBtnStyle">
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Surface:SurfaceButton}">
-                    <ControlTemplate.Resources>
-                        <Storyboard x:Key="Press">
-                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-									Storyboard.TargetName="PressOverlay"
-									Storyboard.TargetProperty="(UIElement.Opacity)">
-                                <SplineDoubleKeyFrame KeyTime="00:00:00.1000000" Value="1" />
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                        <Storyboard x:Key="Release">
-                            <DoubleAnimationUsingKeyFrames BeginTime="00:00:00"
-									Storyboard.TargetName="PressOverlay"
-									Storyboard.TargetProperty="(UIElement.Opacity)">
-                                <SplineDoubleKeyFrame KeyTime="00:00:00.1500000" Value="0" />
-                            </DoubleAnimationUsingKeyFrames>
-                        </Storyboard>
-                    </ControlTemplate.Resources>
-                    <Grid x:Name="Grid"
-							SnapsToDevicePixels="{TemplateBinding SnapsToDevicePixels}" Margin="5">
-                        <Rectangle  x:Name="ButtonBody"	Fill="{TemplateBinding Background}"						
-									SnapsToDevicePixels ="{TemplateBinding SnapsToDevicePixels}"/>
-                        <Rectangle  x:Name="PressOverlay"
-								Opacity="0"
-								Fill="{TemplateBinding Foreground}"		             
-								SnapsToDevicePixels ="{TemplateBinding SnapsToDevicePixels}"/>
-                    </Grid>
-                    <ControlTemplate.Triggers>
-                        <Trigger Property="IsPressed"
-								Value="True">
-                            <Trigger.EnterActions>
-                                <BeginStoryboard Storyboard="{StaticResource Press}" />
-                            </Trigger.EnterActions>
-                            <Trigger.ExitActions>
-                                <BeginStoryboard Storyboard="{StaticResource Release}" />
-                            </Trigger.ExitActions>
-                        </Trigger>
-                        <Trigger Property="IsEnabled" Value="False">
-                            <Setter Property="Opacity" Value="1" TargetName="PressOverlay"/>
-                            <Setter Property="Opacity" Value="0" TargetName="ButtonBody"/>
-                        </Trigger>
-                    </ControlTemplate.Triggers>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
+
+    <!-- Video player. -->
+    
+    <!-- Video player style. -->
+    <Style x:Key="VideoPlayerStyle" TargetType="{x:Type local:VideoElement}">
+        <Setter Property="Margin" Value="20"/>
     </Style>
+
+    <!-- Video player buttons. -->
     <Style x:Key="PlayBtnStyle" 
 		TargetType="{x:Type Surface:SurfaceButton}"
 		BasedOn="{StaticResource VideoPlayerBaseBtnStyle}">
@@ -506,10 +443,7 @@
         <Setter Property="Foreground" Value="{DynamicResource expandBlack}" />
     </Style>
     
-    
-    
-    <!-- VideoPlayer slider style -->
-    
+    <!-- Video player slider. -->
     <Style x:Key="VideoSliderStyle" TargetType="{x:Type Surface:SurfaceSlider}">
         <Setter Property="Grid.Column" Value="1"/>
         <Setter Property="Focusable" Value="False"/>
@@ -521,7 +455,45 @@
         <Setter Property="SmallChange" Value="0"/>
         <Setter Property="LargeChange" Value="0"/>
     </Style>
+    
+    <!-- Browser. -->
+    
+    <!-- Button back style. -->
+    <Style x:Key="NavigationButtonLeftStyle" 
+		   TargetType="{x:Type Surface:SurfaceButton}" 
+		   BasedOn="{StaticResource NavigationButtonBaseStyle}">
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Surface:SurfaceButton}">
+                    <ControlTemplate.Resources>
 
+                    </ControlTemplate.Resources>
+                    <Grid>
+                        <ed:BlockArrow Fill="{TemplateBinding Background}" 
+									   Opacity="{TemplateBinding Opacity}" 
+									   Orientation="Left"  
+									   Stroke="{TemplateBinding BorderBrush}"/>
+                        <s2:SurfaceShadowChrome x:Name="surfaceShadowChrome" 
+												Style="{DynamicResource ShadowChromeStyle}"/>
+                    </Grid>
+                    <ControlTemplate.Triggers>
+                        <Trigger Property="IsPressed"
+									 Value="True">
+                            <Trigger.EnterActions>
+                                <BeginStoryboard Storyboard="{StaticResource GlowPress}"/>
+                            </Trigger.EnterActions>
+                            <Trigger.ExitActions>
+                                <BeginStoryboard Storyboard="{StaticResource GlowRelease}" />
+                            </Trigger.ExitActions>
+                        </Trigger>
+                    </ControlTemplate.Triggers>
+
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+    </Style>
+    
+    <!-- Navigation frame. -->
     <ControlTemplate x:Key="FrameNavigationTemplate" TargetType="{x:Type Frame}">
         <DockPanel >
             <Grid DockPanel.Dock="Left" >
@@ -537,7 +509,24 @@
             <ContentPresenter  x:Name="PART_FrameCP"/>
         </DockPanel>
     </ControlTemplate>
+
+    <Style x:Key="BrowserFrameStyle" TargetType="{x:Type Frame}">
+        <Setter Property="NavigationUIVisibility" Value="Hidden"/>
+        <Setter Property="Template">
+            <Setter.Value>
+                <ControlTemplate TargetType="{x:Type Frame}">
+                    <ContentPresenter x:Name="PART_FrameCP"/>
+                </ControlTemplate>
+            </Setter.Value>
+        </Setter>
+        <Style.Triggers>
+            <Trigger Property="NavigationUIVisibility" Value="Visible">
+                <Setter Property="Template" Value="{StaticResource FrameNavigationTemplate}"/>
+            </Trigger>
+        </Style.Triggers>
+    </Style>
     
+    <!-- DocumentViewer style. -->
     <Style x:Key="DocumentViewerStyle" TargetType="{x:Type DocumentViewer}">
         <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
         <Setter Property="Foreground" Value="{StaticResource ForegroundBrown}"/>
@@ -570,22 +559,7 @@
         </Setter>
     </Style>
     
-    <Style x:Key="BrowserFrameStyle" TargetType="{x:Type Frame}">
-        <Setter Property="NavigationUIVisibility" Value="Hidden"/>
-        <Setter Property="Template">
-            <Setter.Value>
-                <ControlTemplate TargetType="{x:Type Frame}">
-                    <ContentPresenter x:Name="PART_FrameCP"/>
-                </ControlTemplate>
-            </Setter.Value>
-        </Setter>
-        <Style.Triggers>
-            <Trigger Property="NavigationUIVisibility" Value="Visible">
-                <Setter Property="Template" Value="{StaticResource FrameNavigationTemplate}"/>
-            </Trigger>
-        </Style.Triggers>
-    </Style>
-    
+    <!-- Created by me textbox style. -->
     <Style x:Key="CreatedByTextboxStyle" TargetType="TextBlock">
         <Setter Property="FontFamily" Value="Arial Rounded MT"/>
         <Setter Property="Foreground" Value="White"/>
@@ -594,13 +568,5 @@
         <Setter Property="VerticalAlignment" Value="Center"/>
         <Setter Property="Text" Value="{x:Static p:Resources.MGN}"/>
     </Style>
-    
-    <Style x:Key="VideoPlayerStyle" TargetType="{x:Type local:VideoElement}">
-        <Setter Property="Margin" Value="20"/>
-    </Style>
 
-    <Style x:Key="MaskBorderStyle" TargetType="Border">
-        <Setter Property="CornerRadius" Value="10"/>
-        <Setter Property="Background" Value="{StaticResource BackgroundGray}"/>
-    </Style>
 </ResourceDictionary>

@@ -6,6 +6,9 @@ using log4net;
 
 namespace KTouch {
 
+    // A delegate type for hooking up change notifications.
+    public delegate void ChangedEventHandler(object sender, EventArgs e);
+
     /// <summary>
     /// Interaction logic for App.xaml
     /// </summary>

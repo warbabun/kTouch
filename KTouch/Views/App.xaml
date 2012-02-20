@@ -9,7 +9,6 @@
 			<ResourceDictionary.MergedDictionaries>
 				<ResourceDictionary Source="/KTouch;component/Resources/Storyboards.xaml"/>
 				<ResourceDictionary Source="/KTouch;component/Resources/Styles.xaml"/>
-				<ResourceDictionary Source="/KTouch;component/Resources/Brushes.xaml"/>
 			</ResourceDictionary.MergedDictionaries>
 			<ObjectDataProvider ObjectType="{x:Type local:Loader}" x:Key="loader"/>
 		</ResourceDictionary>

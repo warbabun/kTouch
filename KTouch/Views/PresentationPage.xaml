@@ -10,8 +10,7 @@
       
 	  Title="{Binding CurrentTitle}">
 
-    <local:XpsViewer x:Name="player" Source="{Binding Item}"/>
-    
-
+    <local:XpsViewer x:Name="player" 
+                     Source="{Binding Item}"/>
 
 </Page>
