@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿//-----------------------------------------------------------------------
+// <copyright file="VideoPage.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System.Windows.Controls;
 using System.Xml.Linq;
 using KTouch.ViewModel;
 
@@ -12,7 +17,7 @@ namespace KTouch.Views {
         private VideoPageViewModel _vm;
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the VideoPage class.
         /// </summary>
         /// <param name="item">XElement object.</param>
         public VideoPage(XElement item) {

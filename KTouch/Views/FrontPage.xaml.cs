@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿//-----------------------------------------------------------------------
+// <copyright file="FrontPage.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System.Windows.Controls;
 using KTouch.ViewModel;
 
 namespace KTouch {
@@ -11,7 +16,7 @@ namespace KTouch {
         private readonly FrontPageViewModel _vm;
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the FrontPage class.
         /// </summary>
         public FrontPage() {
             InitializeComponent();

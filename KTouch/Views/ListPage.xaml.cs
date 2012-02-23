@@ -1,4 +1,9 @@
-﻿using System.Windows.Controls;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ListPage.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System.Windows.Controls;
 using System.Xml.Linq;
 using KTouch.ViewModel;
 
@@ -12,8 +17,9 @@ namespace KTouch {
         private BaseViewModel _vm;
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the ListPage class.
         /// </summary>
+        /// <param name="item">Source item.</param>
         public ListPage(XElement item) {
             InitializeComponent();
             _vm = new BaseViewModel(item);

@@ -1,4 +1,9 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ThumbnailCreator.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System;
 using System.IO;
 using System.Threading;
 using System.Windows;
@@ -13,12 +18,21 @@ namespace KTouch.Utilities {
     /// <summary>
     /// Thumbnail output format.
     /// </summary>
-    public enum OutputFormat { Jpg, Png, Gif }
+    public enum OutputFormat {
+        Jpg,
+        Png,
+        Gif
+    }
 
     /// <summary>
     /// Thumbnail output quality.
     /// </summary>
-    public enum OutputQuality { Low, Normal, Good, Super }
+    public enum OutputQuality {
+        Low,
+        Normal,
+        Good,
+        Super
+    }
 
     /// <summary>
     /// Size with width and height as integers.
@@ -38,28 +52,29 @@ namespace KTouch.Utilities {
         private string _outputFileExtension;
 
         /// <summary>
-        /// Creates a thumbnail for the file.
-        /// </summary>
-        /// <returns>Thumbnail name with extension.</returns>
-        public static string CreateThumbnail(string file) {
-            ThumbnailCreator creator = new ThumbnailCreator();
-            return creator.ProcessFile(file);
-        }
-
-        /// <summary>
-        /// Default constructor.
+        /// Initializes a new instance of the ThumbnailCreator class.
         /// </summary>
         public ThumbnailCreator() {
             this.Init();
         }
 
         /// <summary>
-        /// Extended constructor.
+        /// Initializes a new instance of the ThumbnailCreator class.
         /// </summary>
         /// <param name="outputFormat">Image format for thumbnail.</param>
         /// <param name="outputQuality">Image quality for thumbnail.</param>
         public ThumbnailCreator(OutputFormat outputFormat, OutputQuality outputQuality) {
             this.Init(outputFormat, outputQuality);
+        }
+
+        /// <summary>
+        /// Creates a thumbnail for the file.
+        /// </summary>
+        /// <param name="file">Source file.</param>
+        /// <returns>Thumbnail name with extension.</returns>
+        public static string CreateThumbnail(string file) {
+            ThumbnailCreator creator = new ThumbnailCreator();
+            return creator.ProcessFile(file);
         }
 
         /// <summary>

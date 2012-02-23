@@ -1,8 +1,14 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="VideoElement.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
 using System.Windows.Input;
+using System.Windows.Navigation;
 using System.Windows.Threading;
 using System.Xml.Linq;
 using KTouch.Properties;
@@ -16,21 +22,35 @@ namespace KTouch.Utilities {
     /// </summary>
     public partial class VideoElement : UserControl {
 
-        private bool fullScreen = false;
+        /// <summary>
+        /// Source DependencyProperty.
+        /// </summary>
+        public static readonly DependencyProperty SourceProperty =
+            DependencyProperty.Register("Source", typeof(XElement), typeof(VideoElement), new FrameworkPropertyMetadata(new PropertyChangedCallback(SourceChangedCallback)));
+
         private bool _isPause = false;
         private bool _isDragging = false;
         private DispatcherTimer _timer = null;
-        private object _winContext = null;
-        private TimeSpan? _position;
 
-        // An event that clients can use to be notified whenever the
-        // content changes.
+        /// <summary>
+        /// Initializes a new instance of the VideoElement class.
+        /// </summary>
+        public VideoElement() {
+            InitializeComponent();
+            this.Loaded += new RoutedEventHandler(VideoElement_Loaded);
+        }
+
+        /// <summary>
+        /// An event that clients can use to be notified whenever the content changes.
+        /// </summary>
         public event ChangedEventHandler SourceChanged;
 
-        // Invoke the SourceChanged event; called whenever list changes
-        protected virtual void OnSourceChanged(EventArgs e) {
-            if (SourceChanged != null)
-                SourceChanged(this, e);
+        /// <summary>
+        /// Returns 'true' if currently is in full screen mode.
+        /// </summary>
+        public bool IsFullscreen {
+            get;
+            set;
         }
 
         /// <summary>
@@ -42,10 +62,19 @@ namespace KTouch.Utilities {
         }
 
         /// <summary>
-        /// Source DependencyProperty.
+        /// Returns current media player position.
         /// </summary>
-        public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(XElement), typeof(VideoElement), new FrameworkPropertyMetadata(new PropertyChangedCallback(SourceChangedCallback)));
+        protected TimeSpan? Position {
+            get {
+                return this.mediaPlayerMain.Position;
+            }
+
+            set {
+                if (value != null) {
+                    this.mediaPlayerMain.Position = (TimeSpan)value;
+                }
+            }
+        }
 
         /// <summary>
         /// DP callback on Source changed.
@@ -60,18 +89,20 @@ namespace KTouch.Utilities {
         }
 
         /// <summary>
-        /// Constructor.
+        /// Invoke the SourceChanged event; called whenever list changes.
         /// </summary>
-        public VideoElement() {
-            InitializeComponent();
-            this.Loaded += new RoutedEventHandler(VideoElement_Loaded);
+        /// <param name="e">Event arg.</param>
+        protected virtual void OnSourceChanged(EventArgs e) {
+            if (SourceChanged != null) {
+                SourceChanged(this, e);
+            }
         }
 
         /// <summary>
         /// Handles event when page is loaded.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void VideoElement_Loaded(object sender, RoutedEventArgs e) {
             _timer = new DispatcherTimer();
             _timer.Interval = TimeSpan.FromMilliseconds(500);
@@ -103,7 +134,7 @@ namespace KTouch.Utilities {
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
-        protected void OnTapGesture(object sender, TouchEventArgs e) {
+        private void OnTapGesture(object sender, TouchEventArgs e) {
             if (_isPause) {
                 this.PlayMedia();
             } else {
@@ -120,32 +151,46 @@ namespace KTouch.Utilities {
         /// <param name="e">Event argument.</param>
         private void ExpandButton_Click(object sender, RoutedEventArgs e) {
             Window win = App.Current.MainWindow;
-            if (!fullScreen) {
-                _winContext = win.Content;
-                win.Content = this;
-            } else if (_winContext != null) {
-                VideoPage p = (VideoPage)win.Content;
-                _position = p.player.mediaPlayerMain.Position;
-                win.Content = _winContext;
-                Frame f = (Frame)((Grid)win.Content).Children[0];
-                f.NavigationService.Refresh();
+            VideoElement currentElement = (VideoElement)((VideoPage)((Frame)((Grid)win.Content).Children[0]).Content).player;
+            if (!IsFullscreen) {
+                currentElement.PausePlayback();
+                VideoPage page = new VideoPage(this.Source);
+                page.player.Position = currentElement.Position;
+                page.player.IsFullscreen = true;
+                NavigationWindow window = new NavigationWindow {
+                    WindowStyle = WindowStyle.None,
+                    ShowsNavigationUI = false,
+                    WindowState = WindowState.Maximized,
+                    Topmost = true,
+                    Background = win.Background,
+                    Content = page,
+                };
+                window.Show();
+            } else {
+                currentElement.Position = this.Position;
+                VideoPage page = (VideoPage)this.Parent;
+                NavigationWindow window = (NavigationWindow)page.Parent;
+                window.Close();
+                currentElement.PlayMedia();
             }
-            fullScreen = !fullScreen;
         }
 
         /// <summary>
         /// Dispatcher timer tick routine
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void _timer_Tick(object sender, EventArgs e) {
-            if (!_isDragging && mediaPlayerMain.NaturalDuration.HasTimeSpan)
+            if (!_isDragging && mediaPlayerMain.NaturalDuration.HasTimeSpan) {
                 sliderTime.Value = mediaPlayerMain.Position.TotalMilliseconds / mediaPlayerMain.NaturalDuration.TimeSpan.TotalMilliseconds;
+            }
         }
 
         /// <summary>
         /// Stop media when ended
         /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void mediaPlayerMain_MediaEnded(object sender, RoutedEventArgs e) {
             StopPlayback();
         }
@@ -153,20 +198,17 @@ namespace KTouch.Utilities {
         /// <summary>
         /// Initialise UI elements based on current media item
         /// </summary>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void mediaPlayerMain_MediaOpened(object sender, RoutedEventArgs e) {
             sliderTime.IsEnabled = mediaPlayerMain.IsLoaded;
-            if (_position.HasValue) {
-                mediaPlayerMain.Position = _position.Value;
-                _position = null;
-            }
-            PlayMedia();
         }
 
         /// <summary>
         /// Time slider's thumb drag started event handler
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void sliderTime_DragStarted(object sender, DragStartedEventArgs e) {
             _isDragging = true;
         }
@@ -174,8 +216,8 @@ namespace KTouch.Utilities {
         /// <summary>
         /// Time slider's thumb drag completed event handler
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void sliderTime_DragCompleted(object sender, DragCompletedEventArgs e) {
             _isDragging = false;
             mediaPlayerMain.Position = TimeSpan.FromMilliseconds(sliderTime.Value * mediaPlayerMain.NaturalDuration.TimeSpan.TotalMilliseconds);
@@ -185,8 +227,8 @@ namespace KTouch.Utilities {
         /// The Play method will begin the media if it is not currently active or 
         /// resume media if it is paused. This has no effect if the media is already running.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void PlayCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
             PlayMedia();
         }
@@ -194,8 +236,8 @@ namespace KTouch.Utilities {
         /// <summary>
         /// The Pause method pauses the media if it is currently running.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void PauseCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
             PausePlayback();
         }
@@ -203,8 +245,8 @@ namespace KTouch.Utilities {
         /// <summary>
         /// The Stop method stops and resets the media to be played from the beginning.
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void StopCommand_Executed(object sender, ExecutedRoutedEventArgs e) {
             StopPlayback();
         }
@@ -212,8 +254,8 @@ namespace KTouch.Utilities {
         /// <summary>
         /// Commands can be executed if mediaPlayerMain is loaded
         /// </summary>
-        /// <param name="sender"></param>
-        /// <param name="e"></param>
+        /// <param name="sender">Event sender.</param>
+        /// <param name="e">Event argument.</param>
         private void Command_CanExecute(object sender, CanExecuteRoutedEventArgs e) {
             e.CanExecute = mediaPlayerMain.IsLoaded;
         }

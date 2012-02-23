@@ -99,6 +99,7 @@
     <Reference Include="System.Configuration" />
     <Reference Include="System.Drawing" />
     <Reference Include="System.Runtime.Serialization" />
+    <Reference Include="System.Web.Extensions" />
     <Reference Include="System.Windows.Forms" />
     <Reference Include="System.Xml" />
     <Reference Include="System.Core" />
@@ -132,7 +133,7 @@
     </Compile>
     <Compile Include="Utilities\ItemTemplateSelector.cs" />
     <Compile Include="Utilities\Loader.cs" />
-    <Compile Include="Utilities\SupportedExtenstions.cs" />
+    <Compile Include="Utilities\SupportedExtensions.cs" />
     <Compile Include="Utilities\ThumbnailCreator.cs" />
     <Compile Include="Utilities\VideoElement.xaml.cs">
       <DependentUpon>VideoElement.xaml</DependentUpon>
@@ -214,7 +215,6 @@
     <Compile Include="Properties\AssemblyInfo.cs">
       <SubType>Code</SubType>
     </Compile>
-    <Resource Include="Resources\Baby Polar Bear.ico" />
     <Resource Include="Resources\expandBlack.png" />
     <Resource Include="Resources\expandWhite.png" />
     <Resource Include="Resources\playBlack.png" />

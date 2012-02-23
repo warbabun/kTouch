@@ -1,4 +1,9 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="Browser.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Input;
@@ -10,6 +15,7 @@ using KTouch.ViewModel;
 using KTouch.Views;
 using Microsoft.Surface.Presentation.Controls;
 using Microsoft.Surface.Presentation.Input;
+
 namespace KTouch {
 
     /// <summary>
@@ -20,7 +26,7 @@ namespace KTouch {
         private readonly BrowserViewModel _vm;
 
         /// <summary>
-        /// Constructor.
+        /// Initializes a new instance of the Browser class.
         /// </summary>
         public Browser() {
             InitializeComponent();
@@ -42,10 +48,6 @@ namespace KTouch {
             _mainFrame.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(_mainFrame_MouseLeftButtonUp);
             TouchExtensions.AddTapGestureHandler(navigationListBox, new EventHandler<TouchEventArgs>(navigationListBox_TapGesture));
             navigationListBox.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(navigationListBox_MouseLeftButtonUp);
-        }
-
-        void _mainFrame_PreviewMouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-            throw new NotImplementedException();
         }
 
         /// <summary>
@@ -103,6 +105,7 @@ namespace KTouch {
         /// Handles navigation.
         /// </summary>
         /// <param name="dataSource">Collection item.</param>
+        /// <param name="isReturnFrontPage">Tells if should return to the fron page.</param>
         private void HandleEvent(object dataSource, bool isReturnFrontPage = false) {
             if (dataSource != null) {
                 XElement item = dataSource as XElement;

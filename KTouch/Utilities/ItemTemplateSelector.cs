@@ -1,4 +1,9 @@
-﻿using System.Windows;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ItemTemplateSelector.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Markup;
 using System.Xml.Linq;
@@ -63,13 +68,15 @@ namespace KTouch.Utilities {
         /// <returns>DataTemplate for a folder.</returns>
         private DataTemplate MakeFolderTemplate() {
             XNamespace _xmlns = @"http://schemas.microsoft.com/winfx/2006/xaml/presentation";
-            XElement templ =
-                new XElement(_xmlns + "DataTemplate",
-                    new XAttribute("xmlns", _xmlns),
-                        new XElement(_xmlns + "TextBlock",
-                            new XAttribute("TextAlignment", "Center"),
-                            new XAttribute("TextWrapping", "WrapWithOverflow"),
-                            new XAttribute("Text", "{Binding Path=Attribute[Name].Value}")));
+            XElement templ = new XElement(
+                _xmlns + "DataTemplate",
+                new XAttribute(
+                    "xmlns", _xmlns),
+                    new XElement(
+                        _xmlns + "TextBlock",
+                        new XAttribute("TextAlignment", "Center"),
+                        new XAttribute("TextWrapping", "WrapWithOverflow"),
+                        new XAttribute("Text", "{Binding Path=Attribute[Name].Value}")));
             DataTemplate dt = (DataTemplate)XamlReader.Load(templ.CreateReader());
             return dt;
         }
@@ -81,7 +88,9 @@ namespace KTouch.Utilities {
         private DataTemplate MakeItemTemplate() {
             XNamespace _xmlns = @"http://schemas.microsoft.com/winfx/2006/xaml/presentation";
             XElement templ =
-                new XElement(_xmlns + "DataTemplate", new XAttribute("xmlns", _xmlns),
+                new XElement(
+                    _xmlns + "DataTemplate",
+                    new XAttribute("xmlns", _xmlns),
                     new XElement(_xmlns + "Image", new XAttribute("Stretch", "UniformToFill"), new XAttribute("Source", "{Binding Path=Attribute[Thumbnail].Value}")));
             DataTemplate dt = (DataTemplate)XamlReader.Load(templ.CreateReader());
             return dt;

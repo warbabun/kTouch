@@ -1,4 +1,9 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="App.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System;
 using System.Diagnostics;
 using System.Windows;
 using System.Windows.Navigation;
@@ -6,7 +11,11 @@ using log4net;
 
 namespace KTouch {
 
-    // A delegate type for hooking up change notifications.
+    /// <summary>
+    /// A delegate type for hooking up change notifications.
+    /// </summary>
+    /// <param name="sender">Event sender.</param>
+    /// <param name="e">Event argument.</param>
     public delegate void ChangedEventHandler(object sender, EventArgs e);
 
     /// <summary>
@@ -28,7 +37,7 @@ namespace KTouch {
             }
             base.OnStartup(e);
             /* TODO : Never to use this because it overflows the system. */
-            //AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
+            ////AppDomain.CurrentDomain.UnhandledException += new UnhandledExceptionEventHandler(CurrentDomain_UnhandledException);
         }
 
         /// <summary>

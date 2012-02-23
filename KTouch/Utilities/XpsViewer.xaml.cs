@@ -1,8 +1,12 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="XpsViewer.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System;
 using System.IO;
 using System.Windows;
 using System.Windows.Controls;
-using System.Windows.Controls.Primitives;
 using System.Windows.Input;
 using System.Windows.Xps.Packaging;
 using System.Xml.Linq;
@@ -16,15 +20,24 @@ namespace KTouch.Utilities {
     /// </summary>
     public partial class XpsViewer : UserControl {
 
-        // An event that clients can use to be notified whenever the
-        // content changes.
-        public event ChangedEventHandler SourceChanged;
+        /// <summary>
+        /// Source DependencyProperty.
+        /// </summary>
+        public static readonly DependencyProperty SourceProperty =
+            DependencyProperty.Register("Source", typeof(XElement), typeof(XpsViewer), new FrameworkPropertyMetadata(new PropertyChangedCallback(SourceChangedCallback)));
 
-        // Invoke the SourceChanged event; called whenever list changes
-        protected virtual void OnSourceChanged(EventArgs e) {
-            if (SourceChanged != null)
-                SourceChanged(this, e);
+        /// <summary>
+        /// Initializes a new instance of the XpsViewer class.
+        /// </summary>
+        public XpsViewer() {
+            InitializeComponent();
+            this.Loaded += new RoutedEventHandler(XpsViewer_Loaded);
         }
+
+        /// <summary>
+        /// An event that clients can use to be notified whenever the content changes.
+        /// </summary>
+        public event ChangedEventHandler SourceChanged;
 
         /// <summary>
         /// Exposes a FixedDocumentSequence for XpsViewer's source.
@@ -33,12 +46,6 @@ namespace KTouch.Utilities {
             get { return (XElement)GetValue(SourceProperty); }
             set { SetValue(SourceProperty, value); }
         }
-
-        /// <summary>
-        /// Source DependencyProperty.
-        /// </summary>
-        public static readonly DependencyProperty SourceProperty =
-            DependencyProperty.Register("Source", typeof(XElement), typeof(XpsViewer), new FrameworkPropertyMetadata(new PropertyChangedCallback(SourceChangedCallback)));
 
         /// <summary>
         /// DP callback on Source changed.
@@ -53,11 +60,13 @@ namespace KTouch.Utilities {
         }
 
         /// <summary>
-        /// Constructor.
+        /// Invoke the SourceChanged event; called whenever list changes.
         /// </summary>
-        public XpsViewer() {
-            InitializeComponent();
-            this.Loaded += new RoutedEventHandler(XpsViewer_Loaded);
+        /// <param name="e">Event argument.</param>
+        protected virtual void OnSourceChanged(EventArgs e) {
+            if (SourceChanged != null) {
+                SourceChanged(this, e);
+            }
         }
 
         /// <summary>
@@ -70,9 +79,7 @@ namespace KTouch.Utilities {
             this.xpsViewer.ManipulationStarting += new EventHandler<ManipulationStartingEventArgs>(manipulationStarting);
             this.xpsViewer.ManipulationInertiaStarting += new EventHandler<ManipulationInertiaStartingEventArgs>(inertiaStarting);
             TouchExtensions.AddTapGestureHandler(this.xpsViewer, new EventHandler<TouchEventArgs>(OnTapGesture));
-            //  this.xpsViewer.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(xpsViewer_MouseLeftButtonUp);
-            this.xpsViewer.AddHandler(ButtonBase.ClickEvent, new RoutedEventHandler(OnMouseClick));
-
+            Mouse.AddPreviewMouseUpHandler(this.xpsViewer, new MouseButtonEventHandler(xpsViewer_MouseLeftButtonUp));
         }
 
         /// <summary>
@@ -82,6 +89,7 @@ namespace KTouch.Utilities {
         /// <param name="e">Event argument.</param>
         private void xpsViewer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
             this.xpsViewer.Zoom = 66;
+            e.Handled = true;
         }
 
         /// <summary>
@@ -91,15 +99,7 @@ namespace KTouch.Utilities {
         /// <param name="e">Event argument.</param>
         private void OnTapGesture(object sender, TouchEventArgs e) {
             this.xpsViewer.Zoom = 66;
-        }
-
-        /// <summary>
-        /// Handles mouse click event.
-        /// </summary>
-        /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event argument.</param>
-        private void OnMouseClick(object sender, RoutedEventArgs e) {
-            this.xpsViewer.Zoom = 66;
+            e.Handled = true;
         }
 
         #region Manipulation
@@ -112,20 +112,23 @@ namespace KTouch.Utilities {
         private void manipulationDelta(object sender, ManipulationDeltaEventArgs e) {
             try {
                 if (e.DeltaManipulation.Translation != null) {
-                    double verticalOffset = xpsViewer.VerticalOffset - e.DeltaManipulation.Translation.Y * 3;
-                    double horizontalOffset = xpsViewer.HorizontalOffset - e.DeltaManipulation.Translation.X * 3;
-                    if (verticalOffset > 0)
+                    double verticalOffset = xpsViewer.VerticalOffset - (e.DeltaManipulation.Translation.Y * 3);
+                    double horizontalOffset = xpsViewer.HorizontalOffset - (e.DeltaManipulation.Translation.X * 3);
+                    if (verticalOffset > 0) {
                         xpsViewer.VerticalOffset = verticalOffset;
-                    if (horizontalOffset > 0)
+                    }
+                    if (horizontalOffset > 0) {
                         xpsViewer.HorizontalOffset = horizontalOffset;
+                    }
                 }
                 if (e.DeltaManipulation.Scale.X != 1) {
-                    if (xpsViewer.Zoom > 400)
+                    if (xpsViewer.Zoom > 400) {
                         xpsViewer.Zoom = 400;
-                    else if (xpsViewer.Zoom < 65)
+                    } else if (xpsViewer.Zoom < 65) {
                         xpsViewer.Zoom = 65;
-                    else
+                    } else {
                         xpsViewer.Zoom *= e.DeltaManipulation.Scale.X;
+                    }
                 }
             } catch {
             } finally {
@@ -152,7 +155,7 @@ namespace KTouch.Utilities {
         /// </summary>
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
-        void inertiaStarting(object sender, ManipulationInertiaStartingEventArgs e) {
+        private void inertiaStarting(object sender, ManipulationInertiaStartingEventArgs e) {
             e.TranslationBehavior.DesiredDeceleration = 10.0 * 96.0 / (1000.0 * 1000.0);
             e.Handled = true;
         }

@@ -1,6 +1,16 @@
-﻿using System.Collections.Generic;
+﻿//-----------------------------------------------------------------------
+// <copyright file="SupportedExtensions.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System.Collections.Generic;
 using KTouch.Properties;
+
 namespace KTouch.Utilities {
+
+    /// <summary>
+    /// Class representing all the supported extensions to be used in the app.
+    /// </summary>
     public static class SupportedExtensions {
 
         /// <summary>
@@ -87,7 +97,7 @@ namespace KTouch.Utilities {
         public static ICollection<string> SupportedMediaExtensionList {
             get {
                 if (_supportedMediaExtensionList == null) {
-                    _supportedMediaExtensionList = new List<string>{
+                    _supportedMediaExtensionList = new List<string> {
                         Extensions.AVI,
                         Extensions.MP4,
                         Extensions.MPG,

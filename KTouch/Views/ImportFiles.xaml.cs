@@ -1,4 +1,9 @@
-﻿using System;
+﻿//-----------------------------------------------------------------------
+// <copyright file="ImportFiles.xaml.cs" company="Klee Group">
+//     Copyright (c) Klee Group. All rights reserved.
+// </copyright>
+//-----------------------------------------------------------------------
+using System;
 using System.Windows;
 using System.Windows.Controls;
 using System.Windows.Controls.Primitives;
@@ -13,6 +18,9 @@ namespace KTouch {
 
         private readonly ImportFilesViewModel _viewModel = null;
 
+        /// <summary>
+        /// Initializes a new instance of the ImportFiles class.
+        /// </summary>
         public ImportFiles() {
             InitializeComponent();
             _viewModel = new ImportFilesViewModel();
@@ -26,13 +34,13 @@ namespace KTouch {
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event arg.</param>
         private void BtnAction_Click(object sender, RoutedEventArgs e) {
-            if(sender as SurfaceButton == null) {
+            if (sender as SurfaceButton == null) {
                 throw new ArgumentNullException("sender");
             }
             SurfaceButton button = (SurfaceButton)sender;
-            if(KTouch.Properties.Resources.LblDirectory.Equals(button.Content)) {
+            if (KTouch.Properties.Resources.LblDirectory.Equals(button.Content)) {
                 _viewModel.GetDirectory();
-            } else if(KTouch.Properties.Resources.LblTransfer.Equals(button.Content)) {
+            } else if (KTouch.Properties.Resources.LblTransfer.Equals(button.Content)) {
                 _viewModel.TransferAll();
             }
         }
