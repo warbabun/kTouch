@@ -37,7 +37,7 @@ namespace KTouch.Views {
         /// <param name="sender">Event sender.</param>
         /// <param name="e">Event argument.</param>
         private void PresentationPage_Loaded(object sender, System.Windows.RoutedEventArgs e) {
-            TouchExtensions.AddTapGestureHandler(this.player, new EventHandler<TouchEventArgs>(OnTapGesture));
+            TouchExtensions.AddPreviewTapGestureHandler(this.player, new EventHandler<TouchEventArgs>(OnTapGesture));
             Mouse.AddPreviewMouseUpHandler(this.player, new MouseButtonEventHandler(player_MouseLeftButtonUp));
         }
 

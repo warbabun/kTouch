@@ -44,9 +44,9 @@ namespace KTouch {
             _mainFrame.Navigated += new NavigatedEventHandler(_mainFrame_Navigated);
             _mainFrame.NavigationService.Navigate(new FrontPage());
 
-            TouchExtensions.AddTapGestureHandler(_mainFrame, new EventHandler<TouchEventArgs>(_mainFrame_TapGesture));
+            TouchExtensions.AddPreviewTapGestureHandler(_mainFrame, new EventHandler<TouchEventArgs>(_mainFrame_TapGesture));
             _mainFrame.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(_mainFrame_MouseLeftButtonUp);
-            TouchExtensions.AddTapGestureHandler(navigationListBox, new EventHandler<TouchEventArgs>(navigationListBox_TapGesture));
+            TouchExtensions.AddPreviewTapGestureHandler(navigationListBox, new EventHandler<TouchEventArgs>(navigationListBox_TapGesture));
             navigationListBox.PreviewMouseLeftButtonUp += new MouseButtonEventHandler(navigationListBox_MouseLeftButtonUp);
         }
 

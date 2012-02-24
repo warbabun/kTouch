@@ -26,8 +26,8 @@
 				<ColumnDefinition/>
 				<ColumnDefinition/>
 			</Grid.ColumnDefinitions>
-			<s:SurfaceListBox Name="LbxSource" Grid.Column="0" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding SourceCollection}" />
-			<s:SurfaceListBox Name="LbxResultat" Grid.Column="1" Style="{StaticResource ListBoxStyle}" ItemsSource="{Binding ResultCollection}"/>
+            <s:SurfaceListBox Name="LbxSource" Grid.Column="0" Style="{StaticResource ImportListBoxStyle}" ItemsSource="{Binding SourceCollection}" />
+            <s:SurfaceListBox Name="LbxResultat" Grid.Column="1" Style="{StaticResource ImportListBoxStyle}" ItemsSource="{Binding ResultCollection}"/>
 		</Grid>
 	</Grid>
 </Page>

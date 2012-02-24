@@ -53,10 +53,14 @@ namespace KTouch.Utilities {
         /// <param name="sender">DependencyObject sender.</param>
         /// <param name="e">DependencyPropertyChangedEventArgs argument.</param>
         public static void SourceChangedCallback(DependencyObject sender, DependencyPropertyChangedEventArgs e) {
-            XElement item = (XElement)e.NewValue;
-            XpsViewer viewer = (XpsViewer)sender;
-            viewer.xpsViewer.Document = (new XpsDocument((string)item.Attribute(Tags.FullName), FileAccess.Read)).GetFixedDocumentSequence();
-            viewer.OnSourceChanged(EventArgs.Empty);
+            try {
+                XElement item = (XElement)e.NewValue;
+                XpsViewer viewer = (XpsViewer)sender;
+                viewer.xpsViewer.Document = (new XpsDocument((string)item.Attribute(Tags.FullName), FileAccess.Read)).GetFixedDocumentSequence();
+                viewer.xpsViewer.FitToHeight();
+                viewer.OnSourceChanged(EventArgs.Empty);
+            } catch {
+            }
         }
 
         /// <summary>
@@ -78,28 +82,7 @@ namespace KTouch.Utilities {
             this.xpsViewer.ManipulationDelta += new EventHandler<ManipulationDeltaEventArgs>(manipulationDelta);
             this.xpsViewer.ManipulationStarting += new EventHandler<ManipulationStartingEventArgs>(manipulationStarting);
             this.xpsViewer.ManipulationInertiaStarting += new EventHandler<ManipulationInertiaStartingEventArgs>(inertiaStarting);
-            TouchExtensions.AddTapGestureHandler(this.xpsViewer, new EventHandler<TouchEventArgs>(OnTapGesture));
-            Mouse.AddPreviewMouseUpHandler(this.xpsViewer, new MouseButtonEventHandler(xpsViewer_MouseLeftButtonUp));
-        }
-
-        /// <summary>
-        /// Handles PreviewMouseLeftButtonUp event.
-        /// </summary>
-        /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event argument.</param>
-        private void xpsViewer_MouseLeftButtonUp(object sender, MouseButtonEventArgs e) {
-            this.xpsViewer.Zoom = 66;
-            e.Handled = true;
-        }
-
-        /// <summary>
-        /// Handles Tap event.
-        /// </summary>
-        /// <param name="sender">Event sender.</param>
-        /// <param name="e">Event argument.</param>
-        private void OnTapGesture(object sender, TouchEventArgs e) {
-            this.xpsViewer.Zoom = 66;
-            e.Handled = true;
+            this.xpsViewer.FitToHeight();
         }
 
         #region Manipulation
